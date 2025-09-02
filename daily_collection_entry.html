@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Details Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #d1bfae;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        /* Main Container */
+        .container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            box-sizing: border-box;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header Text */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: 1.6em;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .header h1 .sharif-text {
+            color: #FF0000;
+        }
+        .header h1 .pharma-text {
+            color: #0000FF;
+        }
+        .header p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2em;
+            color: #7a7a7a;
+            margin-top: 0;
+        }
+
+        /* Grid for all 6 boxes */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        /* Step Box and Link Style */
+        .step-link, .circle-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .step-box {
+            background-color: #e5dccb;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+        .step-box:hover {
+            transform: translateY(-5px);
+        }
+        .step-box .icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .step-box p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #000000;
+            font-weight: bold;
+        }
+        
+        /* Alternating Color Style */
+        .alt-color {
+            background-color: #b1947b;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #777;
+        }
+        .footer a {
+            color: #555;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1><span class="sharif-text">SHARIF</span> <span class="pharma-text">PHARMACEUTICALS LIMITED</span></h1>
+            <p>Details Page</p>
+        </div>
+
+        <div class="steps-grid">
+            <a href="https://script.google.com/macros/s/AKfycbx-nGSwmhSlbOu-NoJnC8InXoVrNxzek0BI5hb2kUE/dev" class="step-link">
+                <div class="step-box alt-color">
+                    <span class="icon">&#x1F4C4;</span> 
+                    <p>GB-22</p>
+                </div>
+            </a>
+            <a href="https://script.google.com/macros/s/AKfycbysNjFbNKnCxLuCnImSVZNlyaTVWhgZvzknxIpCrw7Y/dev" class="step-link">
+                <div class="step-box">
+                    <span class="icon">&#x1F4C6;</span>
+                    <p>GB-23</p>
+                </div>
+            </a>
+            <a href="https://script.google.com/macros/s/AKfycbxj6v1NwVRcgstLcOax6usW_jvjMKruRzG8qpVDHhM/dev" class="step-link">
+                <div class="step-box alt-color">
+                    <span class="icon">&#x1F4C7;</span>
+                    <p>GB-24</p>
+                </div>
+            </a>
+            <a href="https://script.google.com/macros/s/AKfycbzqBRahQmKWNwbxiObemJUrdO8cbKYn-6p-fdNN9elX/dev" class="step-link">
+                <div class="step-box">
+                    <span class="icon">&#x1F4C8;</span>
+                    <p>GB-25</p>
+                </div>
+            </a>
+            <a href="https://script.google.com/macros/s/AKfycbzQzVKgKscH30tI4GygvsINSUUzlCfq25TL2Ijr8Ys/dev" class="step-link">
+                <div class="step-box alt-color">
+                    <span class="icon">&#x1F4DC;</span>
+                    <p>GB-27</p>
+                </div>
+            </a>
+            <a href="https://script.google.com/macros/s/AKfycbxYmohiPZ9PMg4TEa72BOHHV_hDVFqVXvgDgvZh4qk/dev" class="step-link">
+                <div class="step-box">
+                    <span class="icon">&#x1F4DD;</span>
+                    <p>দৈনিক হিসাব</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="footer">
+        </div>
+    </div>
+
+</body>
+</html>

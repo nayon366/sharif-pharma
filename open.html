@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sharif Pharmaceuticals Limited</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #d1bfae;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        /* Main Container */
+        .container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            box-sizing: border-box;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header Text */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: 1.6em; /* Font size adjusted for better fit */
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            white-space: nowrap; /* Prevents wrapping */
+            overflow: hidden; /* Hides overflow if text is too long */
+            text-overflow: ellipsis; /* Adds "..." if text is too long */
+            letter-spacing: 1px; /* Add some letter spacing */
+        }
+        .header h1 .sharif-text {
+            color: #FF0000;
+        }
+        .header h1 .pharma-text {
+            color: #0000FF;
+        }
+        .header p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2em;
+            color: #7a7a7a;
+            margin-top: 0;
+        }
+
+        /* Centered container for the top circle box - Adjusted for alignment */
+        .top-circle-container {
+            display: flex;
+            justify-content: center; /* This will center the circle */
+            margin-bottom: 20px;
+            padding-left: 20px; /* Adjust this value to move it more to the right */
+        }
+        
+        /* Grid for all 6 steps */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        /* Step Box and Link Style */
+        .step-link, .circle-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .step-box {
+            background-color: #e5dccb;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+        .step-box:hover {
+            transform: translateY(-5px);
+        }
+        .step-box .icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .step-box p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #000000;
+            font-weight: bold;
+        }
+        
+        /* New Circle Box Style */
+        .circle-box {
+            background-color: #cbbbe9;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+        .circle-box:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Alternating Color Style */
+        .alt-color {
+            background-color: #b1947b;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #777;
+        }
+        .footer a {
+            color: #555;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1><span class="sharif-text">SHARIF</span> <span class="pharma-text">PHARMACEUTICALS LIMITED</span></h1>
+        </div>
+        <div class="top-circle-container">
+            <a href="daily_collection_entry.html" class="circle-link">
+                <div class="circle-box">
+                    <span class="icon">&#x1F4C5;</span> 
+                    <p>Daily Collection Entry</p>
+                </div>
+            </a>
+        </div>
+        <div class="steps-grid">
+            <a href="daily_collection.html" class="step-link">
+                <div class="step-box alt-color">
+                    <span class="icon">&#x1F30D;</span> 
+                    <p>Daily Collection</p>
+                </div>
+            </a>
+            <a href="https://docs.google.com/spreadsheets/d/17lldJAmazO3wxN4CinkR4wtW2WQexPPidvgYGVDGzq8/edit?gid=0#gid=0" class="step-link">
+                <div class="step-box">
+                    <span class="icon">&#x1F6D2;</span>
+                    <p>দৈনিক হিসাব</p>
+                </div>
+            </a>
+            <a href="daily_summary.html" class="step-link">
+                <div class="step-box alt-color">
+                    <span class="icon">&#x1F6CD;</span>
+                    <p>Daily Summary</p>
+                </div>
+            </a>
+            <a href="daily_summary2.html" class="step-link">
+                <div class="step-box">
+                    <span class="icon">&#x1F446;</span>
+                    <p>Daily Summary2</p>
+                </div>
+            </a>
+            <a href="master_summary.html" class="step-link">
+                <div class="step-box alt-color">
+                    <span class="icon">&#x1F4E6;</span>
+                    <p>Master Summary</p>
+                </div>
+            </a>
+            <a href="master_summary2.html" class="step-link">
+                <div class="step-box">
+                    <span class="icon">&#x1F4B3;</span>
+                    <p>Master Summary2</p>
+                </div>
+            </a>
+        </div>
+        <div class="footer"></div>
+    </div>
+
+</body>
+</html>
