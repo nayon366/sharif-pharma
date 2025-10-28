@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
     <style>
-        /* CSS Reset for Edge-to-Edge display on all devices */
+        /* CSS Reset */
         * {
             margin: 0;
             padding: 0;
@@ -28,19 +28,21 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 20px; /* Padding for the body so the frame doesn't touch the screen edge */
         }
         
-        /* Main Container */
+        /* Main Container - Centered Frame */
         .container {
             background-color: #ffffff;
-            width: 100%; /* Ensures full width */
-            min-height: 100vh; /* Ensures full height */
+            width: 100%; 
+            max-width: 450px; /* SETTING MAX WIDTH FOR CENTERING/FRAMING */
+            min-height: auto; /* Allows content to define height */
             
-            /* Remove desktop/tablet fixed styling for true universal full screen */
-            max-width: 100%; 
-            border-radius: 0; 
-            box-shadow: none; 
-
+            /* Frame/Border Styles */
+            border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Nice strong shadow for frame effect */
+            border: 1px solid #e0e0e0; /* Subtle border for clarity */
+            
             padding: 45px 35px; 
             
             display: flex;
@@ -57,7 +59,7 @@
         .header h1 {
             font-family: 'Roboto', sans-serif;
             font-weight: 700;
-            font-size: 2.1em; 
+            font-size: 1.8em; /* Slightly adjusted size for frame */
             margin-bottom: 5px;
             text-transform: uppercase;
             letter-spacing: 2.5px; 
@@ -72,7 +74,7 @@
         .header p {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 1.2em; 
+            font-size: 1em; 
             color: #7a7a7a;
             margin-top: 0;
             font-weight: 300;
@@ -82,8 +84,8 @@
         #live-datetime {
             display: block;
             margin: 18px auto 0; 
-            padding: 10px 20px; 
-            font-size: 1em; 
+            padding: 8px 15px; 
+            font-size: 0.9em; 
             font-weight: 500;
             color: #555;
             text-align: center;
@@ -97,17 +99,16 @@
         .top-circle-container {
             display: flex;
             justify-content: center; 
-            margin-bottom: 50px; 
+            margin-bottom: 40px; 
         }
         
         /* Grid for all 6 steps */
         .steps-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 25px; 
+            gap: 20px; 
             align-items: center;
             width: 100%; 
-            max-width: 500px; /* Limits the grid width slightly to keep it central and readable */
         }
         
         /* Step Box and Link Style */
@@ -117,28 +118,28 @@
         }
         .step-box {
             background-color: #fcfcfc; 
-            padding: 25px; 
+            padding: 20px; 
             border-radius: 15px; 
             text-align: center;
-            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.08), 
-                        -4px -4px 8px rgba(255, 255, 255, 0.5);
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05), 
+                        -2px -2px 5px rgba(255, 255, 255, 0.5);
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
             cursor: pointer;
             border: 1px solid #eee;
         }
         .step-box:hover {
-            transform: translateY(-6px); 
+            transform: translateY(-3px); 
             background-color: #e0e5eb; 
-            box-shadow: 0 12px 22px rgba(0, 0, 0, 0.18); 
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); 
         }
         .step-box .icon {
-            font-size: 3.2em; 
-            margin-bottom: 10px;
+            font-size: 2.5em; 
+            margin-bottom: 8px;
             color: #666;
         }
         .step-box p {
             margin: 0;
-            font-size: 1em; 
+            font-size: 0.9em; 
             color: #333333; 
             font-weight: 700;
             text-transform: capitalize;
@@ -147,33 +148,33 @@
         /* New Circle Box Style (Entry Button) */
         .circle-box {
             background-color: #e0e5eb; 
-            width: 180px; 
-            height: 180px; 
+            width: 150px; /* Adjusted size for the frame */
+            height: 150px; 
             border-radius: 50%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            box-shadow: inset 7px 7px 14px #c7cdd4, 
-                        inset -7px -7px 14px #f9ffff;
+            box-shadow: inset 5px 5px 10px #c7cdd4, 
+                        inset -5px -5px 10px #f9ffff;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
             cursor: pointer;
             color: #333333; 
             border: 1px solid #d0d5db;
         }
         .circle-box:hover {
-            transform: scale(1.08); 
+            transform: scale(1.05); 
             background-color: #d1d6db; 
-            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28); 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
         }
         .circle-box .icon {
-            font-size: 4.5em; 
-            margin-bottom: 8px; 
+            font-size: 3.5em; 
+            margin-bottom: 5px; 
             color: #8E44AD; 
         }
         .circle-box p {
-            font-size: 1.3em; 
+            font-size: 1.1em; 
             font-weight: 700;
             margin: 0;
             color: #555;
@@ -193,45 +194,37 @@
         }
         .alt-color:hover { 
             background-color: #9d856d; 
-            box-shadow: 0 12px 22px rgba(0, 0, 0, 0.18);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
             color: white;
         }
 
         /* --- মোবাইল স্ক্রিনের জন্য বিশেষ পরিবর্তন (Media Query) --- */
-        @media (max-width: 768px) { 
+        @media (max-width: 480px) { /* Targeting smaller phones */
             .container {
                 padding: 20px; 
+                border-radius: 15px; /* Keeps border-radius on small phones */
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             }
             .header h1 {
-                font-size: 1.4em; 
-                letter-spacing: 1.5px;
+                font-size: 1.2em; 
+                letter-spacing: 1px;
             }
             .steps-grid {
-                grid-template-columns: 1fr; 
+                grid-template-columns: 1fr; /* Single column layout for very small screens */
                 gap: 15px; 
-                max-width: 90%; /* Limits the grid width slightly on phone for better readability */
             }
             .top-circle-container {
-                margin-bottom: 30px;
-            }
-            .step-box {
-                 padding: 15px;
-            }
-            .step-box .icon {
-                font-size: 2.2em; 
+                margin-bottom: 25px;
             }
             .circle-box {
-                width: 120px; 
-                height: 120px;
+                width: 100px; 
+                height: 100px;
             }
             .circle-box .icon {
-                font-size: 3em; 
+                font-size: 2.5em; 
             }
             .circle-box p {
-                font-size: 1em;
-            }
-            #live-datetime {
-                font-size: 0.8em;
+                font-size: 0.9em;
             }
         }
     </style>
@@ -293,7 +286,6 @@
     <script>
         // JavaScript function to display live time and date
         function updateDateTime() {
-            // Set options for time formatting (including weekday)
             const options = { 
                 weekday: 'long', 
                 year: 'numeric', 
@@ -305,14 +297,12 @@
                 hour12: true 
             };
             
-            // Format time based on current date
             const formatter = new Intl.DateTimeFormat('en-US', options);
             const formattedDateTime = formatter.format(new Date());
             
             document.getElementById('live-datetime').textContent = formattedDateTime;
         }
 
-        // Update time immediately and then every second
         updateDateTime();
         setInterval(updateDateTime, 1000);
     </script>
