@@ -11,11 +11,12 @@
         /* General Styles */
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #d1bfae;
+            background-color: #f0f2f5; /* Lightened background for modern look */
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
             padding: 20px;
         }
         
@@ -27,7 +28,7 @@
             padding: 30px;
             box-sizing: border-box;
             border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); /* Deeper shadow */
         }
 
         /* Header Text */
@@ -38,13 +39,13 @@
         .header h1 {
             font-family: 'Roboto', sans-serif;
             font-weight: 700;
-            font-size: 1.6em; /* Font size adjusted for better fit */
+            font-size: 1.8em; /* Slightly larger header */
             margin-bottom: 5px;
             text-transform: uppercase;
-            white-space: nowrap; /* Prevents wrapping */
-            overflow: hidden; /* Hides overflow if text is too long */
-            text-overflow: ellipsis; /* Adds "..." if text is too long */
-            letter-spacing: 1px; /* Add some letter spacing */
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            letter-spacing: 1.5px; /* Increased letter spacing */
         }
         .header h1 .sharif-text {
             color: #FF0000;
@@ -60,12 +61,11 @@
             margin-top: 0;
         }
 
-        /* Centered container for the top circle box - Adjusted for alignment */
+        /* Centered container for the top circle box */
         .top-circle-container {
             display: flex;
-            justify-content: center; /* This will center the circle */
-            margin-bottom: 20px;
-            padding-left: 20px; /* Adjust this value to move it more to the right */
+            justify-content: center; 
+            margin-bottom: 30px; /* More space below */
         }
         
         /* Grid for all 6 steps */
@@ -87,11 +87,20 @@
             border-radius: 10px;
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease;
+            transition: all 0.3s ease; /* Smoother transition */
             cursor: pointer;
         }
         .step-box:hover {
             transform: translateY(-5px);
+            background-color: #b1947b; 
+            color: white; 
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+        }
+        .step-box:hover .icon { 
+            color: white;
+        }
+        .step-box:hover p { 
+            color: white;
         }
         .step-box .icon {
             font-size: 3em;
@@ -100,33 +109,64 @@
         }
         .step-box p {
             margin: 0;
-            font-size: 0.9em;
-            color: #000000;
+            font-size: 0.95em; /* Slightly larger font */
+            color: #333333; /* Darker font for readability */
             font-weight: bold;
         }
         
-        /* New Circle Box Style */
+        /* New Circle Box Style (Entry Button) - Improved Design */
         .circle-box {
-            background-color: #cbbbe9;
-            width: 120px;
-            height: 120px;
+            background-color: #d8ccee; /* Lavender/Light Purple color */
+            width: 140px; /* Slightly larger circle */
+            height: 140px;
             border-radius: 50%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+            transition: all 0.3s ease; /* Smoother transition */
             cursor: pointer;
+            color: #333333; /* Darker text for readability */
         }
         .circle-box:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px); /* More noticeable lift on hover */
+            background-color: #bfaee3; /* Darker lavender on hover */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+        }
+        .circle-box .icon {
+            font-size: 3.5em; /* Larger icon */
+            margin-bottom: 8px; /* Adjusted spacing */
+            color: #4a4a4a; /* Darker icon color for contrast */
+        }
+        .circle-box p {
+            font-size: 1.1em; /* Larger font for main entry button */
+            font-weight: bold;
+            margin: 0;
+        }
+        .circle-box:hover .icon, .circle-box:hover p {
+            color: #222222; /* Text color on hover */
         }
         
         /* Alternating Color Style */
         .alt-color {
             background-color: #b1947b;
+            color: white; 
+        }
+        .alt-color .icon { 
+            color: white;
+        }
+        .alt-color p { 
+            color: white;
+        }
+        /* Alternating Color Hover */
+        .alt-color:hover { 
+            background-color: #e5dccb;
+            color: #000000;
+        }
+        .alt-color:hover .icon, .alt-color:hover p { 
+            color: #555;
         }
         
         /* Footer */
@@ -140,24 +180,44 @@
             color: #555;
             text-decoration: none;
             font-weight: bold;
-        }/* Alternating Color Style */
-.alt-color {
-    background-color: #b1947b;
-    color: white; /* নতুন যোগ করা */
-}
-.alt-color .icon { /* নতুন যোগ করা */
-    color: white;
-}
-.alt-color p { /* নতুন যোগ করা */
-    color: white;
-}
-.alt-color:hover { /* পরিবর্তন করা হয়েছে */
-    background-color: #e5dccb;
-    color: #000000;
-}
-.alt-color:hover .icon, .alt-color:hover p { /* নতুন যোগ করা */
-    color: #555;
-}
+        }
+
+        /* --- মোবাইল স্ক্রিনের জন্য বিশেষ পরিবর্তন (Media Query) --- */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px; 
+            }
+            .header h1 {
+                font-size: 1.4em; 
+            }
+            /* গ্রিডকে এক কলামে আনা */
+            .steps-grid {
+                grid-template-columns: 1fr; 
+                gap: 15px; 
+            }
+            /* আইকন সাইজ ঠিক করা */
+            .step-box .icon, .circle-box .icon {
+                font-size: 2.2em; /* Smaller icons on mobile */
+            }
+            /* মোবাইলে সার্কেল বক্সের padding সরানো */
+            .top-circle-container {
+                padding-left: 0; 
+            }
+            /* মোবাইলে সার্কেল বক্সকে ছোট স্ক্রিনে ঠিকমতো দেখানো */
+            .circle-box {
+                width: 100px; /* Smaller circle on mobile */
+                height: 100px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Reduced shadow on mobile */
+            }
+            .circle-box:hover {
+                transform: translateY(-5px); /* Less dramatic lift on mobile */
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Adjusted hover shadow */
+            }
+            .circle-box p {
+                font-size: 0.95em; /* Smaller font for main entry button on mobile */
+            }
+        }
+        /* --- মোবাইল স্ক্রিনের জন্য বিশেষ পরিবর্তন শেষ --- */
     </style>
 </head>
 <body>
@@ -169,9 +229,7 @@
         <div class="top-circle-container">
             <a href="daily_collection_entry.html" class="circle-link">
                 <div class="circle-box">
-                    <span class="icon">&#x1F4C5;</span> 
-                    <p>Daily Collection Entry</p>
-                </div>
+                    <span class="icon">👆</span> <p>Entry</p> </div>
             </a>
         </div>
         <div class="steps-grid">
@@ -186,17 +244,16 @@
                     <span class="icon">&#x1F6D2;</span>
                     <p>দৈনিক হিসাব</p>
                 </div>
+            </a>
             <a href="https://docs.google.com/spreadsheets/d/1d5DTcnexyZWp4h4I3RyAVglVFZMU-B69phMbpZrButs/edit?gid=0" target="_blank" class="step-link">
-    <div class="step-box alt-color">
-        <span class="icon">&#x1F6CD;</span>
-        <p>টাকা পেইড</p>
-    </div>
-</a>
-
+                <div class="step-box alt-color">
+                    <span class="icon">&#x1F6CD;</span>
+                    <p>টাকা পেইড</p>
+                </div>
             </a>
             <a href="daily_summary2.html" class="step-link">
                 <div class="step-box">
-                    <span class="icon">&#x1F446;</span>
+                    <span class="icon">👆</span> 
                     <p>Daily Summary2</p>
                 </div>
             </a>
@@ -218,9 +275,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
