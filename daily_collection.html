@@ -20,53 +20,54 @@
             min-height: 100vh;
         }
 
-        /* General Styles */
+        /* General Styles - CHANGED */
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #d1bfae; /* Keeping original color */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px; /* Reduced Padding */
+            background-color: #d1bfae;
+            /* Flex properties removed so container takes up the available space */
+            margin: 0;
+            padding: 0; /* Remove padding from body */
         }
         
-        /* Main Container - Reduced and Fixed Size */
+        /* Main Container - FIXED SIZE WITH AUTO MARGIN & PADDING ADDED BACK */
         .container {
             background-color: #ffffff;
             width: 100%;
-            max-width: 330px; /* <--- FIXED SMALLEST SIZE FOR FRAME */
+            max-width: 330px; /* <--- FIXED SMALLEST SIZE */
             padding: 20px 15px; /* Reduced Padding */
             box-sizing: border-box;
             border-radius: 15px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1); /* Reduced Shadow */
-            border: 1px solid #e0e0e0; /* Added subtle border */
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            /* Centering the container and adding space around it for mobile view */
+            margin: 10px auto; /* Added margin-auto for centering, 10px top/bottom space */
+            border: 1px solid #e0e0e0;
         }
 
         /* Header Text - Reduced Size */
         .header {
             text-align: center;
-            margin-bottom: 18px; /* Reduced Margin */
+            margin-bottom: 18px;
         }
         .header h1 {
             font-family: 'Roboto', sans-serif;
             font-weight: 700;
-            font-size: 1.3em; /* Reduced Heading Size */
-            margin-bottom: 3px; /* Reduced Margin */
+            font-size: 1.3em;
+            margin-bottom: 3px;
             text-transform: uppercase;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
         .header h1 .sharif-text {
-            color: #FF0000; /* Keeping original color */
+            color: #FF0000;
         }
         .header h1 .pharma-text {
-            color: #0000FF; /* Keeping original color */
+            color: #0000FF;
         }
         .header p {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 0.8em; /* Reduced Sub-heading Size */
+            font-size: 0.8em;
             color: #7a7a7a;
             margin-top: 0;
         }
@@ -75,7 +76,7 @@
         .steps-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px; /* Reduced Gap */
+            gap: 8px;
             align-items: center;
         }
         
@@ -85,39 +86,39 @@
             color: inherit;
         }
         .step-box {
-            background-color: #e5dccb; /* Keeping original color */
-            padding: 12px 8px; /* Reduced Padding */
-            border-radius: 8px; /* Reduced Border Radius */
+            background-color: #e5dccb;
+            padding: 12px 8px;
+            border-radius: 8px;
             text-align: center;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05); /* Reduced Shadow */
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
             transition: transform 0.2s ease;
             cursor: pointer;
         }
         .step-box:hover {
-            transform: translateY(-1px); /* Reduced hover effect */
+            transform: translateY(-1px);
         }
         .step-box .icon {
-            font-size: 1.8em; /* Reduced Icon Size */
-            margin-bottom: 4px; /* Reduced Margin */
+            font-size: 1.8em;
+            margin-bottom: 4px;
             color: #555;
         }
         .step-box p {
             margin: 0;
-            font-size: 0.7em; /* Reduced Font Size */
+            font-size: 0.7em;
             color: #000000;
             font-weight: bold;
         }
         
         /* Alternating Color Style */
         .alt-color {
-            background-color: #b1947b; /* Keeping original color */
+            background-color: #b1947b;
         }
         
         /* Footer - Reduced Size and Margin */
         .footer {
             text-align: center;
-            margin-top: 15px; /* Reduced Margin */
-            font-size: 0.7em; /* Reduced Font Size */
+            margin-top: 15px;
+            font-size: 0.7em;
             color: #777;
         }
         .footer a {
@@ -125,8 +126,6 @@
             text-decoration: none;
             font-weight: bold;
         }
-
-    /* NO MEDIA QUERY: Ensures fixed size */
     </style>
 </head>
 <body>
