@@ -42,7 +42,7 @@
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1); 
             border: 1px solid #e0e0e0; 
             
-            padding: 20px 15px; 
+            padding: 20px 15px; /* মোবাইলের জন্য ডিফল্ট প্যাডিং */
             
             display: flex;
             flex-direction: column;
@@ -197,15 +197,16 @@
             color: white;
         }
         
-        /* --- নতুন কোড শুরু --- */
-        /* PC/Desktop এর জন্য স্ক্রিন সাইজ অ্যাডজাস্টমেন্ট */
+        /* --- ডেস্কটপ/পিসি স্টাইল পরিবর্তন (PC/Desktop Style Adjustment) --- */
         @media (min-width: 400px) {
             .container {
-                /* ডেস্কটপের জন্য ফ্রেমের সর্বোচ্চ আকার 400px এ সেট করা হলো (330px থেকে বেশি) */
+                /* ফ্রেমের আকার 400px এ সেট করা হলো */
                 max-width: 400px; 
+                /* প্যাডিং বৃদ্ধি করা হলো যাতে ভেতরের কন্টেন্ট চারপাশে জায়গা পায় */
+                padding: 25px 30px; /* উপরে-নিচে 25px, ডানে-বামে 30px */
             }
 
-            /* বড় স্ক্রিনের জন্য কিছু ফন্ট ও এলিমেন্টের আকার বাড়ানো (ঐচ্ছিক) */
+            /* অন্যান্য ছোটখাটো আকারের পরিবর্তন */
             .header h1 {
                 font-size: 1.4em; 
             }
@@ -226,7 +227,7 @@
                 font-size: 0.7em;
             }
         }
-        /* --- নতুন কোড শেষ --- */
+        /* --- ডেস্কটপ/পিসি স্টাইল পরিবর্তন শেষ --- */
 
     </style>
 </head>
@@ -289,7 +290,7 @@
         function updateDateTime() {
             // বাংলাদেশ টাইমজোন অনুযায়ী সঠিক সময় সেট করার জন্য
             const options = { 
-                timeZone: 'Asia/Dhaka', // Bangladesh Time Zone
+                timeZone: 'Asia/Dhaka', // Bangladesh Time Zone (GMT+6)
                 weekday: 'long', 
                 year: 'numeric', 
                 month: 'long', 
