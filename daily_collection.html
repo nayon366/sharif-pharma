@@ -1,193 +1,169 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Details Page</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
-    <style>
-        /* CSS Reset for consistent display */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            height: 100%;
-            min-height: 100vh;
+    <meta charset="UTF-8">
+    <title>Details Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #d1bfae;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
-
-        /* General Styles - Removed centering, added margin to body */
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #d1bfae;
-            margin: 0;
-            /* Flex centering properties removed to fix mobile layout */
-            /* display: flex; justify-content: center; align-items: center; */ 
-            padding: 0; /* Changed from 20px to 0 */
-        }
-        
-        /* Main Container - Centered using margin: auto */
-        .container {
-            background-color: #ffffff;
-            width: 96%; /* Use almost full width on small screens */
-            max-width: 500px;
-            padding: 30px;
-            box-sizing: border-box;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            margin: 15px auto; /* Centering the container and adding slight top/bottom margin */
-        }
         
-        /* Mobile Optimization: Reduce padding on very narrow screens */
-        @media (max-width: 400px) {
-            .container {
-                padding: 20px 15px; /* Reduce padding to use more screen space */
-                margin: 5px auto; /* Reduce vertical margin */
-            }
+        /* Main Container */
+        .container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            box-sizing: border-box;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
-        /* Header Text */
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .header h1 {
-            font-family: 'Roboto', sans-serif;
-            font-weight: 700;
-            font-size: 1.6em;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .header h1 .sharif-text {
-            color: #FF0000;
-        }
-        .header h1 .pharma-text {
-            color: #0000FF;
-        }
-        .header p {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.2em;
-            color: #7a7a7a;
-            margin-top: 0;
-        }
-
-        /* Grid for all 6 boxes */
-        .steps-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            align-items: center;
-        }
-        
-        /* Step Box and Link Style */
-        .step-link, .circle-link {
-            text-decoration: none;
-            color: inherit;
-        }
-        .step-box {
-            background-color: #e5dccb;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease;
-            cursor: pointer;
-        }
-        .step-box:hover {
-            transform: translateY(-5px);
-        }
-        .step-box .icon {
-            font-size: 3em;
-            margin-bottom: 10px;
-            color: #555;
-        }
-        .step-box p {
-            margin: 0;
-            font-size: 0.9em;
-            color: #000000;
-            font-weight: bold;
-        }
-        
-        /* Alternating Color Style */
-        .alt-color {
-            background-color: #b1947b;
-        }
-        .alt-color .icon, .alt-color p {
-            color: #ffffff; 
+        /* Header Text */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
         }
-        
-        /* Footer */
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 0.9em;
-            color: #777;
-        }
-        .footer a {
-            color: #555;
-            text-decoration: none;
-            font-weight: bold;
-        }
-    </style>
+        .header h1 {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: 1.6em;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .header h1 .sharif-text {
+            color: #FF0000;
+        }
+        .header h1 .pharma-text {
+            color: #0000FF;
+        }
+        .header p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2em;
+            color: #7a7a7a;
+            margin-top: 0;
+        }
+
+        /* Grid for all 6 boxes */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        /* Step Box and Link Style */
+        .step-link, .circle-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .step-box {
+            background-color: #e5dccb;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+        .step-box:hover {
+            transform: translateY(-5px);
+        }
+        .step-box .icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .step-box p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #000000;
+            font-weight: bold;
+        }
+        
+        /* Alternating Color Style */
+        .alt-color {
+            background-color: #b1947b;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #777;
+        }
+        .footer a {
+            color: #555;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="header">
-            <h1><span class="sharif-text">SHARIF</span> <span class="pharma-text">PHARMACEUTICALS LIMITED</span></h1>
-            <p>Details Page</p>
-        </div>
+    <div class="container">
+        <div class="header">
+            <h1><span class="sharif-text">SHARIF</span> <span class="pharma-text">PHARMACEUTICALS LIMITED</span></h1>
+            <p>Details Page</p>
+        </div>
 
-        <div class="steps-grid">
-            <a href="https://docs.google.com/spreadsheets/d/1P2fjpXIQD5gT1_9XIMm7HIRqVJ_VEA24i8RqE1BOVJ8/edit?usp=sharing" class="step-link">
-                <div class="step-box alt-color">
-                    <span class="icon">&#x1F4C4;</span> 
-                    <p>GB-22</p>
-                </div>
-            </a>
-            <a href="https://docs.google.com/spreadsheets/d/1fMPjr_8GwfJ0N9fdJCKPYSAnOVQYCnMd1_jg8dWVOg4/edit?gid=0#gid=0" class="step-link">
-                <div class="step-box">
-                    <span class="icon">&#x1F4C6;</span>
-                    <p>GB-23</p>
-                </div>
-            </a>
-            <a href="https://docs.google.com/spreadsheets/d/14w1tfHHZnBdjE64EOwkyILMGnFLcldUKAu9mCEH2BRU/edit?gid=0#gid=0" class="step-link">
-                <div class="step-box alt-color">
-                    <span class="icon">&#x1F4C7;</span>
-                    <p>GB-26</p>
-                </div>
-            </a>
-            <a href="https://docs.google.com/spreadsheets/d/1Uf9w1WDxJ4VYMmdm31JL-S_Jdr8Qc9akn7pOuQpiQWU/edit?gid=0#gid=0" class="step-link">
-                <div class="step-box">
-                    <span class="icon">&#x1F4C8;</span>
-                    <p>GB-12</p>
-                </div>
-            </a>
-            <a href="https://docs.google.com/spreadsheets/d/128K5DhJLr_uk-LDryD15aUxFL0-bh_yLC1C-tlID384/edit?gid=0#gid=0" class="step-link">
-                <div class="step-box alt-color">
-                    <span class="icon">&#x1F4DC;</span>
-                    <p>GB-27</p>
-                </div>
-            </a>
-            <a href="https://docs.google.com/spreadsheets/d/17lldJAmazO3wxN4CinkR4wtW2WQexPPidvgYGVDGzq8/edit?gid=0#gid=0" class="step-link">
-                <div class="step-box">
-                    <span class="icon">&#x1F4DD;</span>
-                    <p>দৈনিক হিসাব</p>
-                </div>
-            </a>
-        </div>
+        <div class="steps-grid">
+            <a href="https://docs.google.com/spreadsheets/d/1P2fjpXIQD5gT1_9XIMm7HIRqVJ_VEA24i8RqE1BOVJ8/edit?usp=sharing" class="step-link">
+                <div class="step-box alt-color">
+                    <span class="icon">&#x1F4C4;</span> 
+                    <p>GB-22</p>
+                </div>
+            </a>
+            <a href="https://docs.google.com/spreadsheets/d/1fMPjr_8GwfJ0N9fdJCKPYSAnOVQYCnMd1_jg8dWVOg4/edit?gid=0#gid=0" class="step-link">
+                <div class="step-box">
+                    <span class="icon">&#x1F4C6;</span>
+                    <p>GB-23</p>
+                </div>
+            </a>
+            <a href="https://docs.google.com/spreadsheets/d/14w1tfHHZnBdjE64EOwkyILMGnFLcldUKAu9mCEH2BRU/edit?gid=0#gid=0" class="step-link">
+                <div class="step-box alt-color">
+                    <span class="icon">&#x1F4C7;</span>
+                    <p>GB-26</p>
+                </div>
+            </a>
+            <a href="https://docs.google.com/spreadsheets/d/1Uf9w1WDxJ4VYMmdm31JL-S_Jdr8Qc9akn7pOuQpiQWU/edit?gid=0#gid=0" class="step-link">
+                <div class="step-box">
+                    <span class="icon">&#x1F4C8;</span>
+                    <p>GB-12</p>
+                </div>
+            </a>
+            <a href="https://docs.google.com/spreadsheets/d/128K5DhJLr_uk-LDryD15aUxFL0-bh_yLC1C-tlID384/edit?gid=0#gid=0" class="step-link">
+                <div class="step-box alt-color">
+                    <span class="icon">&#x1F4DC;</span>
+                    <p>GB-27</p>
+                </div>
+            </a>
+            <a href="https://docs.google.com/spreadsheets/d/17lldJAmazO3wxN4CinkR4wtW2WQexPPidvgYGVDGzq8/edit?gid=0#gid=0" class="step-link">
+                <div class="step-box">
+                    <span class="icon">&#x1F4DD;</span>
+                    <p>দৈনিক হিসাব</p>
+                </div>
+            </a>
+        </div>
 
-        <div class="footer">
-        </div>
-    </div>
+        <div class="footer">
+        </div>
+    </div>
 
 </body>
 
