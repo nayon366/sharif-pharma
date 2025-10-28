@@ -6,12 +6,13 @@
     <title>Sharif Pharmaceuticals Limited</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
     <style>
         /* General Styles */
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f0f2f5; /* Lightened background for modern look */
+            /* Background: Soft gradient for a modern look */
+            background: linear-gradient(135deg, #f0f4f7, #e0e5eb);
             margin: 0;
             display: flex;
             justify-content: center;
@@ -24,55 +25,71 @@
         .container {
             background-color: #ffffff;
             width: 100%;
-            max-width: 500px;
-            padding: 30px;
+            max-width: 600px; /* INCREASED SIZE */
+            padding: 45px 35px; /* Increased padding */
             box-sizing: border-box;
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); /* Deeper shadow */
+            border-radius: 20px; 
+            /* Subtle, clean shadow */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); 
+            border: 1px solid #f0f0f0;
         }
 
         /* Header Text */
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px; /* Increased margin */
         }
         .header h1 {
             font-family: 'Roboto', sans-serif;
             font-weight: 700;
-            font-size: 1.8em; /* Slightly larger header */
+            font-size: 2.1em; /* INCREASED SIZE */
             margin-bottom: 5px;
             text-transform: uppercase;
-            white-space: nowrap; 
-            overflow: hidden; 
-            text-overflow: ellipsis; 
-            letter-spacing: 1.5px; /* Increased letter spacing */
+            letter-spacing: 2.5px; /* Increased letter spacing */
+            color: #333;
         }
         .header h1 .sharif-text {
-            color: #FF0000;
+            color: #E74C3C; 
         }
         .header h1 .pharma-text {
-            color: #0000FF;
+            color: #3498DB; 
         }
         .header p {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 1.2em;
+            font-size: 1.2em; /* INCREASED SIZE */
             color: #7a7a7a;
             margin-top: 0;
+            font-weight: 300;
+        }
+        
+        /* Live Time and Date Style */
+        #live-datetime {
+            display: block;
+            margin: 18px auto 0; /* Increased margin */
+            padding: 10px 20px; /* Increased padding */
+            font-size: 1em; /* INCREASED SIZE */
+            font-weight: 500;
+            color: #555;
+            text-align: center;
+            background-color: #f7f7f7;
+            border-radius: 20px;
+            width: fit-content;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         /* Centered container for the top circle box */
         .top-circle-container {
             display: flex;
             justify-content: center; 
-            margin-bottom: 30px; /* More space below */
+            margin-bottom: 50px; /* Increased space below main button */
         }
         
         /* Grid for all 6 steps */
         .steps-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 25px; /* Increased gap */
             align-items: center;
         }
         
@@ -82,77 +99,79 @@
             color: inherit;
         }
         .step-box {
-            background-color: #e5dccb;
-            padding: 20px;
-            border-radius: 10px;
+            background-color: #fcfcfc; /* White background */
+            padding: 25px; /* Increased padding */
+            border-radius: 15px; /* Slightly more rounded */
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease; /* Smoother transition */
+            /* Neumorphic/Clean Shadow */
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.08), 
+                        -4px -4px 8px rgba(255, 255, 255, 0.5);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
             cursor: pointer;
+            border: 1px solid #eee;
         }
         .step-box:hover {
-            transform: translateY(-5px);
-            background-color: #b1947b; 
-            color: white; 
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
-        }
-        .step-box:hover .icon { 
-            color: white;
-        }
-        .step-box:hover p { 
-            color: white;
+            transform: translateY(-6px); /* More noticeable lift */
+            background-color: #e0e5eb; 
+            box-shadow: 0 12px 22px rgba(0, 0, 0, 0.18); /* Stronger hover shadow */
         }
         .step-box .icon {
-            font-size: 3em;
+            font-size: 3.2em; /* INCREASED SIZE */
             margin-bottom: 10px;
-            color: #555;
+            color: #666;
         }
         .step-box p {
             margin: 0;
-            font-size: 0.95em; /* Slightly larger font */
-            color: #333333; /* Darker font for readability */
-            font-weight: bold;
+            font-size: 1em; /* INCREASED SIZE */
+            color: #333333; 
+            font-weight: 700;
+            text-transform: capitalize;
         }
         
-        /* New Circle Box Style (Entry Button) - Improved Design */
+        /* New Circle Box Style (Entry Button) - Enhanced Design */
         .circle-box {
-            background-color: #d8ccee; /* Lavender/Light Purple color */
-            width: 140px; /* Slightly larger circle */
-            height: 140px;
+            background-color: #e0e5eb; /* Base color: Light gray-blue */
+            width: 180px; /* INCREASED SIZE */
+            height: 180px; /* INCREASED SIZE */
             border-radius: 50%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
-            transition: all 0.3s ease; /* Smoother transition */
+            /* Prominent, soft inner shadow */
+            box-shadow: inset 7px 7px 14px #c7cdd4, 
+                        inset -7px -7px 14px #f9ffff;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
             cursor: pointer;
-            color: #333333; /* Darker text for readability */
+            color: #333333; 
+            border: 1px solid #d0d5db;
         }
         .circle-box:hover {
-            transform: translateY(-8px); /* More noticeable lift on hover */
-            background-color: #bfaee3; /* Darker lavender on hover */
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+            transform: scale(1.08); /* More noticeable enlarge on hover */
+            background-color: #d1d6db; 
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28); /* Stronger outer shadow on hover */
         }
         .circle-box .icon {
-            font-size: 3.5em; /* Larger icon */
-            margin-bottom: 8px; /* Adjusted spacing */
-            color: #4a4a4a; /* Darker icon color for contrast */
+            font-size: 4.5em; /* INCREASED SIZE */
+            margin-bottom: 8px; 
+            color: #8E44AD; /* Purple accent color */
         }
         .circle-box p {
-            font-size: 1.1em; /* Larger font for main entry button */
-            font-weight: bold;
+            font-size: 1.3em; /* INCREASED SIZE */
+            font-weight: 700;
             margin: 0;
+            color: #555;
         }
         .circle-box:hover .icon, .circle-box:hover p {
-            color: #222222; /* Text color on hover */
+            color: #666; 
         }
         
         /* Alternating Color Style */
         .alt-color {
-            background-color: #b1947b;
+            background-color: #b1947b; 
             color: white; 
+            border: none;
         }
         .alt-color .icon { 
             color: white;
@@ -162,59 +181,45 @@
         }
         /* Alternating Color Hover */
         .alt-color:hover { 
-            background-color: #e5dccb;
-            color: #000000;
+            background-color: #9d856d; 
+            box-shadow: 0 12px 22px rgba(0, 0, 0, 0.18);
+            color: white;
         }
         .alt-color:hover .icon, .alt-color:hover p { 
-            color: #555;
-        }
-        
-        /* Footer */
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 0.9em;
-            color: #777;
-        }
-        .footer a {
-            color: #555;
-            text-decoration: none;
-            font-weight: bold;
+            color: #fff;
         }
 
         /* --- মোবাইল স্ক্রিনের জন্য বিশেষ পরিবর্তন (Media Query) --- */
         @media (max-width: 600px) {
             .container {
+                max-width: 100%; /* Full width on mobile */
                 padding: 20px; 
+                border-radius: 10px;
             }
             .header h1 {
-                font-size: 1.4em; 
+                font-size: 1.5em; 
+                letter-spacing: 1.5px;
             }
-            /* গ্রিডকে এক কলামে আনা */
             .steps-grid {
                 grid-template-columns: 1fr; 
                 gap: 15px; 
             }
-            /* আইকন সাইজ ঠিক করা */
-            .step-box .icon, .circle-box .icon {
-                font-size: 2.2em; /* Smaller icons on mobile */
+            /* Resetting sizes for mobile to be smaller again */
+            .step-box .icon {
+                font-size: 2.2em; 
             }
-            /* মোবাইলে সার্কেল বক্সের padding সরানো */
-            .top-circle-container {
-                padding-left: 0; 
-            }
-            /* মোবাইলে সার্কেল বক্সকে ছোট স্ক্রিনে ঠিকমতো দেখানো */
             .circle-box {
-                width: 100px; /* Smaller circle on mobile */
-                height: 100px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Reduced shadow on mobile */
+                width: 120px; 
+                height: 120px;
             }
-            .circle-box:hover {
-                transform: translateY(-5px); /* Less dramatic lift on mobile */
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Adjusted hover shadow */
+            .circle-box .icon {
+                font-size: 3em; 
             }
             .circle-box p {
-                font-size: 0.95em; /* Smaller font for main entry button on mobile */
+                font-size: 1em;
+            }
+            #live-datetime {
+                font-size: 0.8em;
             }
         }
         /* --- মোবাইল স্ক্রিনের জন্য বিশেষ পরিবর্তন শেষ --- */
@@ -225,6 +230,7 @@
     <div class="container">
         <div class="header">
             <h1><span class="sharif-text">SHARIF</span> <span class="pharma-text">PHARMACEUTICALS LIMITED</span></h1>
+            <span id="live-datetime"></span>
         </div>
         <div class="top-circle-container">
             <a href="daily_collection_entry.html" class="circle-link">
@@ -253,7 +259,7 @@
             </a>
             <a href="daily_summary2.html" class="step-link">
                 <div class="step-box">
-                    <span class="icon">👆</span> 
+                    <span class="icon">📈</span> 
                     <p>Daily Summary2</p>
                 </div>
             </a>
@@ -272,6 +278,34 @@
         </div>
         <div class="footer"></div>
     </div>
+
+    <script>
+        // JavaScript function to display live time and date
+        function updateDateTime() {
+            // The time is set to Bangladesh Time (BDT) based on the context.
+            const now = new Date();
+            const options = { 
+                weekday: 'long', // Added weekday for better appearance
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit', 
+                hour12: true 
+            };
+            
+            // Current Time 
+            const formatter = new Intl.DateTimeFormat('en-US', options);
+            const formattedDateTime = formatter.format(now);
+            
+            document.getElementById('live-datetime').textContent = formattedDateTime;
+        }
+
+        // Update time immediately and then every second
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+    </script>
 
 </body>
 </html>
