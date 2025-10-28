@@ -28,28 +28,38 @@
             padding: 0;
         }
         
-        /* Main Container - INCREASED SIZE */
+        /* Main Container - Slightly Larger Fixed Size by default, centered */
         .container {
             background-color: #ffffff;
-            width: 100%;
-            max-width: 380px; /* <--- আকার বাড়ানো হয়েছে (Increased Size) */
-            padding: 25px 20px; /* Increased Padding */
+            width: 95%; /* Default responsive width for narrow screens */
+            max-width: 380px; /* <--- আপনার কাঙ্ক্ষিত বড় আকার */
+            padding: 25px 20px;
             box-sizing: border-box;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            margin: 15px auto; /* Centering and slightly increased top/bottom margin */
+            margin: 15px auto; /* Centering it */
             border: 1px solid #e0e0e0;
         }
+        
+        /* New: Media Query for very narrow mobile phones (e.g., 400px or less) */
+        @media (max-width: 400px) {
+            .container {
+                width: 98%; /* Use almost full width to reduce side gap */
+                padding: 20px 10px; /* Reduced side padding on small screens */
+                margin: 5px auto; /* Reduced top/bottom margin on small screens */
+            }
+        }
+
 
         /* Header Text - Increased Size */
         .header {
             text-align: center;
-            margin-bottom: 25px; /* Increased Margin */
+            margin-bottom: 25px;
         }
         .header h1 {
             font-family: 'Roboto', sans-serif;
             font-weight: 700;
-            font-size: 1.5em; /* Increased Heading Size */
+            font-size: 1.5em;
             margin-bottom: 4px;
             text-transform: uppercase;
             white-space: nowrap;
@@ -65,7 +75,7 @@
         .header p {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 1em; /* Increased Sub-heading Size */
+            font-size: 1em;
             color: #7a7a7a;
             margin-top: 0;
         }
@@ -74,7 +84,7 @@
         .steps-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px; /* Increased Gap */
+            gap: 12px;
             align-items: center;
         }
         
@@ -85,7 +95,7 @@
         }
         .step-box {
             background-color: #e5dccb;
-            padding: 15px 10px; /* Increased Padding */
+            padding: 15px 10px;
             border-radius: 10px; 
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
@@ -96,13 +106,13 @@
             transform: translateY(-2px);
         }
         .step-box .icon {
-            font-size: 2.2em; /* Increased Icon Size */
+            font-size: 2.2em;
             margin-bottom: 5px;
             color: #555;
         }
         .step-box p {
             margin: 0;
-            font-size: 0.8em; /* Increased Font Size */
+            font-size: 0.8em;
             color: #000000;
             font-weight: bold;
         }
@@ -112,14 +122,14 @@
             background-color: #b1947b;
         }
         .alt-color .icon, .alt-color p {
-            color: #ffffff; /* Ensure white text/icon on dark background */
+            color: #ffffff; 
         }
         
         /* Footer - Increased Size and Margin */
         .footer {
             text-align: center;
-            margin-top: 20px; /* Increased Margin */
-            font-size: 0.8em; /* Increased Font Size */
+            margin-top: 20px;
+            font-size: 0.8em;
             color: #777;
         }
         .footer a {
