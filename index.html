@@ -34,7 +34,7 @@
         .container {
             background-color: #ffffff;
             width: 100%; 
-            max-width: 330px; /* মোবাইলের জন্য নির্দিষ্ট সাইজ */
+            max-width: 330px; /* মোবাইলের জন্য নির্দিষ্ট প্রস্থ */
             min-height: auto; 
             
             /* Frame/Border Styles */
@@ -42,7 +42,7 @@
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1); 
             border: 1px solid #e0e0e0; 
             
-            padding: 20px 15px; /* মোবাইলের জন্য ডিফল্ট প্যাডিং */
+            padding: 20px 15px; 
             
             display: flex;
             flex-direction: column;
@@ -79,33 +79,33 @@
             font-weight: 300;
         }
         
-        /* Live Time and Date Style */
+        /* Live Time and Date Style (মোবাইল ও PC এর জন্য রং পরিবর্তন) */
         #live-datetime {
             display: block;
             margin: 8px auto 0; 
-            padding: 4px 8px; 
-            font-size: 0.65em; 
-            font-weight: 500;
-            color: #555;
+            padding: 8px 12px; 
+            font-size: 1em; /* ফন্ট সাইজ বড় করা হলো (মোবাইলের জন্য) */
+            font-weight: 700;
+            color: #27AE60; /* **সবুজ রং সেট করা হলো** */
             text-align: center;
-            background-color: #f7f7f7;
-            border-radius: 10px;
+            background-color: #e0e5eb; 
+            border-radius: 12px;
             width: fit-content;
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
         }
 
         /* Centered container for the top circle box */
         .top-circle-container {
             display: flex;
             justify-content: center; 
-            margin-bottom: 20px; 
+            margin-bottom: 25px; 
         }
         
         /* Grid for all 6 steps */
         .steps-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px; 
+            gap: 10px; 
             align-items: center;
             width: 100%; 
         }
@@ -147,8 +147,8 @@
         /* New Circle Box Style (Entry Button) */
         .circle-box {
             background-color: #e0e5eb; 
-            width: 80px; 
-            height: 80px; 
+            width: 90px; 
+            height: 90px; 
             border-radius: 50%;
             display: flex;
             flex-direction: column;
@@ -168,9 +168,9 @@
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); 
         }
         .circle-box .icon {
-            font-size: 2em; 
+            font-size: 2.2em; 
             margin-bottom: 3px; 
-            color: #8E44AD; 
+            color: #3498DB; 
         }
         .circle-box p {
             font-size: 0.7em; 
@@ -200,31 +200,41 @@
         /* --- ডেস্কটপ/পিসি স্টাইল পরিবর্তন (PC/Desktop Style Adjustment) --- */
         @media (min-width: 400px) {
             .container {
-                /* ফ্রেমের আকার 400px এ সেট করা হলো */
-                max-width: 400px; 
-                /* প্যাডিং বৃদ্ধি করা হলো যাতে ভেতরের কন্টেন্ট চারপাশে জায়গা পায় */
-                padding: 25px 30px; /* উপরে-নিচে 25px, ডানে-বামে 30px */
+                /* আপনার দেওয়া মান */
+                max-width: 600px; 
+                min-height: 780px; 
+                justify-content: space-around; 
+                
+                padding: 40px 60px; 
             }
 
-            /* অন্যান্য ছোটখাটো আকারের পরিবর্তন */
+            /* ফ্রেমের আকারের সাথে মানিয়ে নিতে ফন্ট এবং এলিমেন্টের আকার বাড়ানো হলো */
             .header h1 {
-                font-size: 1.4em; 
+                font-size: 1.8em; 
             }
             .header p {
-                font-size: 0.75em; 
+                font-size: 0.9em; 
+            }
+            /* PC তে লাইভ সময় আরও বড় */
+            #live-datetime {
+                font-size: 1.4em; /* PC এর জন্য আরও বেশি বড় ফন্ট */
+                padding: 10px 20px; 
             }
             .circle-box {
-                width: 90px;
-                height: 90px;
+                width: 180px; 
+                height: 180px;
             }
             .circle-box .icon {
-                font-size: 2.2em; 
+                font-size: 3.5em; 
+            }
+            .step-box {
+                padding: 20px 15px; 
             }
             .step-box .icon {
-                font-size: 1.6em;
+                font-size: 2em;
             }
             .step-box p {
-                font-size: 0.7em;
+                font-size: 0.9em;
             }
         }
         /* --- ডেস্কটপ/পিসি স্টাইল পরিবর্তন শেষ --- */
