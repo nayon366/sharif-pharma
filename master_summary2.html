@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Details Page</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -111,7 +112,28 @@
             color: #555;
             text-decoration: none;
             font-weight: bold;
-        }
+        }@media (max-width: 600px) {
+    .container {
+        padding: 20px; 
+    }
+    .header h1 {
+        font-size: 1.4em; 
+    }
+    /* গ্রিডকে এক কলামে আনা */
+    .steps-grid {
+        grid-template-columns: 1fr; 
+        gap: 15px; 
+    }
+    /* সার্কেল বক্সের আকার সামান্য ছোট করা */
+    .circle-box {
+        width: 100px; 
+        height: 100px;
+    }
+    /* টপ সার্কেল কন্টেইনারের বাড়তি প্যাডিং সরানো */
+    .top-circle-container {
+         padding-left: 0; 
+    }
+}
     </style>
 </head>
 <body>
@@ -166,4 +188,5 @@
     </div>
 
 </body>
+
 </html>
