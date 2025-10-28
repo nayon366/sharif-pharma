@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
     <style>
-        /* CSS Reset */
+        /* CSS Reset for consistent display */
         * {
             margin: 0;
             padding: 0;
@@ -23,117 +23,101 @@
         /* General Styles */
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #f0f4f7, #e0e5eb); /* Fixed Background */
+            background-color: #d1bfae; /* Keeping original color */
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px;
+            padding: 10px; /* Reduced Padding */
         }
         
-        /* Main Container - FIXED SIZE (330px) */
+        /* Main Container - Reduced and Fixed Size */
         .container {
             background-color: #ffffff;
             width: 100%;
-            max-width: 330px; /* <--- চূড়ান্ত স্থির আকার (Final Fixed Size) */
-            padding: 20px 15px; 
+            max-width: 330px; /* <--- FIXED SMALLEST SIZE FOR FRAME */
+            padding: 20px 15px; /* Reduced Padding */
             box-sizing: border-box;
             border-radius: 15px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e0e0e0; 
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1); /* Reduced Shadow */
+            border: 1px solid #e0e0e0; /* Added subtle border */
         }
 
-        /* Header Text */
+        /* Header Text - Reduced Size */
         .header {
             text-align: center;
-            margin-bottom: 20px; 
+            margin-bottom: 18px; /* Reduced Margin */
         }
         .header h1 {
             font-family: 'Roboto', sans-serif;
             font-weight: 700;
-            font-size: 1.3em; /* Small Font */
-            margin-bottom: 3px;
+            font-size: 1.3em; /* Reduced Heading Size */
+            margin-bottom: 3px; /* Reduced Margin */
             text-transform: uppercase;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            letter-spacing: 1.5px;
         }
         .header h1 .sharif-text {
-            color: #E74C3C; 
+            color: #FF0000; /* Keeping original color */
         }
         .header h1 .pharma-text {
-            color: #3498DB; 
+            color: #0000FF; /* Keeping original color */
         }
         .header p {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 0.8em; /* Small Font */
+            font-size: 0.8em; /* Reduced Sub-heading Size */
             color: #7a7a7a;
             margin-top: 0;
         }
 
-        /* Grid for all 6 boxes */
+        /* Grid for all 6 boxes - Reduced Gap */
         .steps-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px; /* Small Gap */
+            gap: 8px; /* Reduced Gap */
             align-items: center;
         }
         
-        /* Step Box and Link Style */
+        /* Step Box and Link Style - Reduced Size and Padding */
         .step-link, .circle-link {
             text-decoration: none;
             color: inherit;
         }
         .step-box {
-            background-color: #fcfcfc; 
-            padding: 12px 8px; /* Small Padding */
-            border-radius: 8px;
+            background-color: #e5dccb; /* Keeping original color */
+            padding: 12px 8px; /* Reduced Padding */
+            border-radius: 8px; /* Reduced Border Radius */
             text-align: center;
-            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05); /* Reduced Shadow */
             transition: transform 0.2s ease;
             cursor: pointer;
-            border: 1px solid #eee;
         }
         .step-box:hover {
-            transform: translateY(-1px);
-            background-color: #e0e5eb;
+            transform: translateY(-1px); /* Reduced hover effect */
         }
         .step-box .icon {
-            font-size: 1.8em; /* Small Icon Size */
-            margin-bottom: 4px;
-            color: #666;
+            font-size: 1.8em; /* Reduced Icon Size */
+            margin-bottom: 4px; /* Reduced Margin */
+            color: #555;
         }
         .step-box p {
             margin: 0;
-            font-size: 0.7em; /* Small Font */
+            font-size: 0.7em; /* Reduced Font Size */
             color: #000000;
-            font-weight: 700;
+            font-weight: bold;
         }
         
         /* Alternating Color Style */
         .alt-color {
-            background-color: #b1947b; 
-            color: white;
-            border: none;
-        }
-        .alt-color .icon { 
-            color: white; 
-        }
-        .alt-color p { 
-            color: white;
-        }
-        .alt-color:hover { 
-            background-color: #9d856d; 
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
-            color: white;
+            background-color: #b1947b; /* Keeping original color */
         }
         
-        /* Footer */
+        /* Footer - Reduced Size and Margin */
         .footer {
             text-align: center;
-            margin-top: 20px;
-            font-size: 0.7em; /* Small Font */
+            margin-top: 15px; /* Reduced Margin */
+            font-size: 0.7em; /* Reduced Font Size */
             color: #777;
         }
         .footer a {
@@ -142,7 +126,7 @@
             font-weight: bold;
         }
 
-        /* NO MEDIA QUERY: Ensures the layout remains fixed on all screen sizes */
+    /* NO MEDIA QUERY: Ensures fixed size */
     </style>
 </head>
 <body>
