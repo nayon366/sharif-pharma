@@ -8,31 +8,41 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
     <style>
+        /* CSS Reset for Edge-to-Edge display on all devices */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            min-height: 100vh;
+        }
+
         /* General Styles */
         body {
             font-family: 'Roboto', sans-serif;
-            /* Background: Soft gradient for a modern look - now fills the entire screen */
+            /* Background: Soft gradient now fills the entire screen */
             background: linear-gradient(135deg, #f0f4f7, #e0e5eb);
-            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            padding: 0; /* Removed padding from body */
         }
         
         /* Main Container */
         .container {
             background-color: #ffffff;
-            width: 100%; /* Full width on phone */
-            /* max-width: 600px;  <<-- THIS LINE IS REMOVED/IGNORED FOR FULL SCREEN EFFECT ON MOBILE */
-            padding: 45px 35px; 
-            box-sizing: border-box;
-            border-radius: 0; /* Optional: Remove border radius on mobile for full screen effect */
-            box-shadow: none; /* Removed box shadow for seamless look on mobile */
-            min-height: 100vh; /* Ensures it covers full height */
+            width: 100%; /* Ensures full width */
+            min-height: 100vh; /* Ensures full height */
             
-            /* Center content in the middle of the screen */
+            /* Remove desktop/tablet fixed styling for true universal full screen */
+            max-width: 100%; 
+            border-radius: 0; 
+            box-shadow: none; 
+
+            padding: 45px 35px; 
+            
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -96,7 +106,8 @@
             grid-template-columns: 1fr 1fr;
             gap: 25px; 
             align-items: center;
-            width: 100%; /* Ensures grid takes full available width */
+            width: 100%; 
+            max-width: 500px; /* Limits the grid width slightly to keep it central and readable */
         }
         
         /* Step Box and Link Style */
@@ -109,7 +120,6 @@
             padding: 25px; 
             border-radius: 15px; 
             text-align: center;
-            /* Neumorphic/Clean Shadow */
             box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.08), 
                         -4px -4px 8px rgba(255, 255, 255, 0.5);
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
@@ -188,11 +198,9 @@
         }
 
         /* --- মোবাইল স্ক্রিনের জন্য বিশেষ পরিবর্তন (Media Query) --- */
-        @media (max-width: 768px) { /* Increased media query size to catch tablets/larger phones */
+        @media (max-width: 768px) { 
             .container {
                 padding: 20px; 
-                border-radius: 0;
-                box-shadow: none;
             }
             .header h1 {
                 font-size: 1.4em; 
@@ -201,11 +209,11 @@
             .steps-grid {
                 grid-template-columns: 1fr; 
                 gap: 15px; 
+                max-width: 90%; /* Limits the grid width slightly on phone for better readability */
             }
             .top-circle-container {
                 margin-bottom: 30px;
             }
-            /* Resetting sizes for mobile to be smaller again */
             .step-box {
                  padding: 15px;
             }
@@ -224,16 +232,6 @@
             }
             #live-datetime {
                 font-size: 0.8em;
-            }
-        }
-
-        /* Desktop/Tablet view when screen is larger than 768px, centers the max-width element */
-        @media (min-width: 769px) {
-            .container {
-                width: 650px; /* Fixed width on desktop/tablet */
-                min-height: auto;
-                border-radius: 20px;
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             }
         }
     </style>
