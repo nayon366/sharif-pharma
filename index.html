@@ -11,41 +11,46 @@
         /* General Styles */
         body {
             font-family: 'Roboto', sans-serif;
-            /* Background: Soft gradient for a modern look */
+            /* Background: Soft gradient for a modern look - now fills the entire screen */
             background: linear-gradient(135deg, #f0f4f7, #e0e5eb);
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 0; /* Removed padding from body */
         }
         
         /* Main Container */
         .container {
             background-color: #ffffff;
-            width: 100%;
-            max-width: 600px; /* INCREASED SIZE */
-            padding: 45px 35px; /* Increased padding */
+            width: 100%; /* Full width on phone */
+            /* max-width: 600px;  <<-- THIS LINE IS REMOVED/IGNORED FOR FULL SCREEN EFFECT ON MOBILE */
+            padding: 45px 35px; 
             box-sizing: border-box;
-            border-radius: 20px; 
-            /* Subtle, clean shadow */
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); 
-            border: 1px solid #f0f0f0;
+            border-radius: 0; /* Optional: Remove border radius on mobile for full screen effect */
+            box-shadow: none; /* Removed box shadow for seamless look on mobile */
+            min-height: 100vh; /* Ensures it covers full height */
+            
+            /* Center content in the middle of the screen */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         /* Header Text */
         .header {
             text-align: center;
-            margin-bottom: 40px; /* Increased margin */
+            margin-bottom: 40px; 
+            width: 100%;
         }
         .header h1 {
             font-family: 'Roboto', sans-serif;
             font-weight: 700;
-            font-size: 2.1em; /* INCREASED SIZE */
+            font-size: 2.1em; 
             margin-bottom: 5px;
             text-transform: uppercase;
-            letter-spacing: 2.5px; /* Increased letter spacing */
+            letter-spacing: 2.5px; 
             color: #333;
         }
         .header h1 .sharif-text {
@@ -57,7 +62,7 @@
         .header p {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 1.2em; /* INCREASED SIZE */
+            font-size: 1.2em; 
             color: #7a7a7a;
             margin-top: 0;
             font-weight: 300;
@@ -66,9 +71,9 @@
         /* Live Time and Date Style */
         #live-datetime {
             display: block;
-            margin: 18px auto 0; /* Increased margin */
-            padding: 10px 20px; /* Increased padding */
-            font-size: 1em; /* INCREASED SIZE */
+            margin: 18px auto 0; 
+            padding: 10px 20px; 
+            font-size: 1em; 
             font-weight: 500;
             color: #555;
             text-align: center;
@@ -82,15 +87,16 @@
         .top-circle-container {
             display: flex;
             justify-content: center; 
-            margin-bottom: 50px; /* Increased space below main button */
+            margin-bottom: 50px; 
         }
         
         /* Grid for all 6 steps */
         .steps-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 25px; /* Increased gap */
+            gap: 25px; 
             align-items: center;
+            width: 100%; /* Ensures grid takes full available width */
         }
         
         /* Step Box and Link Style */
@@ -99,9 +105,9 @@
             color: inherit;
         }
         .step-box {
-            background-color: #fcfcfc; /* White background */
-            padding: 25px; /* Increased padding */
-            border-radius: 15px; /* Slightly more rounded */
+            background-color: #fcfcfc; 
+            padding: 25px; 
+            border-radius: 15px; 
             text-align: center;
             /* Neumorphic/Clean Shadow */
             box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.08), 
@@ -111,35 +117,34 @@
             border: 1px solid #eee;
         }
         .step-box:hover {
-            transform: translateY(-6px); /* More noticeable lift */
+            transform: translateY(-6px); 
             background-color: #e0e5eb; 
-            box-shadow: 0 12px 22px rgba(0, 0, 0, 0.18); /* Stronger hover shadow */
+            box-shadow: 0 12px 22px rgba(0, 0, 0, 0.18); 
         }
         .step-box .icon {
-            font-size: 3.2em; /* INCREASED SIZE */
+            font-size: 3.2em; 
             margin-bottom: 10px;
             color: #666;
         }
         .step-box p {
             margin: 0;
-            font-size: 1em; /* INCREASED SIZE */
+            font-size: 1em; 
             color: #333333; 
             font-weight: 700;
             text-transform: capitalize;
         }
         
-        /* New Circle Box Style (Entry Button) - Enhanced Design */
+        /* New Circle Box Style (Entry Button) */
         .circle-box {
-            background-color: #e0e5eb; /* Base color: Light gray-blue */
-            width: 180px; /* INCREASED SIZE */
-            height: 180px; /* INCREASED SIZE */
+            background-color: #e0e5eb; 
+            width: 180px; 
+            height: 180px; 
             border-radius: 50%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            /* Prominent, soft inner shadow */
             box-shadow: inset 7px 7px 14px #c7cdd4, 
                         inset -7px -7px 14px #f9ffff;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
@@ -148,23 +153,20 @@
             border: 1px solid #d0d5db;
         }
         .circle-box:hover {
-            transform: scale(1.08); /* More noticeable enlarge on hover */
+            transform: scale(1.08); 
             background-color: #d1d6db; 
-            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28); /* Stronger outer shadow on hover */
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28); 
         }
         .circle-box .icon {
-            font-size: 4.5em; /* INCREASED SIZE */
+            font-size: 4.5em; 
             margin-bottom: 8px; 
-            color: #8E44AD; /* Purple accent color */
+            color: #8E44AD; 
         }
         .circle-box p {
-            font-size: 1.3em; /* INCREASED SIZE */
+            font-size: 1.3em; 
             font-weight: 700;
             margin: 0;
             color: #555;
-        }
-        .circle-box:hover .icon, .circle-box:hover p {
-            color: #666; 
         }
         
         /* Alternating Color Style */
@@ -179,32 +181,34 @@
         .alt-color p { 
             color: white;
         }
-        /* Alternating Color Hover */
         .alt-color:hover { 
             background-color: #9d856d; 
             box-shadow: 0 12px 22px rgba(0, 0, 0, 0.18);
             color: white;
         }
-        .alt-color:hover .icon, .alt-color:hover p { 
-            color: #fff;
-        }
 
         /* --- মোবাইল স্ক্রিনের জন্য বিশেষ পরিবর্তন (Media Query) --- */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) { /* Increased media query size to catch tablets/larger phones */
             .container {
-                max-width: 100%; /* Full width on mobile */
                 padding: 20px; 
-                border-radius: 10px;
+                border-radius: 0;
+                box-shadow: none;
             }
             .header h1 {
-                font-size: 1.5em; 
+                font-size: 1.4em; 
                 letter-spacing: 1.5px;
             }
             .steps-grid {
                 grid-template-columns: 1fr; 
                 gap: 15px; 
             }
+            .top-circle-container {
+                margin-bottom: 30px;
+            }
             /* Resetting sizes for mobile to be smaller again */
+            .step-box {
+                 padding: 15px;
+            }
             .step-box .icon {
                 font-size: 2.2em; 
             }
@@ -222,7 +226,16 @@
                 font-size: 0.8em;
             }
         }
-        /* --- মোবাইল স্ক্রিনের জন্য বিশেষ পরিবর্তন শেষ --- */
+
+        /* Desktop/Tablet view when screen is larger than 768px, centers the max-width element */
+        @media (min-width: 769px) {
+            .container {
+                width: 650px; /* Fixed width on desktop/tablet */
+                min-height: auto;
+                border-radius: 20px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            }
+        }
     </style>
 </head>
 <body>
@@ -282,10 +295,9 @@
     <script>
         // JavaScript function to display live time and date
         function updateDateTime() {
-            // The time is set to Bangladesh Time (BDT) based on the context.
-            const now = new Date();
+            // Set options for time formatting (including weekday)
             const options = { 
-                weekday: 'long', // Added weekday for better appearance
+                weekday: 'long', 
                 year: 'numeric', 
                 month: 'long', 
                 day: 'numeric', 
@@ -295,9 +307,9 @@
                 hour12: true 
             };
             
-            // Current Time 
+            // Format time based on current date
             const formatter = new Intl.DateTimeFormat('en-US', options);
-            const formattedDateTime = formatter.format(now);
+            const formattedDateTime = formatter.format(new Date());
             
             document.getElementById('live-datetime').textContent = formattedDateTime;
         }
