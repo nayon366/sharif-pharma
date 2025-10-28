@@ -34,8 +34,7 @@
         .container {
             background-color: #ffffff;
             width: 100%; 
-            /* Fixed width ensures same look on all phones */
-            max-width: 360px; 
+            max-width: 330px; /* FIXED SMALLEST SIZE FOR FRAME - All phones will look the same */
             min-height: auto; 
             
             /* Frame/Border Styles */
@@ -43,7 +42,7 @@
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1); 
             border: 1px solid #e0e0e0; 
             
-            padding: 25px 15px; 
+            padding: 20px 15px; /* MINIMAL PADDING */
             
             display: flex;
             flex-direction: column;
@@ -53,16 +52,16 @@
         /* Header Text */
         .header {
             text-align: center;
-            margin-bottom: 20px; 
+            margin-bottom: 18px; /* MINIMAL MARGIN */
             width: 100%;
         }
         .header h1 {
             font-family: 'Roboto', sans-serif;
             font-weight: 700;
-            font-size: 1.4em; 
+            font-size: 1.3em; /* SMALL HEADING SIZE */
             margin-bottom: 3px;
             text-transform: uppercase;
-            letter-spacing: 1.8px; 
+            letter-spacing: 1.5px; 
             color: #333;
         }
         .header h1 .sharif-text {
@@ -74,7 +73,7 @@
         .header p {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 0.75em; 
+            font-size: 0.7em; /* SMALL SUB-HEADING SIZE */
             color: #7a7a7a;
             margin-top: 0;
             font-weight: 300;
@@ -83,14 +82,14 @@
         /* Live Time and Date Style */
         #live-datetime {
             display: block;
-            margin: 10px auto 0; 
-            padding: 5px 10px; 
-            font-size: 0.7em; 
+            margin: 8px auto 0; 
+            padding: 4px 8px; 
+            font-size: 0.65em; 
             font-weight: 500;
             color: #555;
             text-align: center;
             background-color: #f7f7f7;
-            border-radius: 12px;
+            border-radius: 10px;
             width: fit-content;
             box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
         }
@@ -99,14 +98,14 @@
         .top-circle-container {
             display: flex;
             justify-content: center; 
-            margin-bottom: 25px; 
+            margin-bottom: 20px; /* MINIMAL MARGIN */
         }
         
         /* Grid for all 6 steps */
         .steps-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px; 
+            gap: 8px; /* MINIMAL GAP */
             align-items: center;
             width: 100%; 
         }
@@ -118,7 +117,7 @@
         }
         .step-box {
             background-color: #fcfcfc; 
-            padding: 10px; 
+            padding: 10px 5px; /* MINIMAL PADDING */
             border-radius: 8px; 
             text-align: center;
             box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05), 
@@ -133,13 +132,13 @@
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08); 
         }
         .step-box .icon {
-            font-size: 1.8em; 
-            margin-bottom: 4px;
+            font-size: 1.5em; /* FINAL ICON SIZE */
+            margin-bottom: 3px;
             color: #666;
         }
         .step-box p {
             margin: 0;
-            font-size: 0.7em; 
+            font-size: 0.65em; /* FINAL FONT SIZE */
             color: #333333; 
             font-weight: 700;
             text-transform: capitalize;
@@ -148,8 +147,8 @@
         /* New Circle Box Style (Entry Button) */
         .circle-box {
             background-color: #e0e5eb; 
-            width: 100px; 
-            height: 100px; 
+            width: 80px; /* FINAL SMALLEST SIZE */
+            height: 80px; /* FINAL SMALLEST SIZE */
             border-radius: 50%;
             display: flex;
             flex-direction: column;
@@ -169,12 +168,12 @@
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); 
         }
         .circle-box .icon {
-            font-size: 2.2em; 
+            font-size: 2em; /* FINAL ICON SIZE */
             margin-bottom: 3px; 
             color: #8E44AD; 
         }
         .circle-box p {
-            font-size: 0.8em; 
+            font-size: 0.7em; /* FINAL FONT SIZE */
             font-weight: 700;
             margin: 0;
             color: #555;
@@ -197,49 +196,8 @@
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
             color: white;
         }
-
-        /* --- মোবাইল স্ক্রিনের জন্য বিশেষভাবে তৈরি পরিবর্তন (Media Query) --- */
-        /* Since max-width is 360px, this media query ensures single column on smaller phones */
-        @media (max-width: 380px) { 
-            .container {
-                /* When the screen is very narrow, let the container take most of the width */
-                max-width: 95%; 
-                padding: 15px 8px; 
-            }
-            .header h1 {
-                font-size: 1.2em; 
-                letter-spacing: 1.2px;
-            }
-            .steps-grid {
-                grid-template-columns: 1fr; /* Single column layout for very small screens */
-                gap: 10px; 
-            }
-            .top-circle-container {
-                margin-bottom: 15px;
-            }
-            .circle-box {
-                width: 80px; 
-                height: 80px;
-            }
-            .circle-box .icon {
-                font-size: 1.8em; 
-            }
-            .circle-box p {
-                font-size: 0.7em;
-            }
-            .step-box {
-                padding: 10px; 
-            }
-            .step-box .icon {
-                font-size: 1.5em; 
-            }
-            .step-box p {
-                font-size: 0.7em; 
-            }
-            #live-datetime {
-                font-size: 0.6em;
-            }
-        }
+        
+        /* Media Query Removed to fix the size across devices */
     </style>
 </head>
 <body>
