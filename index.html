@@ -34,7 +34,7 @@
         .container {
             background-color: #ffffff;
             width: 100%; 
-            max-width: 330px; /* FIXED SMALLEST SIZE FOR FRAME - All phones will look the same */
+            max-width: 330px; /* মোবাইলের জন্য নির্দিষ্ট সাইজ */
             min-height: auto; 
             
             /* Frame/Border Styles */
@@ -42,7 +42,7 @@
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1); 
             border: 1px solid #e0e0e0; 
             
-            padding: 20px 15px; /* MINIMAL PADDING */
+            padding: 20px 15px; 
             
             display: flex;
             flex-direction: column;
@@ -52,13 +52,13 @@
         /* Header Text */
         .header {
             text-align: center;
-            margin-bottom: 18px; /* MINIMAL MARGIN */
+            margin-bottom: 18px; 
             width: 100%;
         }
         .header h1 {
             font-family: 'Roboto', sans-serif;
             font-weight: 700;
-            font-size: 1.3em; /* SMALL HEADING SIZE */
+            font-size: 1.3em; 
             margin-bottom: 3px;
             text-transform: uppercase;
             letter-spacing: 1.5px; 
@@ -73,7 +73,7 @@
         .header p {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 0.7em; /* SMALL SUB-HEADING SIZE */
+            font-size: 0.7em; 
             color: #7a7a7a;
             margin-top: 0;
             font-weight: 300;
@@ -98,14 +98,14 @@
         .top-circle-container {
             display: flex;
             justify-content: center; 
-            margin-bottom: 20px; /* MINIMAL MARGIN */
+            margin-bottom: 20px; 
         }
         
         /* Grid for all 6 steps */
         .steps-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px; /* MINIMAL GAP */
+            gap: 8px; 
             align-items: center;
             width: 100%; 
         }
@@ -117,7 +117,7 @@
         }
         .step-box {
             background-color: #fcfcfc; 
-            padding: 10px 5px; /* MINIMAL PADDING */
+            padding: 10px 5px; 
             border-radius: 8px; 
             text-align: center;
             box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05), 
@@ -132,13 +132,13 @@
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08); 
         }
         .step-box .icon {
-            font-size: 1.5em; /* FINAL ICON SIZE */
+            font-size: 1.5em; 
             margin-bottom: 3px;
             color: #666;
         }
         .step-box p {
             margin: 0;
-            font-size: 0.65em; /* FINAL FONT SIZE */
+            font-size: 0.65em; 
             color: #333333; 
             font-weight: 700;
             text-transform: capitalize;
@@ -147,8 +147,8 @@
         /* New Circle Box Style (Entry Button) */
         .circle-box {
             background-color: #e0e5eb; 
-            width: 80px; /* FINAL SMALLEST SIZE */
-            height: 80px; /* FINAL SMALLEST SIZE */
+            width: 80px; 
+            height: 80px; 
             border-radius: 50%;
             display: flex;
             flex-direction: column;
@@ -168,12 +168,12 @@
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); 
         }
         .circle-box .icon {
-            font-size: 2em; /* FINAL ICON SIZE */
+            font-size: 2em; 
             margin-bottom: 3px; 
             color: #8E44AD; 
         }
         .circle-box p {
-            font-size: 0.7em; /* FINAL FONT SIZE */
+            font-size: 0.7em; 
             font-weight: 700;
             margin: 0;
             color: #555;
@@ -197,7 +197,37 @@
             color: white;
         }
         
-        /* Media Query Removed to fix the size across devices */
+        /* --- নতুন কোড শুরু --- */
+        /* PC/Desktop এর জন্য স্ক্রিন সাইজ অ্যাডজাস্টমেন্ট */
+        @media (min-width: 400px) {
+            .container {
+                /* ডেস্কটপের জন্য ফ্রেমের সর্বোচ্চ আকার 400px এ সেট করা হলো (330px থেকে বেশি) */
+                max-width: 400px; 
+            }
+
+            /* বড় স্ক্রিনের জন্য কিছু ফন্ট ও এলিমেন্টের আকার বাড়ানো (ঐচ্ছিক) */
+            .header h1 {
+                font-size: 1.4em; 
+            }
+            .header p {
+                font-size: 0.75em; 
+            }
+            .circle-box {
+                width: 90px;
+                height: 90px;
+            }
+            .circle-box .icon {
+                font-size: 2.2em; 
+            }
+            .step-box .icon {
+                font-size: 1.6em;
+            }
+            .step-box p {
+                font-size: 0.7em;
+            }
+        }
+        /* --- নতুন কোড শেষ --- */
+
     </style>
 </head>
 <body>
@@ -257,7 +287,9 @@
     <script>
         // JavaScript function to display live time and date
         function updateDateTime() {
+            // বাংলাদেশ টাইমজোন অনুযায়ী সঠিক সময় সেট করার জন্য
             const options = { 
+                timeZone: 'Asia/Dhaka', // Bangladesh Time Zone
                 weekday: 'long', 
                 year: 'numeric', 
                 month: 'long', 
@@ -268,6 +300,7 @@
                 hour12: true 
             };
             
+            // বর্তমান সময় ফরম্যাট করা হচ্ছে
             const formatter = new Intl.DateTimeFormat('en-US', options);
             const formattedDateTime = formatter.format(new Date());
             
