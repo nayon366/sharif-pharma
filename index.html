@@ -34,15 +34,15 @@
         .container {
             background-color: #ffffff;
             width: 100%; 
-            max-width: 550px; /* INCREASED SIZE FOR FRAME */
+            max-width: 500px; /* Max width for desktop/large screens */
             min-height: auto; 
             
             /* Frame/Border Styles */
             border-radius: 20px; 
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2); 
             border: 1px solid #e0e0e0; 
             
-            padding: 50px 40px; /* Increased Padding */
+            padding: 50px 40px; 
             
             display: flex;
             flex-direction: column;
@@ -52,13 +52,13 @@
         /* Header Text */
         .header {
             text-align: center;
-            margin-bottom: 45px; /* Increased Margin */
+            margin-bottom: 45px; 
             width: 100%;
         }
         .header h1 {
             font-family: 'Roboto', sans-serif;
             font-weight: 700;
-            font-size: 2.3em; /* INCREASED SIZE */
+            font-size: 2.1em; 
             margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 3px; 
@@ -73,7 +73,7 @@
         .header p {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 1.1em; /* INCREASED SIZE */
+            font-size: 1em; 
             color: #7a7a7a;
             margin-top: 0;
             font-weight: 300;
@@ -82,9 +82,9 @@
         /* Live Time and Date Style */
         #live-datetime {
             display: block;
-            margin: 20px auto 0; /* Increased Margin */
+            margin: 20px auto 0; 
             padding: 10px 20px; 
-            font-size: 1.1em; /* INCREASED SIZE */
+            font-size: 1em; 
             font-weight: 500;
             color: #555;
             text-align: center;
@@ -98,7 +98,7 @@
         .top-circle-container {
             display: flex;
             justify-content: center; 
-            margin-bottom: 45px; /* Increased Margin */
+            margin-bottom: 45px; 
         }
         
         /* Grid for all 6 steps */
@@ -117,7 +117,7 @@
         }
         .step-box {
             background-color: #fcfcfc; 
-            padding: 25px; /* Increased Padding */
+            padding: 25px; 
             border-radius: 15px; 
             text-align: center;
             box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.08), 
@@ -132,13 +132,13 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
         }
         .step-box .icon {
-            font-size: 3em; /* INCREASED SIZE */
+            font-size: 3em; 
             margin-bottom: 10px;
             color: #666;
         }
         .step-box p {
             margin: 0;
-            font-size: 1em; /* INCREASED SIZE */
+            font-size: 0.9em; 
             color: #333333; 
             font-weight: 700;
             text-transform: capitalize;
@@ -147,8 +147,8 @@
         /* New Circle Box Style (Entry Button) */
         .circle-box {
             background-color: #e0e5eb; 
-            width: 180px; /* INCREASED SIZE */
-            height: 180px; /* INCREASED SIZE */
+            width: 160px; 
+            height: 160px; 
             border-radius: 50%;
             display: flex;
             flex-direction: column;
@@ -168,12 +168,12 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25); 
         }
         .circle-box .icon {
-            font-size: 4em; /* INCREASED SIZE */
+            font-size: 3.5em; 
             margin-bottom: 8px; 
             color: #8E44AD; 
         }
         .circle-box p {
-            font-size: 1.2em; /* INCREASED SIZE */
+            font-size: 1.1em; 
             font-weight: 700;
             margin: 0;
             color: #555;
@@ -197,43 +197,44 @@
             color: white;
         }
 
-        /* --- মোবাইল স্ক্রিনের জন্য বিশেষ পরিবর্তন (Media Query) --- */
-        @media (max-width: 580px) { /* Adjusting media query to new max-width */
+        /* --- মোবাইল স্ক্রিনের জন্য বিশেষভাবে তৈরি পরিবর্তন (Media Query) --- */
+        @media (max-width: 530px) { 
             .container {
-                padding: 20px; 
+                padding: 25px 15px; /* Added more vertical padding */
             }
             .header h1 {
-                font-size: 1.4em; 
+                font-size: 1.6em; /* Slightly larger heading on phone */
                 letter-spacing: 1.5px;
             }
             .steps-grid {
                 grid-template-columns: 1fr; /* Single column layout for small screens */
-                gap: 15px; 
+                gap: 20px; /* Increased gap */
             }
             .top-circle-container {
-                margin-bottom: 25px;
+                margin-bottom: 30px;
             }
+            /* Making buttons bigger and easier to tap */
             .circle-box {
-                width: 120px; 
-                height: 120px;
+                width: 140px; /* Larger tap target */
+                height: 140px;
             }
             .circle-box .icon {
-                font-size: 3em; 
+                font-size: 3.2em; 
             }
             .circle-box p {
-                font-size: 1em;
+                font-size: 1.1em;
             }
             .step-box {
-                padding: 15px; 
+                padding: 20px; /* Increased padding */
             }
             .step-box .icon {
-                font-size: 2.2em; 
+                font-size: 2.5em; /* Larger icon */
             }
             .step-box p {
-                font-size: 0.9em;
+                font-size: 1em; /* Larger button text */
             }
             #live-datetime {
-                font-size: 0.8em;
+                font-size: 0.9em;
             }
         }
     </style>
