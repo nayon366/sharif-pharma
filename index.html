@@ -27,22 +27,23 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 15px; /* DECREASED PADDING */
+            padding: 10px; 
         }
         
         /* Main Container - Centered Frame */
         .container {
             background-color: #ffffff;
             width: 100%; 
-            max-width: 400px; /* SMALLEST SIZE FOR FRAME */
+            /* Fixed width ensures same look on all phones */
+            max-width: 360px; 
             min-height: auto; 
             
             /* Frame/Border Styles */
-            border-radius: 18px; 
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); 
+            border-radius: 15px; 
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1); 
             border: 1px solid #e0e0e0; 
             
-            padding: 30px 20px; /* SMALLEST PADDING */
+            padding: 25px 15px; 
             
             display: flex;
             flex-direction: column;
@@ -52,16 +53,16 @@
         /* Header Text */
         .header {
             text-align: center;
-            margin-bottom: 25px; /* DECREASED MARGIN */
+            margin-bottom: 20px; 
             width: 100%;
         }
         .header h1 {
             font-family: 'Roboto', sans-serif;
             font-weight: 700;
-            font-size: 1.6em; /* SMALLEST HEADING SIZE */
-            margin-bottom: 4px;
+            font-size: 1.4em; 
+            margin-bottom: 3px;
             text-transform: uppercase;
-            letter-spacing: 2px; 
+            letter-spacing: 1.8px; 
             color: #333;
         }
         .header h1 .sharif-text {
@@ -73,7 +74,7 @@
         .header p {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 0.8em; /* SMALLEST SUB-HEADING SIZE */
+            font-size: 0.75em; 
             color: #7a7a7a;
             margin-top: 0;
             font-weight: 300;
@@ -82,30 +83,30 @@
         /* Live Time and Date Style */
         #live-datetime {
             display: block;
-            margin: 12px auto 0; 
-            padding: 6px 12px; 
-            font-size: 0.8em; 
+            margin: 10px auto 0; 
+            padding: 5px 10px; 
+            font-size: 0.7em; 
             font-weight: 500;
             color: #555;
             text-align: center;
             background-color: #f7f7f7;
-            border-radius: 15px;
+            border-radius: 12px;
             width: fit-content;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         /* Centered container for the top circle box */
         .top-circle-container {
             display: flex;
             justify-content: center; 
-            margin-bottom: 30px; 
+            margin-bottom: 25px; 
         }
         
         /* Grid for all 6 steps */
         .steps-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px; /* DECREASED GAP */
+            gap: 10px; 
             align-items: center;
             width: 100%; 
         }
@@ -117,28 +118,28 @@
         }
         .step-box {
             background-color: #fcfcfc; 
-            padding: 15px; /* DECREASED PADDING */
-            border-radius: 10px; 
+            padding: 10px; 
+            border-radius: 8px; 
             text-align: center;
-            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05), 
-                        -1px -1px 3px rgba(255, 255, 255, 0.5);
+            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05), 
+                        -1px -1px 2px rgba(255, 255, 255, 0.5);
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
             cursor: pointer;
             border: 1px solid #eee;
         }
         .step-box:hover {
-            transform: translateY(-2px); 
+            transform: translateY(-1px); 
             background-color: #e0e5eb; 
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08); 
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08); 
         }
         .step-box .icon {
-            font-size: 2em; /* SMALLEST ICON SIZE */
-            margin-bottom: 6px;
+            font-size: 1.8em; 
+            margin-bottom: 4px;
             color: #666;
         }
         .step-box p {
             margin: 0;
-            font-size: 0.8em; /* SMALLEST FONT SIZE */
+            font-size: 0.7em; 
             color: #333333; 
             font-weight: 700;
             text-transform: capitalize;
@@ -147,33 +148,33 @@
         /* New Circle Box Style (Entry Button) */
         .circle-box {
             background-color: #e0e5eb; 
-            width: 120px; /* SMALLEST SIZE */
-            height: 120px; /* SMALLEST SIZE */
+            width: 100px; 
+            height: 100px; 
             border-radius: 50%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            box-shadow: inset 4px 4px 8px #c7cdd4, 
-                        inset -4px -4px 8px #f9ffff;
+            box-shadow: inset 3px 3px 6px #c7cdd4, 
+                        inset -3px -3px 6px #f9ffff;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
             cursor: pointer;
             color: #333333; 
             border: 1px solid #d0d5db;
         }
         .circle-box:hover {
-            transform: scale(1.04); 
+            transform: scale(1.03); 
             background-color: #d1d6db; 
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12); 
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); 
         }
         .circle-box .icon {
-            font-size: 2.8em; /* SMALLEST ICON SIZE */
-            margin-bottom: 4px; 
+            font-size: 2.2em; 
+            margin-bottom: 3px; 
             color: #8E44AD; 
         }
         .circle-box p {
-            font-size: 0.9em; /* SMALLEST FONT SIZE */
+            font-size: 0.8em; 
             font-weight: 700;
             margin: 0;
             color: #555;
@@ -198,42 +199,45 @@
         }
 
         /* --- মোবাইল স্ক্রিনের জন্য বিশেষভাবে তৈরি পরিবর্তন (Media Query) --- */
-        @media (max-width: 420px) { /* Triggering mobile view when screen is smaller than the max-width */
+        /* Since max-width is 360px, this media query ensures single column on smaller phones */
+        @media (max-width: 380px) { 
             .container {
-                padding: 15px 10px; 
+                /* When the screen is very narrow, let the container take most of the width */
+                max-width: 95%; 
+                padding: 15px 8px; 
             }
             .header h1 {
-                font-size: 1.4em; 
-                letter-spacing: 1.5px;
+                font-size: 1.2em; 
+                letter-spacing: 1.2px;
             }
             .steps-grid {
-                grid-template-columns: 1fr; /* Single column layout for small screens */
-                gap: 12px; 
+                grid-template-columns: 1fr; /* Single column layout for very small screens */
+                gap: 10px; 
             }
             .top-circle-container {
                 margin-bottom: 15px;
             }
             .circle-box {
-                width: 90px; 
-                height: 90px;
+                width: 80px; 
+                height: 80px;
             }
             .circle-box .icon {
-                font-size: 2.2em; 
-            }
-            .circle-box p {
-                font-size: 0.8em;
-            }
-            .step-box {
-                padding: 12px; 
-            }
-            .step-box .icon {
                 font-size: 1.8em; 
             }
+            .circle-box p {
+                font-size: 0.7em;
+            }
+            .step-box {
+                padding: 10px; 
+            }
+            .step-box .icon {
+                font-size: 1.5em; 
+            }
             .step-box p {
-                font-size: 0.75em; 
+                font-size: 0.7em; 
             }
             #live-datetime {
-                font-size: 0.7em;
+                font-size: 0.6em;
             }
         }
     </style>
