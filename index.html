@@ -23,27 +23,26 @@
         /* General Styles */
         body {
             font-family: 'Roboto', sans-serif;
-            /* Background: Soft gradient now fills the entire screen */
             background: linear-gradient(135deg, #f0f4f7, #e0e5eb);
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px; /* Padding for the body so the frame doesn't touch the screen edge */
+            padding: 20px; 
         }
         
         /* Main Container - Centered Frame */
         .container {
             background-color: #ffffff;
             width: 100%; 
-            max-width: 450px; /* SETTING MAX WIDTH FOR CENTERING/FRAMING */
-            min-height: auto; /* Allows content to define height */
+            max-width: 550px; /* INCREASED SIZE FOR FRAME */
+            min-height: auto; 
             
             /* Frame/Border Styles */
             border-radius: 20px; 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Nice strong shadow for frame effect */
-            border: 1px solid #e0e0e0; /* Subtle border for clarity */
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+            border: 1px solid #e0e0e0; 
             
-            padding: 45px 35px; 
+            padding: 50px 40px; /* Increased Padding */
             
             display: flex;
             flex-direction: column;
@@ -53,16 +52,16 @@
         /* Header Text */
         .header {
             text-align: center;
-            margin-bottom: 40px; 
+            margin-bottom: 45px; /* Increased Margin */
             width: 100%;
         }
         .header h1 {
             font-family: 'Roboto', sans-serif;
             font-weight: 700;
-            font-size: 1.8em; /* Slightly adjusted size for frame */
-            margin-bottom: 5px;
+            font-size: 2.3em; /* INCREASED SIZE */
+            margin-bottom: 8px;
             text-transform: uppercase;
-            letter-spacing: 2.5px; 
+            letter-spacing: 3px; 
             color: #333;
         }
         .header h1 .sharif-text {
@@ -74,7 +73,7 @@
         .header p {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 1em; 
+            font-size: 1.1em; /* INCREASED SIZE */
             color: #7a7a7a;
             margin-top: 0;
             font-weight: 300;
@@ -83,14 +82,14 @@
         /* Live Time and Date Style */
         #live-datetime {
             display: block;
-            margin: 18px auto 0; 
-            padding: 8px 15px; 
-            font-size: 0.9em; 
+            margin: 20px auto 0; /* Increased Margin */
+            padding: 10px 20px; 
+            font-size: 1.1em; /* INCREASED SIZE */
             font-weight: 500;
             color: #555;
             text-align: center;
             background-color: #f7f7f7;
-            border-radius: 20px;
+            border-radius: 25px;
             width: fit-content;
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
         }
@@ -99,14 +98,14 @@
         .top-circle-container {
             display: flex;
             justify-content: center; 
-            margin-bottom: 40px; 
+            margin-bottom: 45px; /* Increased Margin */
         }
         
         /* Grid for all 6 steps */
         .steps-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px; 
+            gap: 25px; 
             align-items: center;
             width: 100%; 
         }
@@ -118,28 +117,28 @@
         }
         .step-box {
             background-color: #fcfcfc; 
-            padding: 20px; 
+            padding: 25px; /* Increased Padding */
             border-radius: 15px; 
             text-align: center;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05), 
-                        -2px -2px 5px rgba(255, 255, 255, 0.5);
+            box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.08), 
+                        -3px -3px 7px rgba(255, 255, 255, 0.5);
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
             cursor: pointer;
             border: 1px solid #eee;
         }
         .step-box:hover {
-            transform: translateY(-3px); 
+            transform: translateY(-4px); 
             background-color: #e0e5eb; 
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
         }
         .step-box .icon {
-            font-size: 2.5em; 
-            margin-bottom: 8px;
+            font-size: 3em; /* INCREASED SIZE */
+            margin-bottom: 10px;
             color: #666;
         }
         .step-box p {
             margin: 0;
-            font-size: 0.9em; 
+            font-size: 1em; /* INCREASED SIZE */
             color: #333333; 
             font-weight: 700;
             text-transform: capitalize;
@@ -148,33 +147,33 @@
         /* New Circle Box Style (Entry Button) */
         .circle-box {
             background-color: #e0e5eb; 
-            width: 150px; /* Adjusted size for the frame */
-            height: 150px; 
+            width: 180px; /* INCREASED SIZE */
+            height: 180px; /* INCREASED SIZE */
             border-radius: 50%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            box-shadow: inset 5px 5px 10px #c7cdd4, 
-                        inset -5px -5px 10px #f9ffff;
+            box-shadow: inset 7px 7px 14px #c7cdd4, 
+                        inset -7px -7px 14px #f9ffff;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
             cursor: pointer;
             color: #333333; 
             border: 1px solid #d0d5db;
         }
         .circle-box:hover {
-            transform: scale(1.05); 
+            transform: scale(1.06); 
             background-color: #d1d6db; 
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25); 
         }
         .circle-box .icon {
-            font-size: 3.5em; 
-            margin-bottom: 5px; 
+            font-size: 4em; /* INCREASED SIZE */
+            margin-bottom: 8px; 
             color: #8E44AD; 
         }
         .circle-box p {
-            font-size: 1.1em; 
+            font-size: 1.2em; /* INCREASED SIZE */
             font-weight: 700;
             margin: 0;
             color: #555;
@@ -194,37 +193,47 @@
         }
         .alt-color:hover { 
             background-color: #9d856d; 
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
             color: white;
         }
 
         /* --- মোবাইল স্ক্রিনের জন্য বিশেষ পরিবর্তন (Media Query) --- */
-        @media (max-width: 480px) { /* Targeting smaller phones */
+        @media (max-width: 580px) { /* Adjusting media query to new max-width */
             .container {
                 padding: 20px; 
-                border-radius: 15px; /* Keeps border-radius on small phones */
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             }
             .header h1 {
-                font-size: 1.2em; 
-                letter-spacing: 1px;
+                font-size: 1.4em; 
+                letter-spacing: 1.5px;
             }
             .steps-grid {
-                grid-template-columns: 1fr; /* Single column layout for very small screens */
+                grid-template-columns: 1fr; /* Single column layout for small screens */
                 gap: 15px; 
             }
             .top-circle-container {
                 margin-bottom: 25px;
             }
             .circle-box {
-                width: 100px; 
-                height: 100px;
+                width: 120px; 
+                height: 120px;
             }
             .circle-box .icon {
-                font-size: 2.5em; 
+                font-size: 3em; 
             }
             .circle-box p {
+                font-size: 1em;
+            }
+            .step-box {
+                padding: 15px; 
+            }
+            .step-box .icon {
+                font-size: 2.2em; 
+            }
+            .step-box p {
                 font-size: 0.9em;
+            }
+            #live-datetime {
+                font-size: 0.8em;
             }
         }
     </style>
