@@ -1,326 +1,337 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sharif Pharmaceuticals Limited</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
-    <style>
-        /* CSS Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharif Pharmaceuticals Limited</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    
+    <link rel="manifest" href="manifest.json">
+    
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        html, body {
-            height: 100%;
-            min-height: 100vh;
-        }
+        html, body {
+            height: 100%;
+            min-height: 100vh;
+        }
 
-        /* General Styles */
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #f0f4f7, #e0e5eb);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px; 
-        }
-        
-        /* Main Container - Centered Frame */
-        .container {
-            background-color: #ffffff;
-            width: 100%; 
-            max-width: 330px; /* মোবাইলের জন্য নির্দিষ্ট প্রস্থ */
-            min-height: auto; 
-            
-            /* Frame/Border Styles */
-            border-radius: 15px; 
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1); 
-            border: 1px solid #e0e0e0; 
-            
-            padding: 20px 15px; 
-            
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        /* General Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f0f4f7, #e0e5eb);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px; 
+        }
+        
+        /* Main Container - Centered Frame */
+        .container {
+            background-color: #ffffff;
+            width: 100%; 
+            max-width: 330px; /* মোবাইলের জন্য নির্দিষ্ট প্রস্থ */
+            min-height: auto; 
+            
+            /* Frame/Border Styles */
+            border-radius: 15px; 
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1); 
+            border: 1px solid #e0e0e0; 
+            
+            padding: 20px 15px; 
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-        /* Header Text */
-        .header {
-            text-align: center;
-            margin-bottom: 18px; 
-            width: 100%;
-        }
-        .header h1 {
-            font-family: 'Roboto', sans-serif;
-            font-weight: 700;
-            font-size: 1.3em; 
-            margin-bottom: 3px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px; 
-            color: #333;
-        }
-        .header h1 .sharif-text {
-            color: #E74C3C; 
-        }
-        .header h1 .pharma-text {
-            color: #3498DB; 
-        }
-        .header p {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 0.7em; 
-            color: #7a7a7a;
-            margin-top: 0;
-            font-weight: 300;
-        }
-        
-        /* Live Time and Date Style (মোবাইল ও PC এর জন্য রং পরিবর্তন) */
-        #live-datetime {
-            display: block;
-            margin: 8px auto 0; 
-            padding: 8px 12px; 
-            font-size: 1em; /* ফন্ট সাইজ বড় করা হলো (মোবাইলের জন্য) */
-            font-weight: 700;
-            color: #27AE60; /* **সবুজ রং সেট করা হলো** */
-            text-align: center;
-            background-color: #e0e5eb; 
-            border-radius: 12px;
-            width: fit-content;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
-        }
+        /* Header Text */
+        .header {
+            text-align: center;
+            margin-bottom: 18px; 
+            width: 100%;
+        }
+        .header h1 {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: 1.3em; 
+            margin-bottom: 3px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px; 
+            color: #333;
+        }
+        .header h1 .sharif-text {
+            color: #E74C3C; 
+        }
+        .header h1 .pharma-text {
+            color: #3498DB; 
+        }
+        .header p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.7em; 
+            color: #7a7a7a;
+            margin-top: 0;
+            font-weight: 300;
+        }
+        
+        /* Live Time and Date Style (মোবাইল ও PC এর জন্য রং পরিবর্তন) */
+        #live-datetime {
+            display: block;
+            margin: 8px auto 0; 
+            padding: 8px 12px; 
+            font-size: 1em; /* ফন্ট সাইজ বড় করা হলো (মোবাইলের জন্য) */
+            font-weight: 700;
+            color: #27AE60; /* **সবুজ রং সেট করা হলো** */
+            text-align: center;
+            background-color: #e0e5eb; 
+            border-radius: 12px;
+            width: fit-content;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
+        }
 
-        /* Centered container for the top circle box */
-        .top-circle-container {
-            display: flex;
-            justify-content: center; 
-            margin-bottom: 25px; 
-        }
-        
-        /* Grid for all 6 steps */
-        .steps-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px; 
-            align-items: center;
-            width: 100%; 
-        }
-        
-        /* Step Box and Link Style */
-        .step-link, .circle-link {
-            text-decoration: none;
-            color: inherit;
-        }
-        .step-box {
-            background-color: #fcfcfc; 
-            padding: 10px 5px; 
-            border-radius: 8px; 
-            text-align: center;
-            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05), 
-                        -1px -1px 2px rgba(255, 255, 255, 0.5);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
-            cursor: pointer;
-            border: 1px solid #eee;
-        }
-        .step-box:hover {
-            transform: translateY(-1px); 
-            background-color: #e0e5eb; 
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08); 
-        }
-        .step-box .icon {
-            font-size: 1.5em; 
-            margin-bottom: 3px;
-            color: #666;
-        }
-        .step-box p {
-            margin: 0;
-            font-size: 0.65em; 
-            color: #333333; 
-            font-weight: 700;
-            text-transform: capitalize;
-        }
-        
-        /* New Circle Box Style (Entry Button) */
-        .circle-box {
-            background-color: #e0e5eb; 
-            width: 90px; 
-            height: 90px; 
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            box-shadow: inset 3px 3px 6px #c7cdd4, 
-                        inset -3px -3px 6px #f9ffff;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
-            cursor: pointer;
-            color: #333333; 
-            border: 1px solid #d0d5db;
-        }
-        .circle-box:hover {
-            transform: scale(1.03); 
-            background-color: #d1d6db; 
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); 
-        }
-        .circle-box .icon {
-            font-size: 2.2em; 
-            margin-bottom: 3px; 
-            color: #3498DB; 
-        }
-        .circle-box p {
-            font-size: 0.7em; 
-            font-weight: 700;
-            margin: 0;
-            color: #555;
-        }
-        
-        /* Alternating Color Style */
-        .alt-color {
-            background-color: #b1947b; 
-            color: white; 
-            border: none;
-        }
-        .alt-color .icon { 
-            color: white;
-        }
-        .alt-color p { 
-            color: white;
-        }
-        .alt-color:hover { 
-            background-color: #9d856d; 
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
-            color: white;
-        }
-        
-        /* --- ডেস্কটপ/পিসি স্টাইল পরিবর্তন (PC/Desktop Style Adjustment) --- */
-        @media (min-width: 400px) {
-            .container {
-                /* আপনার দেওয়া মান */
-                max-width: 600px; 
-                min-height: 780px; 
-                justify-content: space-around; 
-                
-                padding: 40px 60px; 
-            }
+        /* Centered container for the top circle box */
+        .top-circle-container {
+            display: flex;
+            justify-content: center; 
+            margin-bottom: 25px; 
+        }
+        
+        /* Grid for all 6 steps */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px; 
+            align-items: center;
+            width: 100%; 
+        }
+        
+        /* Step Box and Link Style */
+        .step-link, .circle-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .step-box {
+            background-color: #fcfcfc; 
+            padding: 10px 5px; 
+            border-radius: 8px; 
+            text-align: center;
+            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05), 
+                        -1px -1px 2px rgba(255, 255, 255, 0.5);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            cursor: pointer;
+            border: 1px solid #eee;
+        }
+        .step-box:hover {
+            transform: translateY(-1px); 
+            background-color: #e0e5eb; 
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08); 
+        }
+        .step-box .icon {
+            font-size: 1.5em; 
+            margin-bottom: 3px;
+            color: #666;
+        }
+        .step-box p {
+            margin: 0;
+            font-size: 0.65em; 
+            color: #333333; 
+            font-weight: 700;
+            text-transform: capitalize;
+        }
+        
+        /* New Circle Box Style (Entry Button) */
+        .circle-box {
+            background-color: #e0e5eb; 
+            width: 90px; 
+            height: 90px; 
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: inset 3px 3px 6px #c7cdd4, 
+                        inset -3px -3px 6px #f9ffff;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            cursor: pointer;
+            color: #333333; 
+            border: 1px solid #d0d5db;
+        }
+        .circle-box:hover {
+            transform: scale(1.03); 
+            background-color: #d1d6db; 
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); 
+        }
+        .circle-box .icon {
+            font-size: 2.2em; 
+            margin-bottom: 3px; 
+            color: #3498DB; 
+        }
+        .circle-box p {
+            font-size: 0.7em; 
+            font-weight: 700;
+            margin: 0;
+            color: #555;
+        }
+        
+        /* Alternating Color Style */
+        .alt-color {
+            background-color: #b1947b; 
+            color: white; 
+            border: none;
+        }
+        .alt-color .icon { 
+            color: white;
+        }
+        .alt-color p { 
+            color: white;
+        }
+        .alt-color:hover { 
+            background-color: #9d856d; 
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
+            color: white;
+        }
+        
+        /* --- ডেস্কটপ/পিসি স্টাইল পরিবর্তন (PC/Desktop Style Adjustment) --- */
+        @media (min-width: 400px) {
+            .container {
+                /* আপনার দেওয়া মান */
+                max-width: 600px; 
+                min-height: 780px; 
+                justify-content: space-around; 
+                
+                padding: 40px 60px; 
+            }
 
-            /* ফ্রেমের আকারের সাথে মানিয়ে নিতে ফন্ট এবং এলিমেন্টের আকার বাড়ানো হলো */
-            .header h1 {
-                font-size: 1.8em; 
-            }
-            .header p {
-                font-size: 0.9em; 
-            }
-            /* PC তে লাইভ সময় আরও বড় */
-            #live-datetime {
-                font-size: 1.4em; /* PC এর জন্য আরও বেশি বড় ফন্ট */
-                padding: 10px 20px; 
-            }
-            .circle-box {
-                width: 180px; 
-                height: 180px;
-            }
-            .circle-box .icon {
-                font-size: 3.5em; 
-            }
-            .step-box {
-                padding: 20px 15px; 
-            }
-            .step-box .icon {
-                font-size: 2em;
-            }
-            .step-box p {
-                font-size: 0.9em;
-            }
-        }
-        /* --- ডেস্কটপ/পিসি স্টাইল পরিবর্তন শেষ --- */
+            /* ফ্রেমের আকারের সাথে মানিয়ে নিতে ফন্ট এবং এলিমেন্টের আকার বাড়ানো হলো */
+            .header h1 {
+                font-size: 1.8em; 
+            }
+            .header p {
+                font-size: 0.9em; 
+            }
+            /* PC তে লাইভ সময় আরও বড় */
+            #live-datetime {
+                font-size: 1.4em; /* PC এর জন্য আরও বেশি বড় ফন্ট */
+                padding: 10px 20px; 
+            }
+            .circle-box {
+                width: 180px; 
+                height: 180px;
+            }
+            .circle-box .icon {
+                font-size: 3.5em; 
+            }
+            .step-box {
+                padding: 20px 15px; 
+            }
+            .step-box .icon {
+                font-size: 2em;
+            }
+            .step-box p {
+                font-size: 0.9em;
+            }
+        }
+        /* --- ডেস্কটপ/পিসি স্টাইল পরিবর্তন শেষ --- */
 
-    </style>
+    </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="header">
-            <h1><span class="sharif-text">SHARIF</span> <span class="pharma-text">PHARMACEUTICALS LIMITED</span></h1>
-            <span id="live-datetime"></span>
-        </div>
-        <div class="top-circle-container">
-            <a href="daily_collection_entry.html" class="circle-link">
-                <div class="circle-box">
-                    <span class="icon">👆</span> <p>Entry</p> </div>
-            </a>
-        </div>
-        <div class="steps-grid">
-            <a href="daily_collection.html" class="step-link">
-                <div class="step-box alt-color">
-                    <span class="icon">&#x1F30D;</span> 
-                    <p>Daily Collection</p>
-                </div>
-            </a>
-            <a href="https://docs.google.com/spreadsheets/d/17lldJAmazO3wxN4CinkR4wtW2WQexPPidvgYGVDGzq8/edit?gid=0#gid=0" class="step-link">
-                <div class="step-box">
-                    <span class="icon">&#x1F6D2;</span>
-                    <p>দৈনিক হিসাব</p>
-                </div>
-            </a>
-            <a href="https://docs.google.com/spreadsheets/d/1d5DTcnexyZWp4h4I3RyAVglVFZMU-B69phMbpZrButs/edit?gid=0" target="_blank" class="step-link">
-                <div class="step-box alt-color">
-                    <span class="icon">&#x1F6CD;</span>
-                    <p>টাকা পেইড</p>
-                </div>
-            </a>
-            <a href="daily_summary2.html" class="step-link">
-                <div class="step-box">
-                    <span class="icon">📈</span> 
-                    <p>Daily Summary2</p>
-                </div>
-            </a>
-            <a href="master_summary.html" class="step-link">
-                <div class="step-box alt-color">
-                    <span class="icon">&#x1F4E6;</span>
-                    <p>Master Summary</p>
-                </div>
-            </a>
-            <a href="master_summary2.html" class="step-link">
-                <div class="step-box">
-                    <span class="icon">&#x1F4B3;</span>
-                    <p>Master Summary2</p>
-                </div>
-            </a>
-        </div>
-        <div class="footer"></div>
-    </div>
+    <div class="container">
+        <div class="header">
+            <h1><span class="sharif-text">SHARIF</span> <span class="pharma-text">PHARMACEUTICALS LIMITED</span></h1>
+            <span id="live-datetime"></span>
+        </div>
+        <div class="top-circle-container">
+            <a href="daily_collection_entry.html" class="circle-link">
+                <div class="circle-box">
+                    <span class="icon">👆</span> <p>Entry</p> </div>
+            </a>
+        </div>
+        <div class="steps-grid">
+            <a href="daily_collection.html" class="step-link">
+                <div class="step-box alt-color">
+                    <span class="icon">&#x1F30D;</span> 
+                    <p>Daily Collection</p>
+                </div>
+            </a>
+            <a href="https://docs.google.com/spreadsheets/d/17lldJAmazO3wxN4CinkR4wtW2WQexPPidvgYGVDGzq8/edit?gid=0#gid=0" class="step-link">
+                <div class="step-box">
+                    <span class="icon">&#x1F6D2;</span>
+                    <p>দৈনিক হিসাব</p>
+                </div>
+            </a>
+            <a href="https://docs.google.com/spreadsheets/d/1d5DTcnexyZWp4h4I3RyAVglVFZMU-B69phMbpZrButs/edit?gid=0" target="_blank" class="step-link">
+                <div class="step-box alt-color">
+                    <span class="icon">&#x1F6CD;</span>
+                    <p>টাকা পেইড</p>
+                </div>
+            </a>
+            <a href="daily_summary2.html" class="step-link">
+                <div class="step-box">
+                    <span class="icon">📈</span> 
+                    <p>Daily Summary2</p>
+                </div>
+            </a>
+            <a href="master_summary.html" class="step-link">
+                <div class="step-box alt-color">
+                    <span class="icon">&#x1F4E6;</span>
+                    <p>Master Summary</p>
+                </div>
+            </a>
+            <a href="master_summary2.html" class="step-link">
+                <div class="step-box">
+                    <span class="icon">&#x1F4B3;</span>
+                    <p>Master Summary2</p>
+                </div>
+            </a>
+        </div>
+        <div class="footer"></div>
+    </div>
 
+    <script>
+        // JavaScript function to display live time and date
+        function updateDateTime() {
+            // বাংলাদেশ টাইমজোন অনুযায়ী সঠিক সময় সেট করার জন্য
+            const options = { 
+                timeZone: 'Asia/Dhaka', // Bangladesh Time Zone (GMT+6)
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit', 
+                hour12: true 
+            };
+            
+            // বর্তমান সময় ফরম্যাট করা হচ্ছে
+            const formatter = new Intl.DateTimeFormat('en-US', options);
+            const formattedDateTime = formatter.format(new Date());
+            
+            document.getElementById('live-datetime').textContent = formattedDateTime;
+        }
+
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+    </script>
+    
     <script>
-        // JavaScript function to display live time and date
-        function updateDateTime() {
-            // বাংলাদেশ টাইমজোন অনুযায়ী সঠিক সময় সেট করার জন্য
-            const options = { 
-                timeZone: 'Asia/Dhaka', // Bangladesh Time Zone (GMT+6)
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric', 
-                hour: '2-digit', 
-                minute: '2-digit', 
-                second: '2-digit', 
-                hour12: true 
-            };
-            
-            // বর্তমান সময় ফরম্যাট করা হচ্ছে
-            const formatter = new Intl.DateTimeFormat('en-US', options);
-            const formattedDateTime = formatter.format(new Date());
-            
-            document.getElementById('live-datetime').textContent = formattedDateTime;
-        }
-
-        updateDateTime();
-        setInterval(updateDateTime, 1000);
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js")
+      .then(() => console.log("✅ Service worker registered"))
+      .catch(err => console.log("❌ SW error", err));
+    }
     </script>
-
+    
 </body>
 </html>
