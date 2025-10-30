@@ -1,337 +1,315 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sharif Pharmaceuticals Limited</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Collection Entry</title>
     
-    <link rel="manifest" href="manifest.json">
     
-    <style>
-        /* CSS Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="db.js" defer></script>
+    
+    <style>
+        :root {
+            --primary-color: #3498DB;
+            --secondary-color: #27AE60;
+            --background-light: #ecf0f3;
+            --surface-light: #ffffff;
+            --text-dark: #333333;
+            --text-muted: #7f8c8d;
+            --shadow-light: 6px 6px 12px rgba(0, 0, 0, 0.1), -6px -6px 12px rgba(255, 255, 255, 0.9);
+            --shadow-inset: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.7);
+            --border-radius: 12px;
+        }
 
-        html, body {
-            height: 100%;
-            min-height: 100vh;
-        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+            color: var(--text-dark);
+        }
 
-        /* General Styles */
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #f0f4f7, #e0e5eb);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px; 
-        }
-        
-        /* Main Container - Centered Frame */
-        .container {
-            background-color: #ffffff;
-            width: 100%; 
-            max-width: 330px; /* মোবাইলের জন্য নির্দিষ্ট প্রস্থ */
-            min-height: auto; 
-            
-            /* Frame/Border Styles */
-            border-radius: 15px; 
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1); 
-            border: 1px solid #e0e0e0; 
-            
-            padding: 20px 15px; 
-            
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        .form-container {
+            background-color: var(--surface-light);
+            max-width: 400px;
+            width: 100%;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            position: relative;
+        }
 
-        /* Header Text */
-        .header {
-            text-align: center;
-            margin-bottom: 18px; 
-            width: 100%;
-        }
-        .header h1 {
-            font-family: 'Roboto', sans-serif;
-            font-weight: 700;
-            font-size: 1.3em; 
-            margin-bottom: 3px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px; 
-            color: #333;
-        }
-        .header h1 .sharif-text {
-            color: #E74C3C; 
-        }
-        .header h1 .pharma-text {
-            color: #3498DB; 
-        }
-        .header p {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 0.7em; 
-            color: #7a7a7a;
-            margin-top: 0;
-            font-weight: 300;
-        }
-        
-        /* Live Time and Date Style (মোবাইল ও PC এর জন্য রং পরিবর্তন) */
-        #live-datetime {
-            display: block;
-            margin: 8px auto 0; 
-            padding: 8px 12px; 
-            font-size: 1em; /* ফন্ট সাইজ বড় করা হলো (মোবাইলের জন্য) */
-            font-weight: 700;
-            color: #27AE60; /* **সবুজ রং সেট করা হলো** */
-            text-align: center;
-            background-color: #e0e5eb; 
-            border-radius: 12px;
-            width: fit-content;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
-        }
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
 
-        /* Centered container for the top circle box */
-        .top-circle-container {
-            display: flex;
-            justify-content: center; 
-            margin-bottom: 25px; 
-        }
-        
-        /* Grid for all 6 steps */
-        .steps-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px; 
-            align-items: center;
-            width: 100%; 
-        }
-        
-        /* Step Box and Link Style */
-        .step-link, .circle-link {
-            text-decoration: none;
-            color: inherit;
-        }
-        .step-box {
-            background-color: #fcfcfc; 
-            padding: 10px 5px; 
-            border-radius: 8px; 
-            text-align: center;
-            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05), 
-                        -1px -1px 2px rgba(255, 255, 255, 0.5);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
-            cursor: pointer;
-            border: 1px solid #eee;
-        }
-        .step-box:hover {
-            transform: translateY(-1px); 
-            background-color: #e0e5eb; 
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08); 
-        }
-        .step-box .icon {
-            font-size: 1.5em; 
-            margin-bottom: 3px;
-            color: #666;
-        }
-        .step-box p {
-            margin: 0;
-            font-size: 0.65em; 
-            color: #333333; 
-            font-weight: 700;
-            text-transform: capitalize;
-        }
-        
-        /* New Circle Box Style (Entry Button) */
-        .circle-box {
-            background-color: #e0e5eb; 
-            width: 90px; 
-            height: 90px; 
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            box-shadow: inset 3px 3px 6px #c7cdd4, 
-                        inset -3px -3px 6px #f9ffff;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
-            cursor: pointer;
-            color: #333333; 
-            border: 1px solid #d0d5db;
-        }
-        .circle-box:hover {
-            transform: scale(1.03); 
-            background-color: #d1d6db; 
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); 
-        }
-        .circle-box .icon {
-            font-size: 2.2em; 
-            margin-bottom: 3px; 
-            color: #3498DB; 
-        }
-        .circle-box p {
-            font-size: 0.7em; 
-            font-weight: 700;
-            margin: 0;
-            color: #555;
-        }
-        
-        /* Alternating Color Style */
-        .alt-color {
-            background-color: #b1947b; 
-            color: white; 
-            border: none;
-        }
-        .alt-color .icon { 
-            color: white;
-        }
-        .alt-color p { 
-            color: white;
-        }
-        .alt-color:hover { 
-            background-color: #9d856d; 
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
-            color: white;
-        }
-        
-        /* --- ডেস্কটপ/পিসি স্টাইল পরিবর্তন (PC/Desktop Style Adjustment) --- */
-        @media (min-width: 400px) {
-            .container {
-                /* আপনার দেওয়া মান */
-                max-width: 600px; 
-                min-height: 780px; 
-                justify-content: space-around; 
-                
-                padding: 40px 60px; 
-            }
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95em;
+        }
 
-            /* ফ্রেমের আকারের সাথে মানিয়ে নিতে ফন্ট এবং এলিমেন্টের আকার বাড়ানো হলো */
-            .header h1 {
-                font-size: 1.8em; 
-            }
-            .header p {
-                font-size: 0.9em; 
-            }
-            /* PC তে লাইভ সময় আরও বড় */
-            #live-datetime {
-                font-size: 1.4em; /* PC এর জন্য আরও বেশি বড় ফন্ট */
-                padding: 10px 20px; 
-            }
-            .circle-box {
-                width: 180px; 
-                height: 180px;
-            }
-            .circle-box .icon {
-                font-size: 3.5em; 
-            }
-            .step-box {
-                padding: 20px 15px; 
-            }
-            .step-box .icon {
-                font-size: 2em;
-            }
-            .step-box p {
-                font-size: 0.9em;
-            }
-        }
-        /* --- ডেস্কটপ/পিসি স্টাইল পরিবর্তন শেষ --- */
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--background-light);
+            box-shadow: var(--shadow-inset);
+            color: var(--text-dark);
+            font-size: 0.9em;
+            transition: all 0.2s ease;
+        }
 
-    </style>
+        input:focus, select:focus {
+            outline: none;
+            box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.05), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
+            background-color: #e2e6eb;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            margin-top: 25px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2ecc71;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.15), -4px -4px 8px rgba(255, 255, 255, 0.7);
+        }
+
+        #response, #syncStatus {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.9em;
+            box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        #response {
+            color: #c0392b;
+            background-color: #fcecec;
+            border: 1px solid #e74c3c;
+        }
+        #response.success {
+            color: #27ae60;
+            background-color: #eaf7ed;
+            border: 1px solid #2ecc71;
+        }
+        #response.info {
+            color: #2980b9;
+            background-color: #e8f3f8;
+            border: 1px solid #3498db;
+        }
+
+        #syncStatus {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            display: none;
+        }
+        
+        datalist {
+            /* Datalist styles */
+        }
+    </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="header">
-            <h1><span class="sharif-text">SHARIF</span> <span class="pharma-text">PHARMACEUTICALS LIMITED</span></h1>
-            <span id="live-datetime"></span>
-        </div>
-        <div class="top-circle-container">
-            <a href="daily_collection_entry.html" class="circle-link">
-                <div class="circle-box">
-                    <span class="icon">👆</span> <p>Entry</p> </div>
-            </a>
-        </div>
-        <div class="steps-grid">
-            <a href="daily_collection.html" class="step-link">
-                <div class="step-box alt-color">
-                    <span class="icon">&#x1F30D;</span> 
-                    <p>Daily Collection</p>
-                </div>
-            </a>
-            <a href="https://docs.google.com/spreadsheets/d/17lldJAmazO3wxN4CinkR4wtW2WQexPPidvgYGVDGzq8/edit?gid=0#gid=0" class="step-link">
-                <div class="step-box">
-                    <span class="icon">&#x1F6D2;</span>
-                    <p>দৈনিক হিসাব</p>
-                </div>
-            </a>
-            <a href="https://docs.google.com/spreadsheets/d/1d5DTcnexyZWp4h4I3RyAVglVFZMU-B69phMbpZrButs/edit?gid=0" target="_blank" class="step-link">
-                <div class="step-box alt-color">
-                    <span class="icon">&#x1F6CD;</span>
-                    <p>টাকা পেইড</p>
-                </div>
-            </a>
-            <a href="daily_summary2.html" class="step-link">
-                <div class="step-box">
-                    <span class="icon">📈</span> 
-                    <p>Daily Summary2</p>
-                </div>
-            </a>
-            <a href="master_summary.html" class="step-link">
-                <div class="step-box alt-color">
-                    <span class="icon">&#x1F4E6;</span>
-                    <p>Master Summary</p>
-                </div>
-            </a>
-            <a href="master_summary2.html" class="step-link">
-                <div class="step-box">
-                    <span class="icon">&#x1F4B3;</span>
-                    <p>Master Summary2</p>
-                </div>
-            </a>
-        </div>
-        <div class="footer"></div>
-    </div>
+    <div class="form-container">
+        <h2>দৈনিক কালেকশন এন্ট্রি</h2>
+        
+        <form id="collectionForm">
+            <label for="date">তারিখ:</label>
+            <input type="date" name="date" id="date" required>
+            
+            <label for="customer">কাস্টমারের নাম:</label>
+            <input name="customer" id="customer" list="customer-list" placeholder="নাম টাইপ করুন বা তালিকা থেকে নির্বাচন করুন" required autocomplete="off">
+            <datalist id="customer-list"></datalist>
 
-    <script>
-        // JavaScript function to display live time and date
-        function updateDateTime() {
-            // বাংলাদেশ টাইমজোন অনুযায়ী সঠিক সময় সেট করার জন্য
-            const options = { 
-                timeZone: 'Asia/Dhaka', // Bangladesh Time Zone (GMT+6)
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric', 
-                hour: '2-digit', 
-                minute: '2-digit', 
-                second: '2-digit', 
-                hour12: true 
-            };
-            
-            // বর্তমান সময় ফরম্যাট করা হচ্ছে
-            const formatter = new Intl.DateTimeFormat('en-US', options);
-            const formattedDateTime = formatter.format(new Date());
-            
-            document.getElementById('live-datetime').textContent = formattedDateTime;
-        }
+            <label for="payment">কালেকশন অ্যামাউন্ট:</label>
+            <input type="number" name="payment" id="payment" placeholder="যেমন: ৳3000" min="0" step="1">
 
-        updateDateTime();
-        setInterval(updateDateTime, 1000);
-    </script>
-    
+            <label for="invoice">ইনভয়েস ভ্যালু (ঐচ্ছিক):</label>
+            <input type="number" name="invoice" id="invoice" placeholder="যেমন: ৳5000">
+            
+            <button type="submit">ডেটা সেভ করুন</button>
+        </form>
+        
+        <div id="response" class="info"></div>
+        <div id="syncStatus">অফলাইনে সেভ করা আছে। ইন্টারনেট সংযোগ পেলে অটো-আপলোড হবে।</div>
+        
+    </div>
+
     <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("service-worker.js")
-      .then(() => console.log("✅ Service worker registered"))
-      .catch(err => console.log("❌ SW error", err));
-    }
+        // 🚨 Apps Script URL এখন চূড়ান্তভাবে এখানে সেট করা হলো 🚨
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwJhFLb6i0JhfOmxtgWeaGT_1gA2LJL-PeL_N6xgqWBWz0KSuh1seLOXQzoLD-U6ktE/exec'; 
+        const CUSTOMER_FETCH_URL = SCRIPT_URL + '?data=customers'; 
+        
+        const form = document.getElementById('collectionForm');
+        const responseDiv = document.getElementById('response');
+        const syncStatusDiv = document.getElementById('syncStatus');
+        const customerDatalist = document.getElementById('customer-list');
+
+        // --- IndexedDB ফাংশনগুলো db.js থেকে আসে ---
+
+        // 1. ফর্ম সাবমিট হ্যান্ডলার (অফলাইন সেভ)
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = {
+                date: document.getElementById('date').value,
+                customer: document.getElementById('customer').value.trim(),
+                payment: document.getElementById('payment').value || 0,
+                invoice: document.getElementById('invoice').value || 0
+            };
+            
+            if (!formData.customer) {
+                responseDiv.className = 'error';
+                responseDiv.textContent = '❌ কাস্টমারের নাম দিতে হবে!';
+                return;
+            }
+
+            responseDiv.className = 'info';
+            responseDiv.textContent = '⏳ ডেটা অফলাইনে সেভ হচ্ছে...';
+            
+            try {
+                // Save to IndexedDB
+                await saveOffline(formData); 
+                
+                responseDiv.className = 'success';
+                responseDiv.textContent = '✅ ডেটা অফলাইনে সফলভাবে সেভ হয়েছে!';
+                syncStatusDiv.style.display = 'block';
+                form.reset();
+                document.getElementById('date').valueAsDate = new Date(); 
+                
+                checkAndSync(); 
+                
+            } catch (error) {
+                responseDiv.className = 'error';
+                responseDiv.textContent = '❌ ডেটা সেভ করতে ব্যর্থ: ' + error.message;
+            }
+        });
+
+        // 2. কাস্টমার লিস্ট লোড ও ক্যাশ করা
+        async function loadAndCacheCustomers() {
+            if (!navigator.onLine) {
+                const cachedCustomers = JSON.parse(localStorage.getItem('customerList') || '[]');
+                populateDatalist(cachedCustomers);
+                return;
+            }
+
+            try {
+                const response = await fetch(CUSTOMER_FETCH_URL);
+                const customers = await response.json();
+                
+                if (Array.isArray(customers)) {
+                    populateDatalist(customers);
+                    localStorage.setItem('customerList', JSON.stringify(customers));
+                }
+
+            } catch (error) {
+                console.error("❌ কাস্টমার লিস্ট আনতে ব্যর্থ:", error);
+                const cachedCustomers = JSON.parse(localStorage.getItem('customerList') || '[]');
+                populateDatalist(cachedCustomers);
+            }
+        }
+
+        // Datalist Populate করার জন্য হেল্পার ফাংশন
+        function populateDatalist(customers) {
+            customerDatalist.innerHTML = '';
+            customers.forEach(customer => {
+                const option = document.createElement('option');
+                option.value = customer;
+                customerDatalist.appendChild(option);
+            });
+        }
+        
+        // 3. অফলাইন সিঙ্ক ফাংশন
+        async function checkAndSync() {
+            // SCRIPT_URL এখানে হার্ডকোড করা আছে, তাই শুধু অনলাইন চেক করলেই হবে
+            if (!navigator.onLine) {
+                const offlineRecords = await loadAllOfflineData();
+                syncStatusDiv.style.display = offlineRecords.length > 0 ? 'block' : 'none';
+                return;
+            }
+
+            const offlineRecords = await loadAllOfflineData();
+            if (offlineRecords.length === 0) {
+                syncStatusDiv.style.display = 'none';
+                return;
+            }
+
+            responseDiv.className = 'info';
+            responseDiv.textContent = `🚀 ${offlineRecords.length} টি ডেটা আপলোড হচ্ছে...`;
+
+            for (const record of offlineRecords) {
+                try {
+                    // Apps Script এ POST রিকোয়েস্ট পাঠানো হচ্ছে
+                    const response = await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors', 
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(record)
+                    });
+
+                    // যেহেতু no-cors, যদি নেটওয়ার্ক এরর না হয় তবে ধরে নিতে হবে যে ডেটা পাঠানো হয়েছে
+                    await deleteOfflineData(record.id);
+                    console.log(`✅ ডেটা আইডি ${record.id} সফলভাবে সিঙ্ক ও ডিলিট হয়েছে।`);
+
+                } catch (error) {
+                    console.error(`❌ ডেটা আইডি ${record.id} সিঙ্ক করতে ব্যর্থ:`, error);
+                }
+            }
+            
+            if ((await loadAllOfflineData()).length === 0) {
+                responseDiv.className = 'success';
+                responseDiv.textContent = `🎉 সব ডেটা সফলভাবে সিঙ্ক হয়েছে!`;
+                syncStatusDiv.style.display = 'none';
+            } else {
+               responseDiv.className = 'error';
+               responseDiv.textContent = `⚠️ কিছু ডেটা সিঙ্ক হয়নি। কিছুক্ষণ পর আবার চেষ্টা করবে।`;
+               syncStatusDiv.style.display = 'block';
+            }
+        }
+
+        window.addEventListener('load', function() {
+            document.getElementById('date').valueAsDate = new Date();
+            loadAndCacheCustomers();
+            checkAndSync();
+        });
+        
+        setInterval(checkAndSync, 10000); 
+        setInterval(loadAndCacheCustomers, 600000); 
     </script>
-    
 </body>
 </html>
