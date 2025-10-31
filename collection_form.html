@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Collection Entry</title>
-    <link rel="manifest" href="manifest.json">
+    <title>GB-22 Daily Collection Entry</title> <link rel="manifest" href="manifest.json">
     <style>
         /* CSS Styling - (ডিজাইন অপরিবর্তিত) */
         body { font-family: 'Roboto', sans-serif; padding: 20px; background-color: #f0f4f7; }
         .container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        h1 { color: #E74C3C; text-align: center; margin-bottom: 20px; }
+        /* <h1> এর জন্য নতুন স্টাইল, যাতে চিহ্নিত করা সহজ হয় */
+        h1 { 
+            color: #1a73e8; /* একটি আলাদা রঙ ব্যবহার করা হলো */
+            text-align: center; 
+            margin-bottom: 20px; 
+            font-size: 1.5em; /* ফন্ট সাইজ একটু বড় করা হলো */
+        }
         label { display: block; margin-top: 10px; font-weight: 600; color: #555; }
         input[type="date"], input[type="text"], input[type="number"], textarea {
             width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;
@@ -39,7 +44,8 @@
     <div class="container">
         <a href="daily_collection_entry.html" class="back-button">← Details Page এ ফিরে যান</a>
         
-        <h1>💰 Daily Collection Entry</h1> 
+        <h1>💰 GB-22 Daily Collection Entry</h1> 
+        
         <div id="networkStatus" class="network-info"></div>
         
         <form id="collectionForm">
@@ -66,7 +72,7 @@
     </script>
 
     <script>
-        // ✅ আপনার নতুন Web App URL এখানে বসানো হয়েছে
+        // ✅ Apps Script URL যা আপনি দিয়েছেন:
         const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzPqmGS5IdO16r0xv46IOAp64_mdUC41mxQYKtgWzRw6Xlv8fns9BocoDfZKv4BHmJm/exec"; 
         
         const form = document.getElementById('collectionForm');
@@ -108,7 +114,7 @@
             }
         }
 
-        // --- নতুন কাস্টমার Google Sheet-এ যোগ করা ---
+        // --- নতুন কাস্টমার Google Sheet-এ যোগ করা (লোকাল ক্যাশ আপডেট করবে) ---
         async function addCustomerToSheet(newCustomerName) {
             const trimmedName = newCustomerName.trim();
             if (trimmedName === "" || !navigator.onLine) return;
@@ -116,29 +122,12 @@
             const cachedList = JSON.parse(localStorage.getItem(CUSTOMER_LIST_KEY) || '[]');
             
             if (!cachedList.includes(trimmedName)) {
-                
-                const data = {
-                    action: 'add_customer', 
-                    customer: trimmedName
-                };
-                
-                try {
-                    await fetch(GOOGLE_SHEET_WEB_APP_URL, {
-                        method: 'POST',
-                        mode: 'no-cors', 
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(data)
-                    });
-                    
-                    // সফলভাবে সেভ হলে ক্যাশ ও ডেটালিস্ট আপডেট করুন
-                    cachedList.push(trimmedName);
-                    cachedList.sort();
-                    localStorage.setItem(CUSTOMER_LIST_KEY, JSON.stringify(cachedList));
-                    populateDatalist(cachedList);
-                    
-                } catch (error) {
-                    console.error("Failed to add new customer to sheet:", error);
-                }
+                // Apps Script এ addCustomerToSheet লজিকটা doPost এ যুক্ত আছে,
+                // তাই এখানে শুধু লোকাল ক্যাশ আপডেট করা হচ্ছে।
+                cachedList.push(trimmedName);
+                cachedList.sort();
+                localStorage.setItem(CUSTOMER_LIST_KEY, JSON.stringify(cachedList));
+                populateDatalist(cachedList);
             }
         }
 
@@ -197,7 +186,7 @@
                 data[key] = value;
             });
             
-            // নতুন কাস্টমারের নাম Apps Script এর মাধ্যমে Google Sheet-এ যোগ করা
+            // নতুন কাস্টমারের নাম Apps Script এর মাধ্যমে Google Sheet-এ যোগ করার জন্য ট্রিগার
             addCustomerToSheet(data['Client/Customer Name']);
             
             data.action = 'submit'; 
@@ -243,6 +232,7 @@
                     statusMessage.style.color = 'white';
                     statusMessage.textContent = 'সফলভাবে জমা দেওয়া হয়েছে! ✅';
                     form.reset();
+                    fetchCustomerList(); 
                 }
                 submitButton.disabled = false;
                 return true;
@@ -282,6 +272,7 @@
                 statusMessage.style.backgroundColor = '#2ecc71';
                 statusMessage.style.color = 'white';
                 statusMessage.textContent = 'সফলভাবে সব ডেটা সিঙ্ক করা হয়েছে! ✅';
+                fetchCustomerList(); 
             } else {
                 localStorage.setItem(OFFLINE_STORAGE_KEY, JSON.stringify(failedSubmissions));
                 statusMessage.style.backgroundColor = '#e74c3c';
