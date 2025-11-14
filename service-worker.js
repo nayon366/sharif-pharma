@@ -20,7 +20,7 @@ async function syncPayoutData() {
   let queue = JSON.parse(queueString);
   if (queue.length === 0) return;
 
-  const dataToSync = queue[0];
+  const dataToSync = queue[0]; // কিউ এর প্রথম ডেটা
   
   try {
     // Apps Script URL এ POST রিকোয়েস্ট পাঠানো হচ্ছে
@@ -34,31 +34,31 @@ async function syncPayoutData() {
       body: JSON.stringify(dataToSync)
     });
 
-    // রিকোয়েস্ট নেটওয়ার্ক লেভেলে সফল হলে (no-cors এ স্ট্যাটাস চেক করা কঠিন)
-    // কিউ থেকে আইটেমটি সরিয়ে দিন
+    // রিকোয়েস্ট নেটওয়ার্ক লেভেলে সফল হলে, কিউ থেকে আইটেমটি সরিয়ে দিন
     queue.shift(); 
     localStorage.setItem(QUEUE_KEY, JSON.stringify(queue));
     
     // যদি আরও ডেটা থাকে, তবে আবার সিঙ্ক করার চেষ্টা করুন
     if (queue.length > 0) {
+      // সার্ভিস ওয়ার্কারকে আবার সিঙ্ক করার জন্য অনুরোধ করা
       await self.registration.sync.register('sync-payout-data');
     }
 
   } catch (error) {
     // নেটওয়ার্ক এরর হলে, Service Worker অটোমেটিক আবার চেষ্টা করবে
     console.error('Sync failed:', error);
+    // throw Error ব্যবহার করলে Service Worker আবার ট্রাই করবে
     throw new Error('Sync failed, will retry later.');
   }
 }
 
-// ------------------- Installation (PWA ক্যাশিং-এর জন্য) -------------------
-// এটি PWA-এর জন্য ঐচ্ছিক কিন্তু ভালো প্র্যাকটিস
+// ------------------- Installation (PWA ক্যাশিং-এর জন্য - ঐচ্ছিক) -------------------
 const CACHE_NAME = 'spl-pwa-v1';
 const urlsToCache = [
-  '/', // আপনার রুট HTML
-  'PayoutForm.html', // Payout ফর্ম
+  '/', 
+  'PayoutForm.html', 
   'service-worker.js',
-  // আপনার অন্যান্য CSS/JS ফাইল এখানে যোগ করতে পারেন
+  // আপনার অন্যান্য HTML ফাইল এখানে যোগ করুন
 ];
 
 self.addEventListener('install', (event) => {
@@ -71,7 +71,6 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // ক্যাশ থেকে ফাইলগুলি পরিবেশন করা
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
