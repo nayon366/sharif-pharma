@@ -118,8 +118,11 @@
         
         <form id="collectionForm">
             <label for="customerName">Client/Customer Name</label>
-            <input type="text" id="customerName" name="Client/Customer Name" list="customerNames" placeholder="Type or select customer name" required>
+            <input type="text" id="customerName" name="Client/Customer Name" list="customer-list-gb12" 
+                   placeholder="অফলাইন তালিকা লোড হচ্ছে..." required disabled>
             
+            <datalist id="customer-list-gb12"></datalist>
+
             <label for="paymentReceived">Payment Received (Taka)</label>
             <input type="number" id="paymentReceived" name="Payment Received (Taka)" placeholder="e.g. 3000" required>
 
@@ -131,8 +134,6 @@
             </div>
             <p id="statusMessage"></p>
         </form>
-
-        <datalist id="customerNames"></datalist>
     </div>
 
     <script>
@@ -142,7 +143,8 @@
     </script>
 
     <script>
-        // Apps Script URL
+        // Apps Script URL (আপনার কালেকশন এন্ট্রি শিটের URL দিন)
+        // এটি ধরে নেওয়া হলো যে এটি কালেকশন এন্ট্রি শিটের জন্য
         const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbycNb1Gf7U7kYmaYWCCVGc4OgMt60k91IVZf8kfJtJ88gmjLCoaRm0d8a7rFZ1_XXseRw/exec"; 
         
         const form = document.getElementById('collectionForm');
@@ -150,52 +152,45 @@
         const submitButton = document.getElementById('submitButton');
         const statusMessage = document.getElementById('statusMessage');
         const networkStatus = document.getElementById('networkStatus');
-        const datalist = document.getElementById('customerNames');
+        const datalist = document.getElementById('customer-list-gb12'); // নতুন Datalist ID
 
-        const OFFLINE_STORAGE_KEY = 'offlineSubmissions';
-        const CUSTOMER_LIST_KEY = 'savedCustomerList';
+        const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB12'; // সেভ করার জন্য আলাদা কি
+        const CUSTOMER_LIST_KEY = 'savedCustomerList_GB12'; // কাস্টমার লিস্টের জন্য আলাদা কি (বর্তমানে অপ্রয়োজনীয়)
 
-        // --- কাস্টমার লিস্ট লোড করা ---
+        // --- কাস্টমার লিস্ট লোড করা (JSON ফাইল থেকে) ---
         async function fetchCustomerList() {
-            if (!navigator.onLine) {
-                const cachedList = JSON.parse(localStorage.getItem(CUSTOMER_LIST_KEY) || '[]');
-                populateDatalist(cachedList);
-                customerNameInput.placeholder = 'Offline (cached list)';
-                return cachedList;
-            }
-            
             customerNameInput.placeholder = 'Loading list...';
             try {
-                const response = await fetch(GOOGLE_SHEET_WEB_APP_URL);
-                const customerList = await response.json();
+                // GitHub এ রাখা customer_list.json ফাইলটি ক্যাশ থেকে লোড করার চেষ্টা
+                const response = await fetch('customer_list.json'); 
                 
-                localStorage.setItem(CUSTOMER_LIST_KEY, JSON.stringify(customerList)); 
-                populateDatalist(customerList);
+                if (!response.ok) {
+                    throw new Error('customer_list.json failed to load.');
+                }
+
+                const fullData = await response.json();
+                
+                // gb-12 এর কাস্টমার তালিকা বের করা
+                const gb12_customers = fullData.customers_gb12 || []; 
+                
+                populateDatalist(gb12_customers);
+                
+                customerNameInput.disabled = false; // লোড হলে ইনপুট এনাবল করা
                 customerNameInput.placeholder = 'Type or select customer name';
-                return customerList;
+                return gb12_customers;
 
             } catch (error) {
-                console.error("Failed to fetch customer list:", error);
-                const cachedList = JSON.parse(localStorage.getItem(CUSTOMER_LIST_KEY) || '[]');
-                populateDatalist(cachedList);
-                customerNameInput.placeholder = 'Error loading (using cached list)';
-                return cachedList;
+                console.error("Failed to fetch customer list from JSON:", error);
+                customerNameInput.disabled = false;
+                customerNameInput.placeholder = 'Offline list load failed. Type manually.';
+                return [];
             }
         }
 
-        // --- নতুন কাস্টমার Google Sheet-এ যোগ করা (লোকাল ক্যাশ আপডেট করবে) ---
-        async function addCustomerToSheet(newCustomerName) {
-            const trimmedName = newCustomerName.trim();
-            if (trimmedName === "" || !navigator.onLine) return;
-
-            const cachedList = JSON.parse(localStorage.getItem(CUSTOMER_LIST_KEY) || '[]');
-            
-            if (!cachedList.includes(trimmedName)) {
-                cachedList.push(trimmedName);
-                cachedList.sort();
-                localStorage.setItem(CUSTOMER_LIST_KEY, JSON.stringify(cachedList));
-                populateDatalist(cachedList);
-            }
+        // --- অতিরিক্ত ফাংশন সরলীকরণ ---
+        // এই ফর্মটি শুধুমাত্র একটি গ্রুপের জন্য, তাই অন্য গ্রুপের কাস্টমার যোগ করার লজিক দরকার নেই।
+        function addCustomerToSheet(newCustomerName) {
+             console.log(`Checking/Adding Customer: ${newCustomerName}`);
         }
 
         // --- Autocomplete লিস্ট তৈরি করা ---
@@ -260,6 +255,7 @@
             data.action = 'submit'; 
             data['Submission_Date'] = new Date().toLocaleDateString('en-CA'); 
             data['Submission_Time'] = new Date().toLocaleTimeString('en-US', { hour12: false }); 
+            data['Group'] = 'gb-12'; // এই লাইনটি gb-12 এর জন্য ডেটা সেভ নিশ্চিত করবে
 
             if (navigator.onLine) {
                 submitToGoogleSheet(data);
@@ -268,7 +264,7 @@
             }
         });
 
-        // --- Local Storage, Google Sheet Sync, and Synchronization Logic ---
+        // --- Local Storage, Google Sheet Sync, and Synchronization Logic (unchanged) ---
         function saveToLocalStorage(data) {
             const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
             submissions.push(data);
