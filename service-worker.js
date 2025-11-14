@@ -3,8 +3,8 @@
 // =========================================================================
 
 const QUEUE_KEY = 'payoutQueue';
-// !!! এখানে আপনার Apps Script URL টি অবশ্যই দিন !!!
-const APP_SCRIPT_URL = 'আপনার_সঠিক_Apps_Script_URL/exec'; 
+// Apps Script URL
+const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPJVZ4dLyu5GmvqKM3A1UErYN1fflEX1c3XgZtEY2-aBxBG0AI8wG8d4iGBOatxJE/exec'; 
 
 // ------------------- Background Sync Logic -------------------
 self.addEventListener('sync', (event) => {
@@ -26,7 +26,7 @@ async function syncPayoutData() {
     // Apps Script URL এ POST রিকোয়েস্ট পাঠানো হচ্ছে
     await fetch(APP_SCRIPT_URL, {
       method: 'POST',
-      mode: 'no-cors', // Cross-Domain সমস্যার জন্য no-cors
+      mode: 'no-cors',
       cache: 'no-cache',
       headers: {
         'Content-Type': 'application/json',
@@ -40,31 +40,35 @@ async function syncPayoutData() {
     
     // যদি আরও ডেটা থাকে, তবে আবার সিঙ্ক করার চেষ্টা করুন
     if (queue.length > 0) {
-      // সার্ভিস ওয়ার্কারকে আবার সিঙ্ক করার জন্য অনুরোধ করা
       await self.registration.sync.register('sync-payout-data');
     }
+    console.log('Successfully synced one item. Items remaining:', queue.length);
 
   } catch (error) {
-    // নেটওয়ার্ক এরর হলে, Service Worker অটোমেটিক আবার চেষ্টা করবে
-    console.error('Sync failed:', error);
-    // throw Error ব্যবহার করলে Service Worker আবার ট্রাই করবে
-    throw new Error('Sync failed, will retry later.');
+    console.error('Sync failed, will retry later:', error);
+    throw new Error('Sync failed, will retry later.'); // পরবর্তীতে পুনরায় চেষ্টা করার জন্য এরর নিক্ষেপ করুন
   }
 }
 
-// ------------------- Installation (PWA ক্যাশিং-এর জন্য - ঐচ্ছিক) -------------------
+// ------------------- Installation (PWA ক্যাশিং-এর জন্য) -------------------
 const CACHE_NAME = 'spl-pwa-v1';
 const urlsToCache = [
   '/', 
   'PayoutForm.html', 
   'service-worker.js',
-  // আপনার অন্যান্য HTML ফাইল এখানে যোগ করুন
+  // আপনার অন্যান্য HTML ফাইল এখানে যোগ করুন, যেমন:
+  // 'index.html', 
+  // 'daily_collection_entry.html', 
+  // 'daily_collection.html', 
+  // 'master_summary.html', 
+  // 'master_summary2.html', 
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
+        console.log('Service Worker installed and caching assets.');
         return cache.addAll(urlsToCache);
       })
   );
