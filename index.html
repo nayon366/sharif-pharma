@@ -244,7 +244,7 @@
             <span id="live-datetime"></span>
         </div>
         <div class="top-circle-container">
-            <a href="daily_collection_entry.html" class="circle-link">
+            <a href="daily_collection_entry.html" class="circle-link"> 
                 <div class="circle-box">
                     <span class="icon">👆</span> <p>Entry</p> </div>
             </a>
@@ -270,10 +270,11 @@
                 </div>
             </a>
 
-            <a href="<?= ScriptApp.getService().getUrl() ?>?page=payout" class="step-link">
+            <a href="PayoutForm.html" class="step-link"> 
                 <div class="step-box">
                     <span class="icon">📈</span> 
-                    <p>টাকা পেইড এন্ট্রি</p> </div>
+                    <p>টাকা পেইড এন্ট্রি</p> 
+                </div>
             </a>
 
             <a href="master_summary.html" class="step-link">
@@ -315,6 +316,20 @@
 
         updateDateTime();
         setInterval(updateDateTime, 1000);
+
+        // =========================================================
+        // !!! সার্ভিস ওয়ার্কার রেজিস্ট্রেশন কোড !!!
+        // =========================================================
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                // service-worker.js ফাইলটি রেজিস্টার করা হলো
+                navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
     </script>
 
 </body>
