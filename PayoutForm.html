@@ -130,8 +130,8 @@
 
 <script>
 const QUEUE_KEY = 'payoutQueue'; 
-// !!! এখানে আপনার Apps Script URL টি অবশ্যই দিন !!!
-const APP_SCRIPT_URL = 'আপনার_সঠিক_Apps_Script_URL/exec'; 
+// Apps Script URL
+const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPJVZ4dLyu5GmvqKM3A1UErYN1fflEX1c3XgZtEY2-aBxBG0AI8wG8d4iGBOatxJE/exec'; 
 
 function submitPayoutData() {
   const group = document.getElementById('groupSelect').value;
@@ -156,10 +156,8 @@ function submitPayoutData() {
   
   // অনলাইন/অফলাইন লজিক
   if (navigator.onLine) {
-    // ইন্টারনেট সংযোগ থাকলে: সরাসরি Apps Script-এ ডেটা পাঠানো
     sendDataToAppsScript(data, status);
   } else {
-    // ইন্টারনেট সংযোগ না থাকলে: লোকাল স্টোরেজে সেভ এবং সিঙ্ক রিকোয়েস্ট
     saveDataOffline(data, status);
   }
 }
@@ -170,7 +168,7 @@ async function sendDataToAppsScript(data, statusElement) {
     statusElement.style.color = 'orange';
 
     try {
-        const response = await fetch(APP_SCRIPT_URL, {
+        await fetch(APP_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors', 
             cache: 'no-cache',
@@ -180,14 +178,12 @@ async function sendDataToAppsScript(data, statusElement) {
             body: JSON.stringify(data)
         });
 
-        // no-cors এর কারণে রেসপন্স স্ট্যাটাস চেক করা কঠিন
         statusElement.innerHTML = '✅ ডেটা সরাসরি সেভ হয়েছে! <span class="status-icon">🚀</span>';
         statusElement.style.color = 'green';
 
     } catch (error) {
-        // নেটওয়ার্ক এরর হলে অফলাইনে সেভ করার চেষ্টা করুন
         console.error('Online save failed, attempting offline save:', error);
-        saveDataOffline(data, statusElement);
+        saveDataOffline(data, statusElement); // ব্যর্থ হলে অফলাইনে সেভ করুন
     }
 }
 
