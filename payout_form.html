@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Taka Payout Entry - GitHub Host</title>
+  <title>টাকা পেইড এন্ট্রি</title>
   <style>
     /* CSS স্টাইল আপনার PWA ফর্মের অনুরূপ রাখা হয়েছে */
     body {
@@ -109,7 +109,7 @@
   </a>
 
   <div class="header">
-    <h2>💰 টাকা পেইড এন্ট্রি (GitHub)</h2>
+    <h2>💰 টাকা পেইড এন্ট্রি (অফলাইন)</h2>
   </div>
 
   <label for="groupSelect">Group নির্বাচন করুন</label>
@@ -129,16 +129,13 @@
 </div>
 
 <script>
-// =========================================================================
-// !!! আপনার Apps Script URL টি এখানে ব্যবহার করা হয়েছে !!!
-// =========================================================================
-const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPJVZ4dLyu5GmvqKM3A1UErYN1fflEX1c3XgZtEY2-aBxBG0AI8wG8d4iGBOatxJE/exec';
-
+// Local Storage Key
+const QUEUE_KEY = 'payoutQueue'; 
 
 function submitPayoutData() {
-  var group = document.getElementById('groupSelect').value;
-  var amount = document.getElementById('payoutAmount').value;
-  var status = document.getElementById('statusMessage');
+  const group = document.getElementById('groupSelect').value;
+  const amount = document.getElementById('payoutAmount').value;
+  const status = document.getElementById('statusMessage');
 
   if (!group || !amount) {
     status.innerHTML = "দয়া করে গ্রুপ এবং টাকার পরিমাণ দুটোই দিন। <span class='status-icon'>&#10060;</span>";
@@ -146,50 +143,43 @@ function submitPayoutData() {
     return;
   }
   
-  status.innerHTML = "ডেটা সেভ হচ্ছে, অপেক্ষা করুন... <span class='status-icon'>⏳</span>";
-  status.style.color = 'orange';
-
-  var data = {
-    'Group': group,
-    'Amount': amount
+  // ডেটা প্যাকেজ তৈরি
+  const data = {
+    Group: group,
+    Amount: amount,
+    timestamp: new Date().toISOString() 
   };
 
-  // Apps Script URL এ POST রিকোয়েস্ট পাঠানো হচ্ছে (GitHub এর জন্য fetch ব্যবহার)
-  fetch(APP_SCRIPT_URL, {
-    method: 'POST',
-    // 'no-cors' মোড ব্যবহার করা হয় কারণ GitHub একটি ভিন্ন ডোমেন।
-    mode: 'no-cors', 
-    cache: 'no-cache',
-    headers: {
-      'Content-Type': 'application/json', // JSON ফরম্যাট ব্যবহার
-    },
-    body: JSON.stringify(data) // ডেটা JSON স্ট্রিং হিসাবে পাঠানো
-  })
-  .then(() => {
-    // no-cors মোডে সার্ভারের প্রতিক্রিয়া চেক করা যায় না, তাই একটি ছোট বিলম্বের পরে আমরা
-    // ধরে নিচ্ছি ডেটা পাঠানো সফল হয়েছে।
-    setTimeout(() => {
-        onSuccess({ status: 'success' });
-    }, 1500); // 1.5 সেকেন্ড অপেক্ষা
-  })
-  .catch(error => {
-    onFailure(error);
-  });
-}
-
-function onSuccess(response) {
-  var status = document.getElementById('statusMessage');
-  status.innerHTML = '✅ Payout সফলভাবে আপডেট হয়েছে! <span class="status-icon">&#9989;</span>'; 
-  status.style.color = 'green';
+  // ১. লোকাল স্টোরেজ থেকে বর্তমান কিউ লোড ও আপডেট
+  try {
+    const queue = JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]');
+    queue.push(data);
+    localStorage.setItem(QUEUE_KEY, JSON.stringify(queue));
+  } catch (e) {
+    status.innerHTML = '❌ ত্রুটি: ডেটা লোকাল স্টোরেজে সেভ করা যায়নি। <span class="status-icon">&#10060;</span>';
+    status.style.color = 'red';
+    console.error("Local Storage Error:", e);
+    return;
+  }
+  
+  // ২. ফর্ম রিসেট ও মেসেজ
   document.getElementById('groupSelect').value = '';
   document.getElementById('payoutAmount').value = '';
-}
+  status.innerHTML = '✅ ডেটা অফলাইনে সেভ হয়েছে! ইন্টারনেট সংযোগ পেলে আপডেট হবে। <span class="status-icon">💾</span>'; 
+  status.style.color = 'blue';
 
-function onFailure(error) {
-  var status = document.getElementById('statusMessage');
-  status.innerHTML = '❌ ত্রুটি: ডেটা সেভ হয়নি। Google Script চেক করুন। <span class="status-icon">&#10060;</span>';
-  status.style.color = 'red';
-  console.error("Fetch Error:", error);
+  // ৩. সার্ভিস ওয়ার্কারকে সিঙ্ক করার অনুরোধ (Background Sync)
+  if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
+    navigator.serviceWorker.ready.then(reg => {
+      // 'sync-payout-data' ট্যাগ সার্ভিস ওয়ার্কার এ অপেক্ষা করবে
+      reg.sync.register('sync-payout-data').catch(e => {
+          console.error('Sync registration failed:', e);
+          // সিঙ্ক রেজিস্ট্রেশন ব্যর্থ হলেও, লোকাল ডেটা সেভ হয়েছে
+      });
+    });
+  } else {
+      console.warn('Service Worker or Background Sync not supported or not registered.');
+  }
 }
 </script>
 
