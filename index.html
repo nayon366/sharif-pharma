@@ -34,7 +34,7 @@
         .container {
             background-color: #ffffff;
             width: 100%; 
-            max-width: 330px; /* মোবাইলের জন্য নির্দিষ্ট প্রস্থ */
+            max-width: 330px; 
             min-height: auto; 
             
             /* Frame/Border Styles */
@@ -79,14 +79,14 @@
             font-weight: 300;
         }
         
-        /* Live Time and Date Style (মোবাইল ও PC এর জন্য রং পরিবর্তন) */
+        /* Live Time and Date Style */
         #live-datetime {
             display: block;
             margin: 8px auto 0; 
             padding: 8px 12px; 
-            font-size: 1em; /* ফন্ট সাইজ বড় করা হলো (মোবাইলের জন্য) */
+            font-size: 1em;
             font-weight: 700;
-            color: #27AE60; /* **সবুজ রং সেট করা হলো** */
+            color: #27AE60;
             text-align: center;
             background-color: #e0e5eb; 
             border-radius: 12px;
@@ -197,27 +197,23 @@
             color: white;
         }
         
-        /* --- ডেস্কটপ/পিসি স্টাইল পরিবর্তন (PC/Desktop Style Adjustment) --- */
+        /* --- ডেস্কটপ/পিসি স্টাইল পরিবর্তন --- */
         @media (min-width: 400px) {
             .container {
-                /* আপনার দেওয়া মান */
                 max-width: 600px; 
                 min-height: 780px; 
                 justify-content: space-around; 
                 
                 padding: 40px 60px; 
             }
-
-            /* ফ্রেমের আকারের সাথে মানিয়ে নিতে ফন্ট এবং এলিমেন্টের আকার বাড়ানো হলো */
             .header h1 {
                 font-size: 1.8em; 
             }
             .header p {
                 font-size: 0.9em; 
             }
-            /* PC তে লাইভ সময় আরও বড় */
             #live-datetime {
-                font-size: 1.4em; /* PC এর জন্য আরও বেশি বড় ফন্ট */
+                font-size: 1.4em;
                 padding: 10px 20px; 
             }
             .circle-box {
@@ -238,7 +234,6 @@
             }
         }
         /* --- ডেস্কটপ/পিসি স্টাইল পরিবর্তন শেষ --- */
-
     </style>
 </head>
 <body>
@@ -267,18 +262,20 @@
                     <p>দৈনিক হিসাব</p>
                 </div>
             </a>
+            
             <a href="https://docs.google.com/spreadsheets/d/1d5DTcnexyZWp4h4I3RyAVglVFZMU-B69phMbpZrButs/edit?gid=0" target="_blank" class="step-link">
                 <div class="step-box alt-color">
                     <span class="icon">&#x1F6CD;</span>
-                    <p>টাকা পেইড</p>
+                    <p>টাকা পেইড</p> 
                 </div>
             </a>
-            <a href="daily_summary2.html" class="step-link">
+
+            <a href="<?= ScriptApp.getService().getUrl() ?>?page=payout" class="step-link">
                 <div class="step-box">
                     <span class="icon">📈</span> 
-                    <p>Daily Summary2</p>
-                </div>
+                    <p>টাকা পেইড এন্ট্রি</p> </div>
             </a>
+
             <a href="master_summary.html" class="step-link">
                 <div class="step-box alt-color">
                     <span class="icon">&#x1F4E6;</span>
@@ -298,7 +295,6 @@
     <script>
         // JavaScript function to display live time and date
         function updateDateTime() {
-            // বাংলাদেশ টাইমজোন অনুযায়ী সঠিক সময় সেট করার জন্য
             const options = { 
                 timeZone: 'Asia/Dhaka', // Bangladesh Time Zone (GMT+6)
                 weekday: 'long', 
@@ -311,7 +307,6 @@
                 hour12: true 
             };
             
-            // বর্তমান সময় ফরম্যাট করা হচ্ছে
             const formatter = new Intl.DateTimeFormat('en-US', options);
             const formattedDateTime = formatter.format(new Date());
             
