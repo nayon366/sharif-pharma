@@ -1,42 +1,81 @@
-const CACHE_NAME = "sharif-pharma-cache-v2"; // 💡 ভার্সন v2 তে আপডেট করা হলো, যাতে ব্রাউজার নিশ্চিতভাবে নতুন ফাইলগুলো ক্যাশ করে
-const urlsToCache = [
-  "./",
-  "./index.html",
-  "./manifest.json",
-  
-  // 👇 এই পেজগুলো অফলাইনে চলার জন্য ক্যাশ করা আবশ্যক
-  "./daily_collection_entry.html", // ডেটা এন্ট্রি ফর্ম
-  "./daily_collection.html",        // হোম পেজের অন্য একটি লিঙ্ক
+// =========================================================================
+// SERVICE WORKER FILE (service-worker.js)
+// =========================================================================
+
+const QUEUE_KEY = 'payoutQueue';
+// !!! এখানে আপনার Apps Script URL টি অবশ্যই দিন !!!
+const APP_SCRIPT_URL = 'আপনার_সঠিক_Apps_Script_URL/exec'; 
+
+// ------------------- Background Sync Logic -------------------
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'sync-payout-data') {
+    event.waitUntil(syncPayoutData());
+  }
+});
+
+async function syncPayoutData() {
+  const queueString = localStorage.getItem(QUEUE_KEY);
+  if (!queueString) return;
   
-  // 👇 আইকন ফাইলগুলো PWA ইনস্টলের জন্য প্রয়োজন
-  "./icon-192.png",                 
-  "./icon-512.png"                  
+  let queue = JSON.parse(queueString);
+  if (queue.length === 0) return;
+
+  const dataToSync = queue[0];
+  
+  try {
+    // Apps Script URL এ POST রিকোয়েস্ট পাঠানো হচ্ছে
+    await fetch(APP_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors', // Cross-Domain সমস্যার জন্য no-cors
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataToSync)
+    });
+
+    // রিকোয়েস্ট নেটওয়ার্ক লেভেলে সফল হলে (no-cors এ স্ট্যাটাস চেক করা কঠিন)
+    // কিউ থেকে আইটেমটি সরিয়ে দিন
+    queue.shift(); 
+    localStorage.setItem(QUEUE_KEY, JSON.stringify(queue));
+    
+    // যদি আরও ডেটা থাকে, তবে আবার সিঙ্ক করার চেষ্টা করুন
+    if (queue.length > 0) {
+      await self.registration.sync.register('sync-payout-data');
+    }
+
+  } catch (error) {
+    // নেটওয়ার্ক এরর হলে, Service Worker অটোমেটিক আবার চেষ্টা করবে
+    console.error('Sync failed:', error);
+    throw new Error('Sync failed, will retry later.');
+  }
+}
+
+// ------------------- Installation (PWA ক্যাশিং-এর জন্য) -------------------
+// এটি PWA-এর জন্য ঐচ্ছিক কিন্তু ভালো প্র্যাকটিস
+const CACHE_NAME = 'spl-pwa-v1';
+const urlsToCache = [
+  '/', // আপনার রুট HTML
+  'PayoutForm.html', // Payout ফর্ম
+  'service-worker.js',
+  // আপনার অন্যান্য CSS/JS ফাইল এখানে যোগ করতে পারেন
 ];
 
-self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
-  );
-});
-
-self.addEventListener("fetch", event => {
-  event.respondWith(
-    caches.match(event.request).then(response => response || fetch(event.request))
-  );
-});
-
-// পুরনো ক্যাশ ডিলিট করার জন্য 'activate' ইভেন্ট যোগ করা যেতে পারে (ঐচ্ছিক, তবে ভালো অভ্যাস)
-self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
+    caches.open(CACHE_NAME)
+      .then((cache) => {
+        return cache.addAll(urlsToCache);
+      })
+  );
+});
+
+self.addEventListener('fetch', (event) => {
+  // ক্যাশ থেকে ফাইলগুলি পরিবেশন করা
+  event.respondWith(
+    caches.match(event.request)
+      .then((response) => {
+        return response || fetch(event.request);
+      })
   );
 });
