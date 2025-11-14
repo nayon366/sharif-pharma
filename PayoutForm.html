@@ -129,8 +129,9 @@
 </div>
 
 <script>
-// Local Storage Key
 const QUEUE_KEY = 'payoutQueue'; 
+// !!! এখানে আপনার Apps Script URL টি অবশ্যই দিন !!!
+const APP_SCRIPT_URL = 'আপনার_সঠিক_Apps_Script_URL/exec'; 
 
 function submitPayoutData() {
   const group = document.getElementById('groupSelect').value;
@@ -143,42 +144,76 @@ function submitPayoutData() {
     return;
   }
   
-  // ডেটা প্যাকেজ তৈরি
   const data = {
     Group: group,
     Amount: amount,
     timestamp: new Date().toISOString() 
   };
+  
+  // ফর্ম রিসেট
+  document.getElementById('groupSelect').value = '';
+  document.getElementById('payoutAmount').value = '';
+  
+  // অনলাইন/অফলাইন লজিক
+  if (navigator.onLine) {
+    // ইন্টারনেট সংযোগ থাকলে: সরাসরি Apps Script-এ ডেটা পাঠানো
+    sendDataToAppsScript(data, status);
+  } else {
+    // ইন্টারনেট সংযোগ না থাকলে: লোকাল স্টোরেজে সেভ এবং সিঙ্ক রিকোয়েস্ট
+    saveDataOffline(data, status);
+  }
+}
 
-  // ১. লোকাল স্টোরেজ থেকে বর্তমান কিউ লোড ও আপডেট
+// ডেটা সরাসরি Apps Script-এ পাঠানোর ফাংশন
+async function sendDataToAppsScript(data, statusElement) {
+    statusElement.innerHTML = 'ডেটা অনলাইনে পাঠানো হচ্ছে...';
+    statusElement.style.color = 'orange';
+
+    try {
+        const response = await fetch(APP_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors', 
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        // no-cors এর কারণে রেসপন্স স্ট্যাটাস চেক করা কঠিন
+        statusElement.innerHTML = '✅ ডেটা সরাসরি সেভ হয়েছে! <span class="status-icon">🚀</span>';
+        statusElement.style.color = 'green';
+
+    } catch (error) {
+        // নেটওয়ার্ক এরর হলে অফলাইনে সেভ করার চেষ্টা করুন
+        console.error('Online save failed, attempting offline save:', error);
+        saveDataOffline(data, statusElement);
+    }
+}
+
+// ডেটা লোকাল স্টোরেজে সেভ করার ফাংশন
+function saveDataOffline(data, statusElement) {
   try {
     const queue = JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]');
     queue.push(data);
     localStorage.setItem(QUEUE_KEY, JSON.stringify(queue));
-  } catch (e) {
-    status.innerHTML = '❌ ত্রুটি: ডেটা লোকাল স্টোরেজে সেভ করা যায়নি। <span class="status-icon">&#10060;</span>';
-    status.style.color = 'red';
-    console.error("Local Storage Error:", e);
-    return;
-  }
-  
-  // ২. ফর্ম রিসেট ও মেসেজ
-  document.getElementById('groupSelect').value = '';
-  document.getElementById('payoutAmount').value = '';
-  status.innerHTML = '✅ ডেটা অফলাইনে সেভ হয়েছে! ইন্টারনেট সংযোগ পেলে আপডেট হবে। <span class="status-icon">💾</span>'; 
-  status.style.color = 'blue';
+    
+    statusElement.innerHTML = '✅ ডেটা অফলাইনে সেভ হয়েছে! ইন্টারনেট সংযোগ পেলে আপডেট হবে। <span class="status-icon">💾</span>'; 
+    statusElement.style.color = 'blue';
 
-  // ৩. সার্ভিস ওয়ার্কারকে সিঙ্ক করার অনুরোধ (Background Sync)
-  if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
-    navigator.serviceWorker.ready.then(reg => {
-      // 'sync-payout-data' ট্যাগ সার্ভিস ওয়ার্কার এ অপেক্ষা করবে
-      reg.sync.register('sync-payout-data').catch(e => {
-          console.error('Sync registration failed:', e);
-          // সিঙ্ক রেজিস্ট্রেশন ব্যর্থ হলেও, লোকাল ডেটা সেভ হয়েছে
-      });
-    });
-  } else {
-      console.warn('Service Worker or Background Sync not supported or not registered.');
+    // সার্ভিস ওয়ার্কারকে সিঙ্ক করার অনুরোধ
+    if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
+        navigator.serviceWorker.ready.then(reg => {
+            reg.sync.register('sync-payout-data').catch(e => {
+                console.error('Sync registration failed:', e);
+            });
+        });
+    }
+
+  } catch (e) {
+    statusElement.innerHTML = '❌ ত্রুটি: ডেটা সেভ করা যায়নি। <span class="status-icon">&#10060;</span>';
+    statusElement.style.color = 'red';
+    console.error("Local Storage Error:", e);
   }
 }
 </script>
