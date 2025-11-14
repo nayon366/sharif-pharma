@@ -317,13 +317,9 @@
         updateDateTime();
         setInterval(updateDateTime, 1000);
 
-        // =========================================================
-        // !!! সার্ভিস ওয়ার্কার রেজিস্ট্রেশন কোড !!!
-        // এই কোডটি Service Worker (service-worker.js) ফাইলটিকে চালু করে।
-        // =========================================================
+        // সার্ভিস ওয়ার্কার রেজিস্ট্রেশন কোড
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                // service-worker.js ফাইলটি রেজিস্টার করা হলো
                 navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
                     console.log('ServiceWorker registration successful with scope: ', registration.scope);
                 }, function(err) {
