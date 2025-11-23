@@ -153,6 +153,14 @@
         const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB12'; 
         const CUSTOMER_LIST_KEY = 'savedCustomerList_GB12';
 
+        // --- ফর্মের ইনপুট ফিল্ডগুলিকে ডিসেবল/এনেবল করার জন্য ইউটিলিটি ফাংশন ---
+        function setFormDisabled(disabled) {
+            customerNameInput.disabled = disabled;
+            document.getElementById('paymentReceived').disabled = disabled;
+            document.getElementById('invoiceValue').disabled = disabled;
+            submitButton.disabled = disabled;
+        }
+
         // --- কাস্টমার লিস্ট লোড করা (JSON ফাইল থেকে) ---
         async function fetchCustomerList() {
             customerNameInput.placeholder = 'Loading list...';
@@ -161,18 +169,23 @@
                 if (!response.ok) { throw new Error('customer_list.json failed to load.'); }
 
                 const fullData = await response.json();
-                // customers_gb12 লোড করা
                 const gb12_customers = fullData.customers_gb12 || []; 
                 
                 populateDatalist(gb12_customers);
                 
-                customerNameInput.disabled = false;
+                // শুধুমাত্র কাস্টমার লিস্ট লোড হলে কাস্টমার নেম ইনপুট এনেবল হবে, বাকিটা syncData() হ্যান্ডেল করবে
+                if (!document.getElementById('paymentReceived').disabled) {
+                    customerNameInput.disabled = false;
+                }
                 customerNameInput.placeholder = 'Type or select customer name';
                 return gb12_customers;
 
             } catch (error) {
                 console.error("Failed to fetch customer list from JSON:", error);
-                customerNameInput.disabled = false;
+                // যদি লিস্ট লোড না হয়, তবুও ইউজারকে ম্যানুয়ালি টাইপ করার অনুমতি দেওয়া
+                if (!document.getElementById('paymentReceived').disabled) {
+                    customerNameInput.disabled = false;
+                }
                 customerNameInput.placeholder = 'Offline list load failed. Type manually.';
                 return [];
             }
@@ -212,6 +225,8 @@
                 syncData();
             } else if (navigator.onLine && syncCount === 0) {
                 statusMessage.textContent = 'All up to date ✅'; 
+                // নিশ্চিত করা যে ইন্টারনেট থাকলে এবং সিঙ্ক শেষ হলে ফর্ম এনেবল থাকবে
+                setFormDisabled(false); 
             } else if (!navigator.onLine && syncCount === 0) {
                 statusMessage.textContent = 'Offline mode active.'; 
             }
@@ -269,7 +284,10 @@
 
         // --- submitToGoogleSheet ---
         async function submitToGoogleSheet(data, isSync = false) {
-            submitButton.disabled = true;
+            // শুধুমাত্র যখন Sync চলছে না, তখন বাটন ডিসেবল থাকবে
+            if (!isSync) {
+                submitButton.disabled = true;
+            }
             statusMessage.style.backgroundColor = '#f8f9fa';
             statusMessage.style.color = 'var(--text-color)';
             statusMessage.textContent = isSync ? `Syncing (${JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]').length} remaining)...` : 'Submitting...';
@@ -289,30 +307,38 @@
                     form.reset();
                     fetchCustomerList(); 
                 }
-                submitButton.disabled = false;
+                if (!isSync) {
+                    submitButton.disabled = false;
+                }
                 return true;
             } catch (error) {
                 console.error('Submission Error:', error);
                 if (!isSync) { saveToLocalStorage(data); }
-                submitButton.disabled = false;
+                if (!isSync) {
+                    submitButton.disabled = false;
+                }
                 return false; 
             }
         }
         
-        // --- syncData ---
+        // --- syncData (আপডেট করা ফাংশন) ---
         async function syncData() {
             const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
             if (submissions.length === 0) {
                 statusMessage.textContent = 'All data synced.'; 
                 updateNetworkStatus();
+                // সিঙ্ক করার কিছু না থাকলে ফর্ম এনেবল করা
+                setFormDisabled(false); 
                 return;
             }
 
+            // 💡 পরিবর্তন: সিঙ্ক চলার সময় ফর্ম ডিসেবল করা
+            setFormDisabled(true); 
+
             statusMessage.style.backgroundColor = 'var(--primary-color)';
             statusMessage.style.color = 'white';
-            statusMessage.textContent = `Syncing: ${submissions.length} pending entries...`; 
-            submitButton.disabled = true;
-
+            statusMessage.textContent = `Syncing: ${submissions.length} pending entries... Please wait...`; 
+            
             let failedSubmissions = [];
             for (const data of submissions) {
                 const success = await submitToGoogleSheet(data, true); 
@@ -320,6 +346,9 @@
                 if (!success) { failedSubmissions.push(data); }
             }
             
+            // 💡 পরিবর্তন: সিঙ্ক শেষ হওয়ার পর ফর্ম এনেবল করা
+            setFormDisabled(false); 
+
             if (failedSubmissions.length === 0) {
                 localStorage.removeItem(OFFLINE_STORAGE_KEY);
                 statusMessage.style.backgroundColor = 'var(--success-color)';
@@ -330,10 +359,9 @@
                 localStorage.setItem(OFFLINE_STORAGE_KEY, JSON.stringify(failedSubmissions));
                 statusMessage.style.backgroundColor = 'var(--danger-color)';
                 statusMessage.style.color = 'white';
-                statusMessage.textContent = `Sync failed: ${failedSubmissions.length} entries remaining. Will retry.`; 
+                statusMessage.textContent = `Sync failed: ${failedSubmissions.length} entries remaining. Will retry next time.`; 
             }
             
-            submitButton.disabled = false;
             updateNetworkStatus();
         }
 
