@@ -1,354 +1,385 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GB-23 Daily Collection Entry</title>
-    <link rel="manifest" href="manifest.json">
-    <style>
-        /* CSS Styling - (উন্নত কালার প্যালেট) */
-        :root {
-            --primary-color: #007bff; /* উজ্জ্বল নীল (বাটন, ফোকাস) */
-            --primary-dark: #0056b3; /* গাঢ় নীল */
-            --background-color: #e9ecef; /* খুব হালকা ধূসর/নীল ব্যাকগ্রাউন্ড */
-            --card-background: #ffffff; /* কার্ডের জন্য সাদা */
-            --text-color: #343a40; /* গাঢ় টেক্সট */
-            --success-color: #28a745; /* সবুজ */
-            --warning-color: #ffc107; /* হলুদ */
-            --danger-color: #dc3545; /* লাল */
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GB-23 Daily Collection Entry</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        /* CSS Styling - (উন্নত কালার প্যালেট) */
+        :root {
+            --primary-color: #007bff; /* উজ্জ্বল নীল (বাটন, ফোকাস) */
+            --primary-dark: #0056b3; /* গাঢ় নীল */
+            --background-color: #e9ecef; /* খুব হালকা ধূসর/নীল ব্যাকগ্রাউন্ড */
+            --card-background: #ffffff; /* কার্ডের জন্য সাদা */
+            --text-color: #343a40; /* গাঢ় টেক্সট */
+            --success-color: #28a745; /* সবুজ */
+            --warning-color: #ffc107; /* হলুদ */
+            --danger-color: #dc3545; /* লাল */
+        }
 
-        body { 
-            font-family: 'Roboto', sans-serif; 
-            padding: 20px; 
-            background-color: var(--background-color); 
-        }
-        
-        /* প্রধান ফর্ম কন্টেইনারের নতুন ডিজাইন */
-        .container { 
-            max-width: 400px; 
-            margin: auto; 
-            background: var(--card-background); 
-            padding: 30px; 
-            border-radius: 12px; 
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1), 0 0 5px rgba(0,0,0,0.05); 
-        }
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            padding: 20px; 
+            background-color: var(--background-color); 
+        }
+        
+        /* প্রধান ফর্ম কন্টেইনারের নতুন ডিজাইন */
+        .container { 
+            max-width: 400px; 
+            margin: auto; 
+            background: var(--card-background); 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1), 0 0 5px rgba(0,0,0,0.05); 
+        }
 
-        h1 { 
-            color: var(--primary-color);
-            text-align: center; 
-            margin-bottom: 30px; 
-            font-size: 1.6em;
-            font-weight: 700;
-        }
-        label { 
-            display: block; 
-            margin-top: 15px; 
-            margin-bottom: 5px;
-            font-weight: 600; 
-            color: var(--text-color); 
-        }
-        
-        /* ইনপুট ফিল্ডের স্টাইল */
-        input[type="date"], input[type="text"], input[type="number"], textarea {
-            width: 100%; 
-            padding: 14px; 
-            border: 1px solid #ced4da; /* হালকা ধূসর বর্ডার */
-            border-radius: 8px; 
-            box-sizing: border-box;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.08); 
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
+        h1 { 
+            color: var(--primary-color);
+            text-align: center; 
+            margin-bottom: 30px; 
+            font-size: 1.6em;
+            font-weight: 700;
+        }
+        label { 
+            display: block; 
+            margin-top: 15px; 
+            margin-bottom: 5px;
+            font-weight: 600; 
+            color: var(--text-color); 
+        }
+        
+        /* ইনপুট ফিল্ডের স্টাইল */
+        input[type="date"], input[type="text"], input[type="number"], textarea {
+            width: 100%; 
+            padding: 14px; 
+            border: 1px solid #ced4da; /* হালকা ধূসর বর্ডার */
+            border-radius: 8px; 
+            box-sizing: border-box;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.08); 
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
 
-        /* ইনপুট ফিল্ড ফোকাস করার স্টাইল */
-        input:focus, textarea:focus { 
-            border-color: var(--primary-color); 
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* উজ্জ্বল ফোকাস শ্যাডো */
-            outline: none; 
-        }
+        /* ইনপুট ফিল্ড ফোকাস করার স্টাইল */
+        input:focus, textarea:focus { 
+            border-color: var(--primary-color); 
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* উজ্জ্বল ফোকাস শ্যাডো */
+            outline: none; 
+        }
 
-        /* বাটন স্টাইল */
-        .button-wrapper {
-            display: flex; 
-            justify-content: center;
-            margin-top: 30px;
-        }
+        /* বাটন স্টাইল */
+        .button-wrapper {
+            display: flex; 
+            justify-content: center;
+            margin-top: 30px;
+        }
 
-        button {
-            background-color: var(--primary-color); 
-            color: white; 
-            padding: 15px; 
-            border: none; 
-            border-radius: 50%; 
-            cursor: pointer; 
-            width: 80px; 
-            height: 80px;
-            font-size: 0.9em; 
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); 
-            transition: background-color 0.3s, transform 0.2s;
-            text-transform: uppercase;
-        }
-        button:hover { 
-            background-color: var(--primary-dark); 
-            transform: scale(1.05);
-        }
-        
-        /* স্ট্যাটাস মেসেজ এবং নেটওয়ার্ক ব্যাজের রং পরিবর্তন */
-        #statusMessage { margin-top: 20px; padding: 12px; border-radius: 6px; font-weight: bold; text-align: center; }
-        .network-info { margin-bottom: 15px; text-align: center; }
-        .offline-badge { background-color: var(--danger-color); color: white; padding: 5px 8px; border-radius: 5px; display: inline-block; margin-right: 5px; font-size: 0.9em; }
-        .sync-count { background-color: var(--warning-color); color: var(--text-color); padding: 5px 8px; border-radius: 5px; display: inline-block; font-size: 0.9em; }
-        .back-button {
-            display: block;
-            margin-bottom: 25px;
-            text-decoration: none;
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-    </style>
+        button {
+            background-color: var(--primary-color); 
+            color: white; 
+            padding: 15px; 
+            border: none; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            width: 80px; 
+            height: 80px;
+            font-size: 0.9em; 
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); 
+            transition: background-color 0.3s, transform 0.2s;
+            text-transform: uppercase;
+        }
+        button:hover { 
+            background-color: var(--primary-dark); 
+            transform: scale(1.05);
+        }
+        
+        /* স্ট্যাটাস মেসেজ এবং নেটওয়ার্ক ব্যাজের রং পরিবর্তন */
+        #statusMessage { margin-top: 20px; padding: 12px; border-radius: 6px; font-weight: bold; text-align: center; }
+        .network-info { margin-bottom: 15px; text-align: center; }
+        .offline-badge { background-color: var(--danger-color); color: white; padding: 5px 8px; border-radius: 5px; display: inline-block; margin-right: 5px; font-size: 0.9em; }
+        .sync-count { background-color: var(--warning-color); color: var(--text-color); padding: 5px 8px; border-radius: 5px; display: inline-block; font-size: 0.9em; }
+        .back-button {
+            display: block;
+            margin-bottom: 25px;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <a href="daily_collection_entry.html" class="back-button">← Details Page এ ফিরে যান</a>
+    <div class="container">
+        <a href="daily_collection_entry.html" class="back-button">← Details Page এ ফিরে যান</a>
+        
+        <h1>💰 GB-23 Daily Collection Entry</h1> 
+        
+        <div id="networkStatus" class="network-info"></div>
+        
+        <form id="collectionForm">
+            <label for="customerName">Client/Customer Name</label>
+            <input type="text" id="customerName" name="Client/Customer Name" list="customer-list-gb23" 
+                   placeholder="অফলাইন তালিকা লোড হচ্ছে..." required disabled>
+            
+            <datalist id="customer-list-gb23"></datalist>
+
+            <label for="paymentReceived">Payment Received (Taka)</label>
+            <input type="number" id="paymentReceived" name="Payment Received (Taka)" placeholder="e.g. 3000" required>
+
+            <label for="invoiceValue">Invoice Value (optional)</label>
+            <input type="number" id="invoiceValue" name="Invoice Value (optional)" placeholder="e.g. 5000">
+
+            <div class="button-wrapper">
+                <button type="submit" id="submitButton">SAVE</button>
+            </div>
+            <p id="statusMessage"></p>
+        </form>
+    </div>
+
+    <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js");
+    }
+    </script>
+
+        <script>
+        // Apps Script URL (আপনার GB-23 কালেকশন এন্ট্রি শিটের URL)
+        const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzt0DJEVTlPKuCddNOzSbzs1PNuF3bT_-98zyDW_a1jGaHesAUbbt16rHjCkm64d3pR/exec"; 
+        
+        const form = document.getElementById('collectionForm');
+        const customerNameInput = document.getElementById('customerName');
+        const submitButton = document.getElementById('submitButton');
+        const statusMessage = document.getElementById('statusMessage');
+        const networkStatus = document.getElementById('networkStatus');
+        const datalist = document.getElementById('customer-list-gb23'); // GB-23 Datalist ID
+
+        const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB23'; // GB-23 এর জন্য আলাদা কি
+        const CUSTOMER_LIST_KEY = 'savedCustomerList_GB23';
+
+        // --- কাস্টমার লিস্ট লোড করা (JSON ফাইল থেকে) ---
+        async function fetchCustomerList() {
+            customerNameInput.placeholder = 'Loading list...';
+            try {
+                // customer_list.json ফাইলটি ক্যাশ থেকে লোড করার চেষ্টা
+                const response = await fetch('customer_list.json'); 
+                
+                if (!response.ok) {
+                    throw new Error('customer_list.json failed to load.');
+                }
+
+                const fullData = await response.json();
+                
+                // gb-23 এর কাস্টমার তালিকা বের করা
+                const gb23_customers = fullData.customers_gb23 || []; 
+                
+                populateDatalist(gb23_customers);
+                
+                customerNameInput.disabled = false;
+                customerNameInput.placeholder = 'Type or select customer name';
+                return gb23_customers;
+
+            } catch (error) {
+                console.error("Failed to fetch customer list from JSON:", error);
+                customerNameInput.disabled = false;
+                customerNameInput.placeholder = 'Offline list load failed. Type manually.';
+                return [];
+            }
+        }
+
+        // --- অতিরিক্ত ফাংশন সরলীকরণ ---
+        function addCustomerToSheet(newCustomerName) {
+             console.log(`Checking/Adding Customer: ${newCustomerName}`);
+        }
+
+        // --- Autocomplete লিস্ট তৈরি করা ---
+        function populateDatalist(list) {
+            let optionsHTML = '';
+            list.forEach(customer => {
+                optionsHTML += `<option value="${customer}">`;
+            });
+            datalist.innerHTML = optionsHTML;
+        }
+
+        // --- Network Status Checker & UI Update ---
+        function updateNetworkStatus() {
+            const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
+            const syncCount = submissions.length;
+            
+            let statusHTML = '';
+            if (!navigator.onLine) {
+                statusHTML += '<span class="offline-badge">অফলাইনে আছেন</span>';
+                submitButton.textContent = 'OFFLINE SAVE'; 
+                submitButton.style.backgroundColor = 'var(--danger-color)';
+            } else {
+                submitButton.textContent = 'SAVE'; 
+                submitButton.style.backgroundColor = 'var(--primary-color)';
+            }
+            if (syncCount > 0) {
+                statusHTML += `<span class="sync-count">Pending Sync: ${syncCount}</span>`; 
+            }
+            networkStatus.innerHTML = statusHTML;
+            
+            if (navigator.onLine && syncCount > 0) {
+                statusMessage.textContent = 'Internet connected! Data syncing automatically...'; 
+                syncData();
+            } else if (navigator.onLine && syncCount === 0) {
+                statusMessage.textContent = 'All up to date ✅'; 
+            } else if (!navigator.onLine && syncCount === 0) {
+                statusMessage.textContent = 'Offline mode active.'; 
+            }
+        }
+
+
+        window.addEventListener('online', updateNetworkStatus);
+        window.addEventListener('offline', updateNetworkStatus);
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchCustomerList(); 
+            updateNetworkStatus();
+        });
+
+
+        // --- Data Submission Logic ---
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            
+            addCustomerToSheet(data['Client/Customer Name']);
+            
+            data.action = 'submit'; 
+            data['Submission_Date'] = new Date().toLocaleDateString('en-CA'); 
+            data['Submission_Time'] = new Date().toLocaleTimeString('en-US', { hour12: false }); 
+            data['Group'] = 'gb-23'; // এই লাইনটি gb-23 এর জন্য ডেটা সেভ নিশ্চিত করবে
+
+            if (navigator.onLine) {
+                submitToGoogleSheet(data);
+            } else {
+                saveToLocalStorage(data);
+            }
+        });
+
+        // --- ১. আপডেট করা saveToLocalStorage (Sync Registration সহ) ---
+        function saveToLocalStorage(data) {
+            const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
+            submissions.push(data);
+            localStorage.setItem(OFFLINE_STORAGE_KEY, JSON.stringify(submissions));
+            
+            // 🌟 Service Worker Background Sync রেজিস্ট্রেশন 🌟
+            if ('sync' in navigator.serviceWorker) {
+                navigator.serviceWorker.ready.then(registration => {
+                    registration.sync.register('sync-offline-submissions') // এই ট্যাগটি Service Worker-এ ডিফাইন করা আছে
+                        .then(() => {
+                            console.log('Background sync registered successfully.');
+                        })
+                        .catch(error => {
+                            console.error('Background sync registration failed:', error);
+                        });
+                });
+            }
+            
+            statusMessage.style.backgroundColor = 'var(--warning-color)';
+            statusMessage.style.color = 'var(--text-color)';
+            statusMessage.textContent = `Saved offline! (${submissions.length} pending)`; 
+            form.reset();
+            updateNetworkStatus();
+        }
+
+        async function submitToGoogleSheet(data, isSync = false) {
+            submitButton.disabled = true;
+            statusMessage.style.backgroundColor = '#f8f9fa';
+            statusMessage.style.color = 'var(--text-color)';
+            statusMessage.textContent = isSync ? `Syncing (${JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]').length} remaining)...` : 'Submitting...';
+            
+            try {
+                await fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', 
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (!isSync) {
+                    statusMessage.style.backgroundColor = 'var(--success-color)';
+                    statusMessage.style.color = 'white';
+                    statusMessage.textContent = 'Successfully Submitted! ✅'; 
+                    form.reset();
+                    fetchCustomerList(); 
+                }
+                submitButton.disabled = false;
+                return true;
+            } catch (error) {
+                console.error('Submission Error:', error);
+                if (!isSync) {
+                    // সরাসরি সাবমিট ব্যর্থ হলে অফলাইনে সেভ করা
+                    saveToLocalStorage(data);
+                }
+                submitButton.disabled = false;
+                return false;
+            }
+        }
+        
+        // --- ২. আপডেট করা syncData (ডাবল এন্ট্রি ফিক্স সহ) ---
+        async function syncData() {
+            const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
+            if (submissions.length === 0) {
+                statusMessage.textContent = 'All data synced.'; 
+                updateNetworkStatus();
+                return;
+            }
+
+            statusMessage.style.backgroundColor = 'var(--primary-color)';
+            statusMessage.style.color = 'white';
+            statusMessage.textContent = `Syncing: ${submissions.length} pending entries...`; 
+            submitButton.disabled = true;
+
+            let failedSubmissions = [];
+            for (const data of submissions) {
+                const success = await submitToGoogleSheet(data, true);
+                if (!success) {
+                    failedSubmissions.push(data); 
+                }
+            }
+            
+            if (failedSubmissions.length === 0) {
+                // সব সফল হলে Local Storage খালি করা
+                localStorage.removeItem(OFFLINE_STORAGE_KEY);
+                statusMessage.style.backgroundColor = 'var(--success-color)';
+                statusMessage.style.color = 'white';
+                statusMessage.textContent = 'Successfully synced all data! ✅'; 
+                fetchCustomerList(); 
+            } else {
+                // শুধুমাত্র ব্যর্থ হওয়া ডেটাগুলো Local Storage-এ সেভ করা
+                localStorage.setItem(OFFLINE_STORAGE_KEY, JSON.stringify(failedSubmissions));
+                statusMessage.style.backgroundColor = 'var(--danger-color)';
+                statusMessage.style.color = 'white';
+                statusMessage.textContent = `Sync failed: ${failedSubmissions.length} entries remaining. Will retry.`; 
+            }
+            
+            submitButton.disabled = false;
+            updateNetworkStatus();
+        }
         
-        <h1>💰 GB-23 Daily Collection Entry</h1> 
-        
-        <div id="networkStatus" class="network-info"></div>
-        
-        <form id="collectionForm">
-            <label for="customerName">Client/Customer Name</label>
-            <input type="text" id="customerName" name="Client/Customer Name" list="customer-list-gb23" 
-                   placeholder="অফলাইন তালিকা লোড হচ্ছে..." required disabled>
-            
-            <datalist id="customer-list-gb23"></datalist>
+        // --- ৩. Service Worker থেকে মেসেজ গ্রহণ করে সিঙ্ক শুরু করা ---
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.addEventListener('message', event => {
+                // Service Worker যদি 'START_SYNC' বার্তা পাঠায়
+                if (event.data.type === 'START_SYNC') {
+                    console.log("Message received from SW: Initiating sync...");
+                    if (navigator.onLine) {
+                       syncData(); // শুধুমাত্র অনলাইন থাকলে সিঙ্ক শুরু করা
+                    }
+                }
+            });
+        }
 
-            <label for="paymentReceived">Payment Received (Taka)</label>
-            <input type="number" id="paymentReceived" name="Payment Received (Taka)" placeholder="e.g. 3000" required>
-
-            <label for="invoiceValue">Invoice Value (optional)</label>
-            <input type="number" id="invoiceValue" name="Invoice Value (optional)" placeholder="e.g. 5000">
-
-            <div class="button-wrapper">
-                <button type="submit" id="submitButton">SAVE</button>
-            </div>
-            <p id="statusMessage"></p>
-        </form>
-    </div>
-
-    <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("service-worker.js");
-    }
-    </script>
-
-    <script>
-        // Apps Script URL (আপনার GB-23 কালেকশন এন্ট্রি শিটের URL)
-        const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzt0DJEVTlPKuCddNOzSbzs1PNuF3bT_-98zyDW_a1jGaHesAUbbt16rHjCkm64d3pR/exec"; 
-        
-        const form = document.getElementById('collectionForm');
-        const customerNameInput = document.getElementById('customerName');
-        const submitButton = document.getElementById('submitButton');
-        const statusMessage = document.getElementById('statusMessage');
-        const networkStatus = document.getElementById('networkStatus');
-        const datalist = document.getElementById('customer-list-gb23'); // নতুন Datalist ID ব্যবহার
-
-        const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB23'; // GB-23 এর জন্য আলাদা কি
-        const CUSTOMER_LIST_KEY = 'savedCustomerList_GB23'; // কাস্টমার লিস্টের জন্য আলাদা কি (বর্তমানে অপ্রয়োজনীয়)
-
-        // --- কাস্টমার লিস্ট লোড করা (JSON ফাইল থেকে) ---
-        async function fetchCustomerList() {
-            customerNameInput.placeholder = 'Loading list...';
-            try {
-                // GitHub এ রাখা customer_list.json ফাইলটি ক্যাশ থেকে লোড করার চেষ্টা
-                const response = await fetch('customer_list.json'); 
-                
-                if (!response.ok) {
-                    throw new Error('customer_list.json failed to load.');
-                }
-
-                const fullData = await response.json();
-                
-                // gb-23 এর কাস্টমার তালিকা বের করা (key: customers_gb23)
-                const gb23_customers = fullData.customers_gb23 || []; 
-                
-                populateDatalist(gb23_customers);
-                
-                customerNameInput.disabled = false; // লোড হলে ইনপুট এনাবল করা
-                customerNameInput.placeholder = 'Type or select customer name';
-                return gb23_customers;
-
-            } catch (error) {
-                console.error("Failed to fetch customer list from JSON:", error);
-                customerNameInput.disabled = false;
-                customerNameInput.placeholder = 'Offline list load failed. Type manually.';
-                return [];
-            }
-        }
-
-        // --- অতিরিক্ত ফাংশন সরলীকরণ ---
-        function addCustomerToSheet(newCustomerName) {
-             console.log(`Checking/Adding Customer: ${newCustomerName}`);
-        }
-
-        // --- Autocomplete লিস্ট তৈরি করা ---
-        function populateDatalist(list) {
-            let optionsHTML = '';
-            list.forEach(customer => {
-                optionsHTML += `<option value="${customer}">`;
-            });
-            datalist.innerHTML = optionsHTML;
-        }
-
-        // --- Network Status Checker & UI Update ---
-        function updateNetworkStatus() {
-            const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
-            const syncCount = submissions.length;
-            
-            let statusHTML = '';
-            if (!navigator.onLine) {
-                statusHTML += '<span class="offline-badge">অফলাইনে আছেন</span>';
-                submitButton.textContent = 'OFFLINE SAVE'; 
-                submitButton.style.backgroundColor = 'var(--danger-color)'; // লাল
-            } else {
-                submitButton.textContent = 'SAVE'; 
-                submitButton.style.backgroundColor = 'var(--primary-color)'; // নীল
-            }
-            if (syncCount > 0) {
-                statusHTML += `<span class="sync-count">Pending Sync: ${syncCount}</span>`; 
-            }
-            networkStatus.innerHTML = statusHTML;
-            
-            if (navigator.onLine && syncCount > 0) {
-                statusMessage.textContent = 'Internet connected! Data syncing automatically...'; 
-                syncData();
-            } else if (navigator.onLine && syncCount === 0) {
-                statusMessage.textContent = 'All up to date ✅'; 
-            } else if (!navigator.onLine && syncCount === 0) {
-                statusMessage.textContent = 'Offline mode active.'; 
-            }
-        }
-
-
-        window.addEventListener('online', updateNetworkStatus);
-        window.addEventListener('offline', updateNetworkStatus);
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchCustomerList(); 
-            updateNetworkStatus();
-        });
-
-
-        // --- Data Submission Logic ---
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(form);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
-            
-            addCustomerToSheet(data['Client/Customer Name']);
-            
-            data.action = 'submit'; 
-            data['Submission_Date'] = new Date().toLocaleDateString('en-CA'); 
-            data['Submission_Time'] = new Date().toLocaleTimeString('en-US', { hour12: false }); 
-            data['Group'] = 'gb-23'; // এই লাইনটি gb-23 এর জন্য ডেটা সেভ নিশ্চিত করবে
-
-            if (navigator.onLine) {
-                submitToGoogleSheet(data);
-            } else {
-                saveToLocalStorage(data);
-            }
-        });
-
-        // --- Local Storage, Google Sheet Sync, and Synchronization Logic (unchanged) ---
-        function saveToLocalStorage(data) {
-            const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
-            submissions.push(data);
-            localStorage.setItem(OFFLINE_STORAGE_KEY, JSON.stringify(submissions));
-            
-            statusMessage.style.backgroundColor = 'var(--warning-color)';
-            statusMessage.style.color = 'var(--text-color)';
-            statusMessage.textContent = `Saved offline! (${submissions.length} pending)`; 
-            form.reset();
-            updateNetworkStatus();
-        }
-
-        async function submitToGoogleSheet(data, isSync = false) {
-            submitButton.disabled = true;
-            statusMessage.style.backgroundColor = '#f8f9fa';
-            statusMessage.style.color = 'var(--text-color)';
-            statusMessage.textContent = isSync ? `Syncing (${JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]').length} remaining)...` : 'Submitting...';
-            
-            try {
-                await fetch(GOOGLE_SHEET_WEB_APP_URL, {
-                    method: 'POST',
-                    mode: 'no-cors', 
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-
-                if (!isSync) {
-                    statusMessage.style.backgroundColor = 'var(--success-color)';
-                    statusMessage.style.color = 'white';
-                    statusMessage.textContent = 'Successfully Submitted! ✅'; 
-                    form.reset();
-                    fetchCustomerList(); 
-                }
-                submitButton.disabled = false;
-                return true;
-            } catch (error) {
-                console.error('Submission Error:', error);
-                if (!isSync) {
-                    saveToLocalStorage(data);
-                }
-                submitButton.disabled = false;
-                return false;
-            }
-        }
-        
-        async function syncData() {
-            const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
-            if (submissions.length === 0) {
-                statusMessage.textContent = 'All data synced.'; 
-                updateNetworkStatus();
-                return;
-            }
-
-            statusMessage.style.backgroundColor = 'var(--primary-color)';
-            statusMessage.style.color = 'white';
-            statusMessage.textContent = `Syncing: ${submissions.length} pending entries...`; 
-            submitButton.disabled = true;
-
-            let failedSubmissions = [];
-            for (const data of submissions) {
-                const success = await submitToGoogleSheet(data, true);
-                if (!success) {
-                    failedSubmissions.push(data); 
-                }
-            }
-            
-            if (failedSubmissions.length === 0) {
-                localStorage.removeItem(OFFLINE_STORAGE_KEY);
-                statusMessage.style.backgroundColor = 'var(--success-color)';
-                statusMessage.style.color = 'white';
-                statusMessage.textContent = 'Successfully synced all data! ✅'; 
-                fetchCustomerList(); 
-            } else {
-                localStorage.setItem(OFFLINE_STORAGE_KEY, JSON.stringify(failedSubmissions));
-                statusMessage.style.backgroundColor = 'var(--danger-color)';
-                statusMessage.style.color = 'white';
-                statusMessage.textContent = `Sync failed: ${failedSubmissions.length} entries remaining. Will retry.`; 
-            }
-            
-            submitButton.disabled = false;
-            updateNetworkStatus();
-        }
-
-        if (navigator.onLine) {
-            syncData();
-        }
-    </script>
+        // অ্যাপ্লিকেশন লোড হওয়ার সময় বা অনলাইন হলে সিঙ্ক শুরু করা
+        if (navigator.onLine) {
+            syncData();
+        }
+    </script>
 </body>
 </html>
