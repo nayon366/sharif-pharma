@@ -1,73 +1,91 @@
 // service-worker.js
 
 // CACHE_NAME ভার্সন: যেকোনো পরিবর্তনের পর অফলাইন ফাইল আপডেট করতে এটি পরিবর্তন করুন।
-// ভার্সন বাড়ানো হয়েছে v1.4 থেকে v1.5-এ
+// ভার্সন v1.5
 const CACHE_NAME = 'my-pwa-cache-v1.5'; 
 
 // ক্যাশ করার জন্য প্রয়োজনীয় সমস্ত ফাইলের তালিকা
 const urlsToCache = [
-  '/',
-  'index.html',
-  'daily_collection_entry.html', 
-  'collection_form.html', 
-  'collection_form_gb22.html', 
-  'collection_form_gb23.html', 
-  'customer_list.json', 
-  'manifest.json',
-  // যদি কোনো অতিরিক্ত CSS বা JS ফাইল থাকে, এখানে যুক্ত করুন
+  '/',
+  'index.html',
+  'daily_collection_entry.html', 
+  // 📌 আপনার সমস্ত কালেকশন ফর্ম যোগ করা হয়েছে
+  'collection_form.html', 
+  'collection_form_gb22.html', 
+  'collection_form_gb23.html', 
+  
+  // 📌 প্রয়োজনীয় ডেটা এবং মেটা ফাইল
+  'customer_list.json', 
+  'manifest.json',
+  // যদি কোনো অতিরিক্ত CSS বা JS ফাইল থাকে, এখানে যুক্ত করুন
 ];
 
-// Apps Script URL এবং LocalStorage Key: Service Worker-এও প্রয়োজন
-const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzPqmGS5IdO16r0xv46IOAp64_mdUC41mxQYKtgWzRw6Xlv8fns9BocoDfZKv4BHmJm/exec"; 
-const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB22'; // আপনার প্রধান Key
+// Apps Script URL: ডেটা সাবমিশনের জন্য (ক্যাশ করা উচিত নয়)
+const GOOGLE_SHEET_WEB_APP_URL_PARTIAL = "script.google.com/macros/"; 
+// LocalStorage Key: Service Worker-এ সিঙ্ক ট্যাগ করার জন্য প্রয়োজন
+const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB22'; 
 
-// --- ১. ইন্সটলেশন ফেজ: ক্যাশে ফাইল যুক্ত করা (পূর্বের লজিক) ---
+// --- ১. ইন্সটলেশন ফেজ: ক্যাশে ফাইল যুক্ত করা ---
 self.addEventListener('install', event => {
-  console.log('Service Worker: Installing and Caching App Shell');
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        return cache.addAll(urlsToCache);
-      })
-      .then(() => self.skipWaiting())
-  );
+  console.log('Service Worker: Installing and Caching App Shell (v1.5)');
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        // এই ক্যাশিং ফেইল করলে সম্পূর্ণ Service Worker ইনস্টল হবে না।
+        return cache.addAll(urlsToCache); 
+      })
+      .then(() => self.skipWaiting())
+      .catch(err => console.error('Service Worker: Initial caching failed', err))
+  );
 });
 
-// --- ২. ফেচ ফেজ: অফলাইন সাপোর্ট (পূর্বের লজিক) ---
+// --- ২. ফেচ ফেজ: অফলাইন সাপোর্ট (আপডেট করা লজিক) ---
 self.addEventListener('fetch', event => {
-  if (event.request.method !== 'GET') return;
+    // 📌 ডেটা সাবমিশন URL কে ক্যাশ করা এড়িয়ে যাওয়া
+    if (event.request.url.includes(GOOGLE_SHEET_WEB_APP_URL_PARTIAL)) {
+        // Data Submission request সরাসরি নেটওয়ার্কে যাবে
+        return;
+    }
 
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        if (response) {
-          return response;
-        }
-        return fetch(event.request).catch(error => {
-            console.error('Service Worker: Fetch failed:', event.request.url, error);
-        });
-      })
-  );
+    // 📌 ক্যাশ ফাস্ট, নেটওয়ার্ক ফলব্যাক লজিক
+    event.respondWith(
+        caches.match(event.request)
+            .then(cachedResponse => {
+                // যদি ক্যাশে ফাইলটি পাওয়া যায়, তবে সেটি রিটার্ন করা
+                if (cachedResponse) {
+                    return cachedResponse;
+                }
+                
+                // যদি ক্যাশে না পাওয়া যায়, তবে নেটওয়ার্ক থেকে আনার চেষ্টা করা
+                return fetch(event.request).catch(error => {
+                    console.error('Service Worker: Fetch failed from network (Offline?)', event.request.url, error);
+                    // এখানে আপনি ইউজারকে অফলাইন পেজ দেখাতে পারেন, যদি fetch ফেল করে
+                    // কিন্তু যেহেতু আমরা সমস্ত HTML ক্যাশ করছি, এটি খুব কম ঘটবে
+                });
+            })
+    );
 });
 
-// --- ৩. অ্যাক্টিভেশন ফেজ: পুরাতন ক্যাশ ডিলিট করা (পূর্বের লজিক) ---
+
+// --- ৩. অ্যাক্টিভেশন ফেজ: পুরাতন ক্যাশ ডিলিট করা ---
 self.addEventListener('activate', event => {
-  console.log('Service Worker: Activating and Cleaning up old caches');
-  const cacheWhitelist = [CACHE_NAME];
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    }).then(() => self.clients.claim()) 
-  );
+  console.log('Service Worker: Activating and Cleaning up old caches (v1.5)');
+  const cacheWhitelist = [CACHE_NAME];
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            console.log(`Deleting old cache: ${cacheName}`);
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    }).then(() => self.clients.claim()) 
+  );
 });
 
-// --- ৪. 🌟 ব্যাকগ্রাউন্ড সিঙ্ক লজিক (নতুন সংযোজন) 🌟 ---
+// --- ৪. 🌟 ব্যাকগ্রাউন্ড সিঙ্ক লজিক 🌟 ---
 
 self.addEventListener('sync', (event) => {
     // এই ট্যাগটি আপনার HTML ফাইলে রেজিস্টার করা হবে
@@ -85,7 +103,7 @@ async function notifyClientsToSync() {
     
     // যদি একটিও খোলা উইন্ডো থাকে (এমনকি ব্যাকগ্রাউন্ডে), তাকে সিঙ্ক শুরু করার নির্দেশ দেওয়া হবে।
     if (allClients.length > 0) {
-        // একটি খোলা উইন্ডোকে পোস্ট মেসেজ পাঠানো
+        // প্রথম খোলা উইন্ডোকে পোস্ট মেসেজ পাঠানো (সাধারণত এটিই ফ্রন্ট-মোস্ট উইন্ডো)
         allClients[0].postMessage({
             type: 'START_SYNC',
             message: 'Network is back. Initiating data sync from LocalStorage.'
