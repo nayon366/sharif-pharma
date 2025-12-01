@@ -6,11 +6,11 @@
     <title>GB-23 Daily Collection Entry</title>
     <link rel="manifest" href="manifest.json">
     <style>
-        /* 🚀 BEAUTIFUL CSS Styling (Screenshot_51.jpg অনুযায়ী) */
+        /* 🎨 Beautiful CSS Styling */
         :root {
             --primary-color: #007bff;
             --primary-dark: #0056b3;
-            --background-color: #f8f9fa; /* Lighter background */
+            --background-color: #f8f9fa; 
             --card-background: #ffffff;
             --text-color: #343a40;
             --success-color: #28a745;
@@ -25,11 +25,11 @@
         }
         
         .container {
-            max-width: 450px; /* Slightly wider */
+            max-width: 450px; 
             margin: auto;
             background: var(--card-background);
             padding: 30px;
-            border-radius: 15px; /* Softer border */
+            border-radius: 15px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
@@ -77,7 +77,7 @@
             color: white;
             padding: 20px;
             border: none;
-            border-radius: 50%; /* Circular button */
+            border-radius: 50%; 
             cursor: pointer;
             width: 100px;
             height: 100px;
@@ -149,8 +149,8 @@
     </script>
 
     <script>
-        // 📌 এখানে আপনার Apps Script Web App URL দিন 📌
-        const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzt0DJEVTlPKuCddNOzSbzs1PNuF3bT_-98zyDW_a1jGaHesAUbbt16rHjCkm64d3pR/exec"; 
+        // 📌 আপনার Apps Script Web App URL (সঠিক) 📌
+        const BASE_URL = "https://script.google.com/macros/s/AKfycbzt0DJEVTlPKuCddNOzSbzs1PNuF3bT_-98zyDW_a1jGaHesAUbbt16rHjCkm64d3pR/exec"; 
         
         const form = document.getElementById('collectionForm');
         const customerNameInput = document.getElementById('customerName');
@@ -166,7 +166,8 @@
         async function fetchCustomerList() {
             customerNameInput.placeholder = 'Loading list...';
             try {
-                const response = await fetch('customer_list.json'); 
+                // 💡 ক্যাশ বাইপাস করার জন্য অতিরিক্ত প্যারামিটার যোগ করা হলো
+                const response = await fetch(`customer_list.json?v=${Date.now()}`); 
                 if (!response.ok) { throw new Error('customer_list.json failed to load.'); }
 
                 const fullData = await response.json();
@@ -230,7 +231,8 @@
         // --- ৩. ডেটা সার্ভারে পাঠানো ---
         async function submitToGoogleSheet(data) {
             try {
-                const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                // 💡 ক্যাশ এড়ানোর জন্য Apps Script URL এও প্যারামিটার যোগ করা হলো
+                const response = await fetch(`${BASE_URL}?cache=${Date.now()}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
@@ -257,21 +259,18 @@
             submissions.push(data);
             localStorage.setItem(OFFLINE_STORAGE_KEY, JSON.stringify(submissions));
             
-            // ব্যাকগ্রাউন্ড সিঙ্ক অনুরোধ
             if ('sync' in navigator.serviceWorker) {
                 navigator.serviceWorker.ready.then(registration => {
                     registration.sync.register('sync-offline-submissions');
                 });
             }
             
-            // তাৎক্ষণিক সফলতার মেসেজ (১ সেকেন্ডের মধ্যে)
             statusMessage.style.backgroundColor = 'var(--success-color)';
             statusMessage.style.color = 'white';
             statusMessage.textContent = `Success! Saved locally. (${submissions.length} pending sync)`; 
             form.reset();
             updateNetworkStatus();
             
-            // যদি ইন্টারনেট থাকে, সাথে সাথেই সিঙ্ক শুরু করুন
             if (navigator.onLine) { syncData(); }
         }
 
@@ -288,7 +287,6 @@
                 return;
             }
 
-            // সিঙ্ক শুরু হচ্ছে মেসেজ 
             if (!statusMessage.textContent.startsWith('Success!')) {
                 statusMessage.style.backgroundColor = 'var(--warning-color)';
                 statusMessage.style.color = 'var(--text-color)';
@@ -328,13 +326,11 @@
             const data = {};
             formData.forEach((value, key) => { data[key] = value.trim(); });
             
-            // ডেটা ফর্মেট করা
             data.action = 'submit'; 
             data['Submission_Date'] = new Date().toISOString().split('T')[0]; 
             data['Submission_Time'] = new Date().toLocaleTimeString('en-US', { hour12: false }); 
             data['Group'] = 'gb-23'; 
 
-            // ইন্টারনেট থাকুক বা না থাকুক, প্রথমে Local Storage-এ সেভ হবে
             saveToLocalStorage(data); 
         });
         
