@@ -7,7 +7,7 @@
     <link rel="manifest" href="manifest.json">
     
     <style>
-        /* CSS Styling (পরিবর্তন নেই) */
+        /* CSS Styling (No change) */
         :root {
             --primary-color: #007bff;
             --primary-dark: #0056b3;
@@ -210,7 +210,6 @@
             }
         }
         
-        // ডামি ফাংশন 
         function addCustomerToSheet(newCustomerName) { 
              // Apps Script এ ডেটা সেভ করার সময় কাস্টমার যোগ হবে।
         }
@@ -221,14 +220,21 @@
             const syncCount = submissions.length;
             
             let statusHTML = '';
+            // 💡 স্ক্রিনশট অনুযায়ী নেটওয়ার্ক স্ট্যাটাস আপডেট 
+            if (navigator.onLine) {
+                 statusHTML += 'অনলাইনে আছেন'; 
+            } else {
+                 statusHTML += '<span class="offline-badge">অফলাইনে আছেন</span>';
+            }
+
             if (!navigator.onLine) {
-                statusHTML += '<span class="offline-badge">অফলাইনে আছেন</span>';
                 submitButton.textContent = 'OFFLINE SAVE'; 
                 submitButton.style.backgroundColor = 'var(--danger-color)';
             } else {
                 submitButton.textContent = 'SAVE'; 
                 submitButton.style.backgroundColor = 'var(--primary-color)';
             }
+
             if (syncCount > 0) {
                 statusHTML += `<span class="sync-count">Pending Sync: ${syncCount}</span>`; 
             }
@@ -238,6 +244,8 @@
                 statusMessage.textContent = 'Internet connected! Data syncing automatically...'; 
                 syncData();
             } else if (navigator.onLine && syncCount === 0) {
+                statusMessage.style.backgroundColor = 'transparent';
+                statusMessage.style.color = 'var(--text-color)';
                 statusMessage.textContent = 'All up to date ✅'; 
                 setFormDisabled(false); 
             } else if (!navigator.onLine && syncCount === 0) {
@@ -252,15 +260,26 @@
             updateNetworkStatus();
         });
 
-        // 💡 পরিবর্তন: ফর্ম সাবমিশন লজিক এখন সব সময় Local Storage এ সেভ করবে।
+        // 💡 পরিবর্তন: ডেটা পরিষ্কার করার লজিক এখানে যোগ করা হলো
         // --- Data Submission Logic (Local Store First) ---
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
             const formData = new FormData(form);
             const data = {};
-            formData.forEach((value, key) => { data[key] = value; });
+            formData.forEach((value, key) => { 
+                data[key] = value; 
+            });
             
+            // 🚀 নতুন লজিক: ফাকা নম্বর ফিল্ডগুলি শূন্যতে রূপান্তর করা
+            if (data['Invoice Value (optional)'] === "") {
+                data['Invoice Value (optional)'] = 0; 
+            }
+            if (data['Payment Received (Taka)'] === "") {
+                // এটি Required ফিল্ড, তবুও সুরক্ষার জন্য:
+                 data['Payment Received (Taka)'] = 0; 
+            }
+
             addCustomerToSheet(data['Client/Customer Name']);
             
             data.action = 'submit'; 
@@ -268,7 +287,7 @@
             data['Submission_Time'] = new Date().toLocaleTimeString('en-US', { hour12: false }); 
             data['Group'] = GROUP_ID; 
 
-            // 🚀 পরিবর্তন: ইন্টারনেট থাকুক বা না থাকুক, প্রথমে লোকাল স্টোরেজে সেভ হবে
+            // ইন্টারনেট থাকুক বা না থাকুক, প্রথমে লোকাল স্টোরেজে সেভ হবে
             saveToLocalStorage(data); 
         });
 
@@ -296,15 +315,14 @@
         // --- submitToGoogleSheet (শুধুমাত্র syncData() দ্বারা ব্যবহৃত হবে) ---
         async function submitToGoogleSheet(data, isSync = false) {
             
-            // সিঙ্ক চলাকালীন বাটন ডিসেবল থাকবে 
             if (!isSync) {
                 submitButton.disabled = true;
             } else {
                 setFormDisabled(true); 
             }
             
-            statusMessage.style.backgroundColor = '#f8f9fa';
-            statusMessage.style.color = 'var(--text-color)';
+            statusMessage.style.backgroundColor = 'var(--primary-color)';
+            statusMessage.style.color = 'white';
             statusMessage.textContent = isSync ? `Syncing (${JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]').length} remaining)...` : 'Submitting (via Sync)...';
 
             try {
@@ -319,11 +337,12 @@
                 if (result.result === 'success') {
                      return true;
                 } else {
-                     console.error('Apps Script Error:', result.message);
+                     console.error('Apps Script Error Response:', result.message); // Apps Script এরর মেসেজ লগ করা
                      return false; 
                 }
                 
             } catch (error) {
+                // নেটওয়ার্ক বা JSON পার্সিং এরর এখানে ধরা হবে
                 console.error('Submission Error (Network/Parsing):', error);
                 return false; 
             } finally {
@@ -337,7 +356,7 @@
         async function syncData() {
             const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
             if (submissions.length === 0) {
-                statusMessage.textContent = 'All data synced. ✅'; 
+                statusMessage.textContent = 'All up to date ✅'; 
                 updateNetworkStatus();
                 setFormDisabled(false); 
                 return;
@@ -368,7 +387,7 @@
                 localStorage.setItem(OFFLINE_STORAGE_KEY, JSON.stringify(failedSubmissions));
                 statusMessage.style.backgroundColor = 'var(--danger-color)';
                 statusMessage.style.color = 'white';
-                statusMessage.textContent = `Sync failed: ${failedSubmissions.length} entries remaining. Will retry next time.`; 
+                statusMessage.textContent = `Sync failed: ${failedSubmissions.length} entries remaining. Will retry.`; 
             }
             
             updateNetworkStatus();
