@@ -10,7 +10,7 @@ const urlsToCache = [
   'index.html',
   'daily_collection_entry.html', 
   // 📌 আপনার সমস্ত কালেকশন ফর্ম যোগ করা হয়েছে
-  'collection_form.html', 
+  'collection_form_gb12.html', 
   'collection_form_gb22.html', 
   'collection_form_gb23.html', 
   
