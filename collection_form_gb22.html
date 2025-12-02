@@ -113,10 +113,10 @@
         
         <form id="collectionForm">
             <label for="customerName">Client/Customer Name</label>
-            <input type="text" id="customerName" name="Client/Customer Name" list="customer-list-gb22"	
+            <input type="text" id="customerName" name="Client/Customer Name" list="customer-list-gb23"	
                    placeholder="অফলাইন তালিকা লোড হচ্ছে..." required disabled>
             
-            <datalist id="customer-list-gb22"></datalist>
+            <datalist id="customer-list-gb23"></datalist>
 
             <label for="paymentReceived">Payment Received (Taka)</label>
             <input type="number" id="paymentReceived" name="Payment Received (Taka)" placeholder="e.g. 3000" required>
@@ -139,7 +139,7 @@
     </script>
 
     <script>
-    // 🚀 GB-22 Apps Script URL (আপনার Apps Script URL এখানে ব্যবহার করুন)
+    // 🚀 GB-22 Apps Script URL (আপনাকে এটি পরিবর্তন করতে হবে)
     const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzPqmGS5IdO16r0xv46IOAp64_mdUC41mxQYKtgWzRw6Xlv8fns9BocoDfZKv4BHmJm/exec";	
     
     const form = document.getElementById('collectionForm');
@@ -147,11 +147,11 @@
     const submitButton = document.getElementById('submitButton');
     const statusMessage = document.getElementById('statusMessage');
     const networkStatus = document.getElementById('networkStatus');
-    const datalist = document.getElementById('customer-list-gb22');	
+    const datalist = document.getElementById('customer-list-gb23');	
 
-    // 🔑 Storage Keys GB-22 এর জন্য
-    const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB22';	
-    const CUSTOMER_LIST_KEY = 'savedCustomerList_GB22';
+    // 🔑 Storage Keys GB-22 এর জন্য (অপরিবর্তিত, তবে আপনি চাইলে এটিও gb22 করতে পারেন)
+    const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB23';	
+    const CUSTOMER_LIST_KEY = 'savedCustomerList_GB23';
 
     // --- ফর্মের ইনপুট ফিল্ডগুলিকে ডিসেবল/এনেবল করার জন্য ইউটিলিটি ফাংশন (অপরিবর্তিত) ---
     function setFormDisabled(disabled) {
@@ -169,7 +169,7 @@
             if (!response.ok) { throw new Error('customer_list.json failed to load.'); }
 
             const fullData = await response.json();
-            const gb22_customers = fullData.customers_gb22 || []; // *** এখানে পরিবর্তন করা হলো ***
+            const gb22_customers = fullData.customers_gb22 || []; // *** এখানে customers_gb22 করা হলো ***
             
             populateDatalist(gb22_customers);
             
@@ -236,7 +236,7 @@
         updateNetworkStatus();
     });
 
-    // --- Data Submission Logic (সংশোধন: Invoice Value) ---
+    // --- Data Submission Logic (সংশোধন: Group Tag) ---
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -337,7 +337,7 @@
         }
     }
     
-    // --- syncData (আগের মতোই রাখা হয়েছে কারণ সিঙ্কের সময় ডেটা কনসিস্টেন্সি নিশ্চিত করা দরকার) ---
+    // --- syncData (অপরিবর্তিত) ---
     async function syncData() {
         const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
         if (submissions.length === 0) {
