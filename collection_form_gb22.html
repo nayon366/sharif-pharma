@@ -139,7 +139,7 @@
     </script>
 
     <script>
-    // 🚀 GB-22 Apps Script URL (আপডেট করা হলো)
+    // 🚀 GB-22 Apps Script URL
     const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzPqmGS5IdO16r0xv46IOAp64_mdUC41mxQYKtgWzRw6Xlv8fns9BocoDfZKv4BHmJm/exec";	
     
     const form = document.getElementById('collectionForm');
@@ -149,11 +149,11 @@
     const networkStatus = document.getElementById('networkStatus');
     const datalist = document.getElementById('customer-list-gb23');	
 
-    // 🔑 Storage Keys (অপরিবর্তিত)
+    // 🔑 Storage Keys 
     const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB23';	
     const CUSTOMER_LIST_KEY = 'savedCustomerList_GB23';
 
-    // --- ফর্মের ইনপুট ফিল্ডগুলিকে ডিসেবল/এনেবল করার জন্য ইউটিলিটি ফাংশন (অপরিবর্তিত) ---
+    // --- ফর্মের ইনপুট ফিল্ডগুলিকে ডিসেবল/এনেবল করার জন্য ইউটিলিটি ফাংশন ---
     function setFormDisabled(disabled) {
         customerNameInput.disabled = disabled;
         document.getElementById('paymentReceived').disabled = disabled;
@@ -161,7 +161,7 @@
         submitButton.disabled = disabled;
     }
 
-    // --- কাস্টমার লিস্ট লোড করা (JSON ফাইল থেকে) ---
+    // --- কাস্টমার লিস্ট লোড করা (customer_list.json থেকে customers_gb22 ডেটা নেবে) ---
     async function fetchCustomerList() {
         customerNameInput.placeholder = 'Loading list...';
         try {
@@ -169,7 +169,7 @@
             if (!response.ok) { throw new Error('customer_list.json failed to load.'); }
 
             const fullData = await response.json();
-            const gb22_customers = fullData.customers_gb22 || []; // customers_gb22 থেকে ডেটা লোড করা হবে
+            const gb22_customers = fullData.customers_gb22 || []; // *** customers_gb22 থেকে লোড হবে ***
             
             populateDatalist(gb22_customers);
             
@@ -199,7 +199,7 @@
         datalist.innerHTML = optionsHTML;
     }
 
-    // --- Network Status Checker & UI Update (অপরিবর্তিত) ---
+    // --- Network Status Checker & UI Update ---
     function updateNetworkStatus() {
         const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
         const syncCount = submissions.length;
@@ -252,7 +252,7 @@
         addCustomerToSheet(data['Client/Customer Name']);
         
         data.action = 'submit';	
-        data['Group'] = 'gb-22'; // গ্রুপ ট্যাগ gb-22
+        data['Group'] = 'gb-22'; // *** গ্রুপ ট্যাগ gb-22 ***
 
         if (navigator.onLine) {
             submitToGoogleSheet(data);
@@ -261,7 +261,7 @@
         }
     });
 
-    // --- saveToLocalStorage (অপরিবর্তিত) ---
+    // --- saveToLocalStorage ---
     function saveToLocalStorage(data) {
         const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
         submissions.push(data);
@@ -285,26 +285,17 @@
     // --- submitToGoogleSheet (Fire and Forget Method) ---
     async function submitToGoogleSheet(data, isSync = false) {
         
-        // 1. যদি সিঙ্ক না হয় (অর্থাৎ ইউজার ম্যানুয়ালি সাবমিট করছে), তবে সাথে সাথেই UI আপডেট করা হবে।
         if (!isSync) {
-            // UI Update: ডিসেবল/এনেবল করা	
             setFormDisabled(true);	
-            
-            // UI Update: সাফল্যের মেসেজ দেখানো
             statusMessage.style.backgroundColor = 'var(--success-color)';
             statusMessage.style.color = 'white';
             statusMessage.textContent = 'Submitted! Syncing in background... ✅';	
-            
-            // UI Update: ফর্ম রিসেট করা
             form.reset();	
             fetchCustomerList();	
-            
-            // UI Update: বাটন পুনরায় এনেবল করা
             setFormDisabled(false);	
             updateNetworkStatus();	
         }
         
-        // 2. সার্ভারের রেসপন্সের জন্য অপেক্ষা না করে রিকোয়েস্ট শুরু করা:
         try {
             const responsePromise = fetch(GOOGLE_SHEET_WEB_APP_URL, {
                 method: 'POST',
@@ -313,31 +304,26 @@
                 body: JSON.stringify(data)
             });
 
-            // 3. যদি এটি সিঙ্ক অপারেশন না হয়, তবে দ্রুত `true` রিটার্ন করা
             if (!isSync) {
-                // নেটওয়ার্ক এরর হ্যান্ডেল করা (যদি রিকোয়েস্ট সার্ভারে পৌঁছাতে ব্যর্থ হয়)
                 responsePromise.catch(error => {
                     console.error('Network Error during fire and forget:', error);
-                    // ফেইল হলে অফলাইনে সেভ করা
                     saveToLocalStorage(data);	
                 });
-                return true; // Fire and Forget: Immediately return success
+                return true; 
             }
             
-            // 4. যদি এটি সিঙ্ক অপারেশন হয়, তবে সফলভাবে ডেটা সেভ হওয়া নিশ্চিত করার জন্য অপেক্ষা করা।
             await responsePromise;
             return true;
 
         } catch (error) {
             console.error('Submission Initialization Error:', error);
-            // যদি রিকোয়েস্ট শুরু করার আগেই কোনো ত্রুটি হয়
             if (!isSync) { saveToLocalStorage(data); }
             if (!isSync) { submitButton.disabled = false; }
             return false;	
         }
     }
     
-    // --- syncData (অপরিবর্তিত) ---
+    // --- syncData ---
     async function syncData() {
         const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
         if (submissions.length === 0) {
@@ -355,7 +341,6 @@
         
         let failedSubmissions = [];
         for (const data of submissions) {
-            // সিঙ্ক করার সময়, আমরা submitToGoogleSheet-এর সার্ভার রেসপন্সের জন্য অপেক্ষা করব
             const success = await submitToGoogleSheet(data, true);	
             
             if (!success) { failedSubmissions.push(data); }
@@ -379,7 +364,7 @@
         updateNetworkStatus();
     }
 
-    // --- Service Worker Message Listener (অপরিবর্তিত) ---
+    // --- Service Worker Message Listener ---
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.addEventListener('message', event => {
             if (event.data.type === 'START_SYNC') {
