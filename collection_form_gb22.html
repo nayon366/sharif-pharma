@@ -139,7 +139,7 @@
     </script>
 
     <script>
-    // 🚀 GB-22 Apps Script URL (আপনাকে এটি পরিবর্তন করতে হবে)
+    // 🚀 GB-22 Apps Script URL (আপডেট করা হলো)
     const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzPqmGS5IdO16r0xv46IOAp64_mdUC41mxQYKtgWzRw6Xlv8fns9BocoDfZKv4BHmJm/exec";	
     
     const form = document.getElementById('collectionForm');
@@ -149,7 +149,7 @@
     const networkStatus = document.getElementById('networkStatus');
     const datalist = document.getElementById('customer-list-gb23');	
 
-    // 🔑 Storage Keys GB-22 এর জন্য (অপরিবর্তিত, তবে আপনি চাইলে এটিও gb22 করতে পারেন)
+    // 🔑 Storage Keys (অপরিবর্তিত)
     const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB23';	
     const CUSTOMER_LIST_KEY = 'savedCustomerList_GB23';
 
@@ -161,7 +161,7 @@
         submitButton.disabled = disabled;
     }
 
-    // --- কাস্টমার লিস্ট লোড করা (JSON ফাইল থেকে - এখন gb22 কাস্টমার খোঁজা হবে) ---
+    // --- কাস্টমার লিস্ট লোড করা (JSON ফাইল থেকে) ---
     async function fetchCustomerList() {
         customerNameInput.placeholder = 'Loading list...';
         try {
@@ -169,7 +169,7 @@
             if (!response.ok) { throw new Error('customer_list.json failed to load.'); }
 
             const fullData = await response.json();
-            const gb22_customers = fullData.customers_gb22 || []; // *** এখানে customers_gb22 করা হলো ***
+            const gb22_customers = fullData.customers_gb22 || []; // customers_gb22 থেকে ডেটা লোড করা হবে
             
             populateDatalist(gb22_customers);
             
@@ -236,7 +236,7 @@
         updateNetworkStatus();
     });
 
-    // --- Data Submission Logic (সংশোধন: Group Tag) ---
+    // --- Data Submission Logic ---
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -252,7 +252,7 @@
         addCustomerToSheet(data['Client/Customer Name']);
         
         data.action = 'submit';	
-        data['Group'] = 'gb-22'; // *** এখানে gb-22 করা হলো ***
+        data['Group'] = 'gb-22'; // গ্রুপ ট্যাগ gb-22
 
         if (navigator.onLine) {
             submitToGoogleSheet(data);
