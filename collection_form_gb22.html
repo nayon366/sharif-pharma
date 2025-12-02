@@ -6,7 +6,7 @@
     <title>GB-22 Daily Collection Entry</title>	
     <link rel="manifest" href="manifest.json">
     <style>
-        /* CSS Styling (GB-22 এর সাথে সামঞ্জস্যপূর্ণ) */
+        /* CSS Styling (অপরিবর্তিত) */
         :root {
             --primary-color: #007bff;
             --primary-dark: #0056b3;
@@ -113,10 +113,10 @@
         
         <form id="collectionForm">
             <label for="customerName">Client/Customer Name</label>
-            <input type="text" id="customerName" name="Client/Customer Name" list="customer-list-gb23"	
+            <input type="text" id="customerName" name="Client/Customer Name" list="customer-list-gb22"	
                    placeholder="অফলাইন তালিকা লোড হচ্ছে..." required disabled>
             
-            <datalist id="customer-list-gb23"></datalist>
+            <datalist id="customer-list-gb22"></datalist>
 
             <label for="paymentReceived">Payment Received (Taka)</label>
             <input type="number" id="paymentReceived" name="Payment Received (Taka)" placeholder="e.g. 3000" required>
@@ -147,11 +147,11 @@
     const submitButton = document.getElementById('submitButton');
     const statusMessage = document.getElementById('statusMessage');
     const networkStatus = document.getElementById('networkStatus');
-    const datalist = document.getElementById('customer-list-gb23');	
+    const datalist = document.getElementById('customer-list-gb22');	// *** gb22 করা হলো ***
 
-    // 🔑 Storage Keys 
-    const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB23';	
-    const CUSTOMER_LIST_KEY = 'savedCustomerList_GB23';
+    // 🔑 Storage Keys GB-22 এর জন্য
+    const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB22';	// *** GB22 করা হলো ***
+    const CUSTOMER_LIST_KEY = 'savedCustomerList_GB22';      // *** GB22 করা হলো ***
 
     // --- ফর্মের ইনপুট ফিল্ডগুলিকে ডিসেবল/এনেবল করার জন্য ইউটিলিটি ফাংশন ---
     function setFormDisabled(disabled) {
@@ -169,7 +169,7 @@
             if (!response.ok) { throw new Error('customer_list.json failed to load.'); }
 
             const fullData = await response.json();
-            const gb22_customers = fullData.customers_gb22 || []; // *** customers_gb22 থেকে লোড হবে ***
+            const gb22_customers = fullData.customers_gb22 || []; // customers_gb22 থেকে লোড হবে
             
             populateDatalist(gb22_customers);
             
@@ -252,7 +252,7 @@
         addCustomerToSheet(data['Client/Customer Name']);
         
         data.action = 'submit';	
-        data['Group'] = 'gb-22'; // *** গ্রুপ ট্যাগ gb-22 ***
+        data['Group'] = 'gb-22'; // গ্রুপ ট্যাগ gb-22
 
         if (navigator.onLine) {
             submitToGoogleSheet(data);
