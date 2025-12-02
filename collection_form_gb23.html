@@ -169,16 +169,16 @@
                 if (!response.ok) { throw new Error('customer_list.json failed to load.'); }
 
                 const fullData = await response.json();
-                const gb12_customers = fullData.customers_gb12 || []; 
+                const gb23_customers = fullData.customers_gb23 || []; 
                 
-                populateDatalist(gb12_customers);
+                populateDatalist(gb23_customers);
                 
                 // শুধুমাত্র কাস্টমার লিস্ট লোড হলে কাস্টমার নেম ইনপুট এনেবল হবে, বাকিটা syncData() হ্যান্ডেল করবে
                 if (!document.getElementById('paymentReceived').disabled) {
                     customerNameInput.disabled = false;
                 }
                 customerNameInput.placeholder = 'Type or select customer name';
-                return gb12_customers;
+                return gb23_customers;
 
             } catch (error) {
                 console.error("Failed to fetch customer list from JSON:", error);
