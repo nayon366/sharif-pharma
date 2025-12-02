@@ -222,7 +222,7 @@
             statusMessage.textContent = 'Internet connected! Data syncing automatically...'; 
             syncData();
         } else if (navigator.onLine && syncCount === 0) {
-            statusMessage.textContent = 'All up to date ✅'; 
+            statusMessage.textContent = 'Successful ✅'; 
             setFormDisabled(false); 
         } else if (!navigator.onLine && syncCount === 0) {
             statusMessage.textContent = 'Offline mode active.'; 
