@@ -1,443 +1,389 @@
 <!DOCTYPE html>
-<html>
+<html lang="bn">
 <head>
-    <base target="_top">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>GB-23 Daily Collection Entry</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GB-23 Daily Collection Entry (GitHub Host)</title> 
+    <link rel="manifest" href="manifest.json">
     
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f7f6;
-            color: #333;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .header {
-            text-align: center;
-            padding: 10px 0 20px 0;
-            border-bottom: 1px solid #ddd;
-        }
-        .header h1 {
-            color: #007bff;
-            font-size: 24px;
-            margin: 5px 0;
-        }
-        .header .status {
-            font-size: 14px;
-            color: green;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="text"], input[type="number"], input[type="date"] {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        .button-save {
-            width: 100%;
-            padding: 15px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            font-size: 18px;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-        .button-save:hover {
-            background-color: #0056b3;
-        }
-        .sync-info {
-            background-color: #ffc107;
-            color: #333;
-            padding: 10px;
-            border-radius: 4px;
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: bold;
-            display: none; /* প্রাথমিকভাবে লুকানো থাকবে */
-        }
-        .sync-error {
-            background-color: #dc3545;
-            color: white;
-            padding: 10px;
-            border-radius: 4px;
-            text-align: center;
-            margin-top: 15px;
-            font-weight: bold;
-            display: none;
-        }
-        .success-message {
-            background-color: #28a745;
-            color: white;
-            padding: 10px;
-            border-radius: 4px;
-            text-align: center;
-            margin-top: 15px;
-            display: none;
-        }
-        .back-link {
-            display: block;
-            margin-bottom: 20px;
-            color: #007bff;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        .loading-spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border-left-color: #fff;
-            animation: spin 1s ease infinite;
-            margin: 0 auto;
-            display: none;
+        /* CSS Styling (আপনার দেওয়া কোডের অনুরূপ) */
+        :root {
+            --primary-color: #007bff;
+            --primary-dark: #0056b3;
+            --background-color: #e9ecef;
+            --card-background: #ffffff;
+            --text-color: #343a40;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            padding: 20px; 
+            background-color: var(--background-color); 
+        }
+        
+        .container { 
+            max-width: 400px; 
+            margin: auto; 
+            background: var(--card-background); 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1), 0 0 5px rgba(0,0,0,0.05); 
+        }
+
+        h1 { 
+            color: var(--primary-color);
+            text-align: center; 
+            margin-bottom: 30px; 
+            font-size: 1.6em;
+            font-weight: 700;
+        }
+        label { 
+            display: block; 
+            margin-top: 15px; 
+            margin-bottom: 5px;
+            font-weight: 600; 
+            color: var(--text-color); 
+        }
+        
+        input[type="date"], input[type="text"], input[type="number"], textarea {
+            width: 100%; 
+            padding: 14px; 
+            border: 1px solid #ced4da;
+            border-radius: 8px; 
+            box-sizing: border-box;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.08); 
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus, textarea:focus { 
+            border-color: var(--primary-color); 
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+            outline: none; 
+        }
+
+        .button-wrapper {
+            display: flex; 
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        button {
+            background-color: var(--primary-color); 
+            color: white; 
+            padding: 15px; 
+            border: none; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            width: 80px; 
+            height: 80px;
+            font-size: 0.9em; 
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); 
+            transition: background-color 0.3s, transform 0.2s;
+            text-transform: uppercase;
+        }
+        button:hover:not(:disabled) { 
+            background-color: var(--primary-dark); 
+            transform: scale(1.05);
+        }
+        button:disabled {
+            background-color: #adb5bd;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        
+        #statusMessage { margin-top: 20px; padding: 12px; border-radius: 6px; font-weight: bold; text-align: center; }
+        .network-info { margin-bottom: 15px; text-align: center; }
+        .offline-badge { background-color: var(--danger-color); color: white; padding: 5px 8px; border-radius: 5px; display: inline-block; margin-right: 5px; font-size: 0.9em; }
+        .sync-count { background-color: var(--warning-color); color: var(--text-color); padding: 5px 8px; border-radius: 5px; display: inline-block; font-size: 0.9em; }
+        .back-button {
+            display: block;
+            margin-bottom: 25px;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <a href="daily_collection_entry.html" class="back-button">← Details Page এ ফিরে যান</a> 
+        
+        <h1><span style="font-size: 1.5em; margin-right: 10px;">💰</span> GB-23 Daily Collection Entry</h1>
+        
+        <div id="networkStatus" class="network-info"></div>
+        
+        <form id="collectionForm">
+            <label for="customerName">Client/Customer Name</label>
+            <input type="text" id="customerName" name="Client/Customer Name" list="customer-list-gb23" 
+                    placeholder="অফলাইন তালিকা লোড হচ্ছে..." required disabled>
+            
+            <datalist id="customer-list-gb23"></datalist>
 
-<div class="container">
+            <label for="paymentReceived">Payment Received (Taka)</label>
+            <input type="number" id="paymentReceived" name="Payment Received (Taka)" placeholder="e.g. 3000" required>
 
-    <a href="#" class="back-link" onclick="window.history.back(); return false;">← Details Page এ ফিরে যান</a>
-    
-    <div class="header">
-        <span style="font-size: 30px; margin-right: 10px;">💰</span>
-        <h1>GB-23 Daily Collection Entry</h1>
-        <div id="online-status" class="status">অনলাইনে আছেন</div>
-        <div id="pending-sync-status" class="sync-info">Pending Sync: 0</div>
+            <label for="invoiceValue">Invoice Value (optional)</label>
+            <input type="number" id="invoiceValue" name="Invoice Value (optional)" placeholder="e.g. 5000">
+
+            <div class="button-wrapper">
+                <button type="submit" id="submitButton">SAVE</button>
+            </div>
+            <p id="statusMessage"></p>
+        </form>
+
     </div>
-    
-    <form id="collection-form">
-        <input type="hidden" id="submission-date" name="Submission_Date">
+
+    <script>
+        // ⚠️ আপনার Apps Script ওয়েব অ্যাপের URL এখানে বসান
+        const GOOGLE_SHEET_WEB_APP_URL = "YOUR_APPS_SCRIPT_DEPLOYMENT_URL_HERE"; 
         
-        <div class="form-group">
-            <label for="customer-name">Client/Customer Name</label>
-            <input type="text" id="customer-name" name="Client/Customer Name" placeholder="Type or select customer name" list="customer-list" required>
-            <datalist id="customer-list"></datalist>
-        </div>
+        const form = document.getElementById('collectionForm');
+        const customerNameInput = document.getElementById('customerName');
+        const submitButton = document.getElementById('submitButton');
+        const statusMessage = document.getElementById('statusMessage');
+        const networkStatus = document.getElementById('networkStatus');
+        const datalist = document.getElementById('customer-list-gb23'); 
 
-        <div class="form-group">
-            <label for="payment-received">Payment Received (Taka)</label>
-            <input type="number" id="payment-received" name="Payment Received (Taka)" placeholder="e.g. 3000" min="0" required>
-        </div>
+        // 🔑 Storage Keys GB-23 এর জন্য 
+        const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB23'; 
+        const GROUP_ID = 'gb-23'; 
+
+        // --- PWA Setup ---
+        if ("serviceWorker" in navigator) {
+             // service-worker.js ফাইলটি অবশ্যই GitHub ফোল্ডারে থাকতে হবে
+             navigator.serviceWorker.register("service-worker.js");
+        }
         
-        <div class="form-group">
-            <label for="invoice-value">Invoice Value (optional)</label>
-            <input type="number" id="invoice-value" name="Invoice Value (optional)" placeholder="e.g. 5000" min="0">
-        </div>
+        // --- Utility Functions ---
+        function setFormDisabled(disabled) {
+            customerNameInput.disabled = disabled;
+            document.getElementById('paymentReceived').disabled = disabled;
+            document.getElementById('invoiceValue').disabled = disabled;
+            submitButton.disabled = disabled;
+        }
 
-        <button type="submit" class="button-save" id="save-button">SAVE</button>
-        <div class="loading-spinner" id="loading-spinner"></div>
-    </form>
-    
-    <div id="sync-error" class="sync-error">Sync failed: 1 entries remaining. Will retry.</div>
-    <div id="success-message" class="success-message">Entry Saved Successfully!</div>
-
-</div>
-
-<script>
-    // ⚠️ আপনার Apps Script ওয়েব অ্যাপের URL এখানে বসান
-    const SCRIPT_URL = 'YOUR_DEPLOYMENT_URL_HERE'; 
-    const DB_NAME = 'GB23_CollectionDB';
-    const STORE_NAME = 'pending_entries';
-
-    let db;
-    
-    // =========================================================================
-    // I. IndexedDB setup for Offline Sync
-    // =========================================================================
-
-    function openDB() {
-        return new Promise((resolve, reject) => {
-            const request = indexedDB.open(DB_NAME, 1);
-            
-            request.onupgradeneeded = (event) => {
-                db = event.target.result;
-                db.createObjectStore(STORE_NAME, { keyPath: 'timestamp' });
-            };
-            
-            request.onsuccess = (event) => {
-                db = event.target.result;
-                console.log('IndexedDB opened successfully');
-                resolve(db);
-            };
-            
-            request.onerror = (event) => {
-                console.error('IndexedDB error:', event.target.errorCode);
-                reject(event.target.error);
-            };
-        });
-    }
-
-    // ডেটা IndexedDB-তে সেভ করা
-    function saveEntryLocally(entry) {
-        return new Promise((resolve, reject) => {
-            const transaction = db.transaction([STORE_NAME], 'readwrite');
-            const store = transaction.objectStore(STORE_NAME);
-            
-            const request = store.add(entry);
-            
-            request.onsuccess = () => resolve();
-            request.onerror = (event) => reject(event.target.error);
-        });
-    }
-
-    // সমস্ত পেন্ডিং ডেটা লোড করা
-    function getAllPendingEntries() {
-        return new Promise((resolve, reject) => {
-            const transaction = db.transaction([STORE_NAME], 'readonly');
-            const store = transaction.objectStore(STORE_NAME);
-            const request = store.getAll();
-            
-            request.onsuccess = (event) => resolve(event.target.result);
-            request.onerror = (event) => reject(event.target.error);
-        });
-    }
-
-    // সফলভাবে সিঙ্ক হওয়া ডেটা ডিলিট করা
-    function deleteEntry(timestamp) {
-        return new Promise((resolve, reject) => {
-            const transaction = db.transaction([STORE_NAME], 'readwrite');
-            const store = transaction.objectStore(STORE_NAME);
-            const request = store.delete(timestamp);
-            
-            request.onsuccess = () => resolve();
-            request.onerror = (event) => reject(event.target.error);
-        });
-    }
-
-    // =========================================================================
-    // II. Sync Logic (Data submission to Apps Script)
-    // =========================================================================
-
-    // Apps Script-এ ডেটা জমা দেওয়া
-    async function submitEntryToScript(entry) {
-        const payload = JSON.stringify(entry);
-        try {
-            const response = await fetch(SCRIPT_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `postData=${encodeURIComponent(payload)}`
+        function populateDatalist(list) {
+            let optionsHTML = '';
+            list.forEach(customer => {
+                if (customer && typeof customer === 'string') {
+                    optionsHTML += `<option value="${customer}">`;
+                }
             });
-
-            const result = await response.json();
-            if (result.result === 'success') {
-                return true;
-            } else {
-                console.error('Script Error:', result.message);
-                return false;
-            }
-        } catch (error) {
-            console.error('Network Error:', error);
-            // নেটওয়ার্ক ফেইল করলে বা অন্য কোনো এরর হলে
-            return false;
-        }
-    }
-
-    // পেন্ডিং ডেটা সিঙ্ক্রোনাইজ করা
-    async function syncData() {
-        if (!navigator.onLine || !db) {
-            updateStatus();
-            return;
+            datalist.innerHTML = optionsHTML;
         }
 
-        const entries = await getAllPendingEntries();
-        if (entries.length === 0) {
-            updateStatus();
-            return;
-        }
+        // --- কাস্টমার লিস্ট লোড করা (CORS সাপোর্ট সহ Apps Script থেকে) ---
+        async function fetchCustomerList() {
+            customerNameInput.placeholder = 'Loading list...';
+            try {
+                // Apps Script-এর doGet রিকোয়েস্ট (CORS-সাপোর্ট)
+                const response = await fetch(GOOGLE_SHEET_WEB_APP_URL + '?action=getCustomers'); 
+                const customerList = await response.json(); 
+                
+                populateDatalist(customerList);
+                
+                // অফলাইন কাস্টমার লিস্ট LocalStorage এ সেভ করা (ঐচ্ছিক)
+                localStorage.setItem('customerList_GB23', JSON.stringify(customerList));
 
-        document.getElementById('sync-error').style.display = 'block';
-        document.getElementById('sync-error').textContent = `Syncing ${entries.length} entries...`;
-
-        let successCount = 0;
-        let failureCount = 0;
-
-        for (const entry of entries) {
-            const success = await submitEntryToScript(entry);
-            if (success) {
-                await deleteEntry(entry.timestamp);
-                successCount++;
-            } else {
-                failureCount++;
+                if (!document.getElementById('paymentReceived').disabled) {
+                    customerNameInput.disabled = false;
+                }
+                customerNameInput.placeholder = 'Type or select customer name';
+                
+            } catch (error) {
+                console.error("Failed to fetch customer list from Script:", error);
+                // ফেইল হলে LocalStorage থেকে লোড করার চেষ্টা 
+                const offlineList = JSON.parse(localStorage.getItem('customerList_GB23') || '[]');
+                populateDatalist(offlineList);
+                
+                customerNameInput.placeholder = 'List load failed. Using offline list.';
+                if (!document.getElementById('paymentReceived').disabled) {
+                    customerNameInput.disabled = false;
+                }
             }
         }
-
-        if (successCount > 0 && failureCount === 0) {
-            // সবগুলো সফলভাবে সিঙ্ক হলে
-            document.getElementById('sync-error').style.display = 'none';
-        } else if (failureCount > 0) {
-            // কিছু ফেইল হলে বা বাকি থাকলে
-             document.getElementById('sync-error').textContent = `Sync failed: ${failureCount} entries remaining. Will retry.`;
-        }
         
-        updateStatus();
-    }
-
-
-    // =========================================================================
-    // III. UI and Event Handlers
-    // =========================================================================
-
-    // স্ট্যাটাস আপডেট করা (অনলাইন/অফলাইন ও পেন্ডিং কাউন্ট)
-    async function updateStatus() {
-        const isOnline = navigator.onLine;
-        const onlineStatus = document.getElementById('online-status');
-        const pendingStatus = document.getElementById('pending-sync-status');
-        const errorBar = document.getElementById('sync-error');
-        
-        onlineStatus.textContent = isOnline ? 'অনলাইনে আছেন' : 'অফলাইনে আছেন';
-        onlineStatus.style.color = isOnline ? 'green' : 'red';
-        
-        // Pending Count আপডেট করা
-        if (db) {
-            const entries = await getAllPendingEntries();
-            const count = entries.length;
-            pendingStatus.textContent = `Pending Sync: ${count}`;
-            pendingStatus.style.display = count > 0 ? 'block' : 'none';
+        // --- Network Status Checker & UI Update ---
+        function updateNetworkStatus() {
+            const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
+            const syncCount = submissions.length;
             
-            if (count === 0) {
-                 errorBar.style.display = 'none';
-            } else if (isOnline) {
-                 // অনলাইনে থেকে সিঙ্ক ফেইল দেখালে 
-                 errorBar.style.display = 'block';
-                 errorBar.textContent = `Sync failed: ${count} entries remaining. Will retry.`;
-            }
-        }
-    }
-
-    // কাস্টমার লিস্ট লোড করা
-    async function loadCustomerList() {
-        try {
-            const response = await fetch(SCRIPT_URL + '?action=getCustomers');
-            const customers = await response.json();
-            const datalist = document.getElementById('customer-list');
-            datalist.innerHTML = '';
-            customers.forEach(customer => {
-                const option = document.createElement('option');
-                option.value = customer;
-                datalist.appendChild(option);
-            });
-        } catch (e) {
-            console.error('Failed to load customer list:', e);
-        }
-    }
-
-    // ফর্ম সাবমিট হ্যান্ডলার
-    document.getElementById('collection-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const saveButton = document.getElementById('save-button');
-        const spinner = document.getElementById('loading-spinner');
-        const successMessage = document.getElementById('success-message');
-        
-        saveButton.style.display = 'none';
-        spinner.style.display = 'block';
-        successMessage.style.display = 'none';
-
-        // ডেটা সংগ্রহ করা
-        const formData = new FormData(this);
-        const entry = {};
-        for (const [key, value] of formData.entries()) {
-            entry[key] = value;
-        }
-        entry.timestamp = Date.now(); // ইউনিক কী হিসেবে ব্যবহার করা হবে
-        entry.Submission_Date = new Date().toISOString().split('T')[0];
-        
-        // সিঙ্ক করার চেষ্টা 
-        let isSyncSuccess = false;
-        
-        if (navigator.onLine) {
-            isSyncSuccess = await submitEntryToScript(entry);
-        }
-
-        if (!navigator.onLine || !isSyncSuccess) {
-            // অফলাইন বা সিঙ্ক ফেইল হলে লোকালি সেভ করা
-            await saveEntryLocally(entry);
-            await updateStatus();
+            let statusHTML = '';
             if (!navigator.onLine) {
-                 alert("অফলাইন মোডে ডেটা লোকালি সেভ করা হয়েছে। অনলাইন হলে স্বয়ংক্রিয়ভাবে সিঙ্ক হবে।");
+                statusHTML += '<span class="offline-badge">অফলাইনে আছেন</span>';
+                submitButton.textContent = 'OFFLINE SAVE'; 
+                submitButton.style.backgroundColor = 'var(--danger-color)';
             } else {
-                 alert("সার্ভার/Apps Script এ ত্রুটি হয়েছে, ডেটা লোকালি সেভ করা হলো।");
+                submitButton.textContent = 'SAVE'; 
+                submitButton.style.backgroundColor = 'var(--primary-color)';
+            }
+            if (syncCount > 0) {
+                statusHTML += `<span class="sync-count">Pending Sync: ${syncCount}</span>`; 
+            }
+            networkStatus.innerHTML = statusHTML;
+            
+            if (navigator.onLine && syncCount > 0) {
+                statusMessage.textContent = 'Internet connected! Data syncing automatically...'; 
+                syncData();
+            } else if (navigator.onLine && syncCount === 0) {
+                statusMessage.textContent = 'All up to date ✅'; 
+                setFormDisabled(false); 
+            } else if (!navigator.onLine && syncCount === 0) {
+                statusMessage.textContent = 'Offline mode active.'; 
+                setFormDisabled(false);
             }
         }
 
-        // ফর্ম রিসেট
-        this.reset();
-        document.getElementById('submission-date').value = new Date().toISOString().split('T')[0];
-        
-        saveButton.style.display = 'block';
-        spinner.style.display = 'none';
-        
-        if (isSyncSuccess) {
-            successMessage.style.display = 'block';
-            setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
+        window.addEventListener('online', updateNetworkStatus);
+        window.addEventListener('offline', updateNetworkStatus);
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchCustomerList(); 
+            updateNetworkStatus();
+        });
+
+        // --- Data Submission Logic ---
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const data = {};
+            formData.forEach((value, key) => { data[key] = value; });
+            
+            data.action = 'submit'; 
+            data['Submission_Date'] = new Date().toISOString().split('T')[0]; 
+            data['Submission_Time'] = new Date().toLocaleTimeString('en-US', { hour12: false }); 
+            data['Group'] = GROUP_ID; // গ্রুপ ট্যাগ gb-23
+
+            if (navigator.onLine) {
+                submitToGoogleSheet(data);
+            } else {
+                saveToLocalStorage(data);
+            }
+        });
+
+        // --- saveToLocalStorage ---
+        function saveToLocalStorage(data) {
+            const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
+            submissions.push(data);
+            localStorage.setItem(OFFLINE_STORAGE_KEY, JSON.stringify(submissions));
+            
+            if ('sync' in navigator.serviceWorker) {
+                 navigator.serviceWorker.ready.then(registration => {
+                     registration.active.postMessage({ type: 'START_SYNC' });
+                 });
+            }
+            
+            statusMessage.style.backgroundColor = 'var(--warning-color)';
+            statusMessage.style.color = 'var(--text-color)';
+            statusMessage.textContent = `Saved offline! (${submissions.length} pending)`; 
+            form.reset();
+            updateNetworkStatus();
         }
 
-        // সিঙ্কের চেষ্টা আবার শুরু করা
-        syncData();
-    });
+        // --- submitToGoogleSheet ---
+        async function submitToGoogleSheet(data, isSync = false) {
+            if (!isSync) {
+                submitButton.disabled = true;
+                statusMessage.style.backgroundColor = '#f8f9fa';
+                statusMessage.style.color = 'var(--text-color)';
+                statusMessage.textContent = 'Submitting...';
+            } else {
+                setFormDisabled(true); 
+            }
+            
+            try {
+                // Apps Script এ JSON ডেটা পাঠানো
+                const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                // Apps Script থেকে সঠিক JSON রেসপন্স আশা করা
+                const result = await response.json();
 
-    // =========================================================================
-    // IV. Initialization and Setup
-    // =========================================================================
-
-    async function init() {
-        // আজকের তারিখ সেট করা
-        document.getElementById('submission-date').value = new Date().toISOString().split('T')[0];
+                if (result.result === 'success') {
+                     if (!isSync) {
+                        statusMessage.style.backgroundColor = 'var(--success-color)';
+                        statusMessage.style.color = 'white';
+                        statusMessage.textContent = 'Successfully Submitted! ✅'; 
+                        form.reset();
+                        fetchCustomerList(); // নতুন কাস্টমার লিস্ট লোড করা
+                    }
+                    return true;
+                } else {
+                     console.error('Apps Script Error:', result.message);
+                     if (!isSync) { saveToLocalStorage(data); }
+                     return false;
+                }
+                
+            } catch (error) {
+                console.error('Submission Error (Network/CORS):', error);
+                if (!isSync) { saveToLocalStorage(data); }
+                return false; 
+            } finally {
+                if (!isSync) {
+                    submitButton.disabled = false;
+                }
+            }
+        }
         
-        // IndexedDB খোলা এবং স্ট্যাটাস আপডেট করা
-        await openDB();
+        // --- syncData (পেন্ডিং ডেটা সিঙ্ক করা) ---
+        async function syncData() {
+            const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
+            if (submissions.length === 0) {
+                statusMessage.textContent = 'All data synced. ✅'; 
+                updateNetworkStatus();
+                setFormDisabled(false); 
+                return;
+            }
+
+            setFormDisabled(true); 
+
+            statusMessage.style.backgroundColor = 'var(--primary-color)';
+            statusMessage.style.color = 'white';
+            statusMessage.textContent = `Syncing: ${submissions.length} pending entries... Please wait...`; 
+            
+            let failedSubmissions = [];
+            for (const data of submissions) {
+                const success = await submitToGoogleSheet(data, true); 
+                
+                if (!success) { failedSubmissions.push(data); }
+            }
+            
+            setFormDisabled(false); 
+
+            if (failedSubmissions.length === 0) {
+                localStorage.removeItem(OFFLINE_STORAGE_KEY);
+                statusMessage.style.backgroundColor = 'var(--success-color)';
+                statusMessage.style.color = 'white';
+                statusMessage.textContent = 'Successfully synced all data! ✅'; 
+                fetchCustomerList(); 
+            } else {
+                localStorage.setItem(OFFLINE_STORAGE_KEY, JSON.stringify(failedSubmissions));
+                statusMessage.style.backgroundColor = 'var(--danger-color)';
+                statusMessage.style.color = 'white';
+                statusMessage.textContent = `Sync failed: ${failedSubmissions.length} entries remaining. Will retry next time.`; 
+            }
+            
+            updateNetworkStatus();
+        }
+
+        // --- Service Worker Message Listener ---
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.addEventListener('message', event => {
+                if (event.data.type === 'START_SYNC' && navigator.onLine) {
+                    syncData(); 
+                }
+            });
+        }
         
-        // কাস্টমার লিস্ট লোড করা
-        loadCustomerList();
-        
-        // প্রাথমিক স্ট্যাটাস আপডেট করা
-        updateStatus();
-        
-        // প্রতি ৩০ সেকেন্ডে সিঙ্ক করার চেষ্টা
-        setInterval(syncData, 30000);
-
-        // অনলাইন/অফলাইন ইভেন্ট লিসেনার
-        window.addEventListener('online', () => {
-             updateStatus();
-             syncData(); // অনলাইন হলেই সিঙ্ক শুরু
-        });
-        window.addEventListener('offline', updateStatus);
-
-        // অ্যাপ লোড হওয়ার সাথে সাথেই সিঙ্ক করার চেষ্টা
-        syncData();
-    }
-
-    init();
-
-</script>
+        if (navigator.onLine) { syncData(); }
+    </script>
 </body>
 </html>
