@@ -58,22 +58,23 @@
     </div>
 
     <script>
-        // 🚀 ১. GB-12 Apps Script URL
         const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbycNb1Gf7U7kYmaYWCCVGc4OgMt60k91IVZf8kfJtJ88gmjLCoaRm0d8a7rFZ1_XXseRw/exec";
         const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB12';
 
-        // 📝 ২. GB-12 এর কাস্টমার লিস্ট (এখানে আপনার কাস্টমারদের নাম বসিয়ে দিন)
         const gb12_customers = [
-            "Customer 1", "Customer 2", "Example Pharmacy", "Sample Medical"
+            "Sheba Pharmacy", "Jisan Pharmacy", "Kajol Pharmacy", "Ayat Pharmacy",
+            "Bondhuali Pharmacy", "Sarker Pharmacy", "Naim Niyama Pharmacy",
+            "Moon Pharmacy", "Zisan Medical", "Monalisa Pharmacy", "Shumon Pharmacy",
+            "Sultan Pharmacy", "Ambia Pharmacy", "Medicine Corner", "Shaha Trading",
+            "Zuwel Pharmacy", "Kamal Pharmacy", "Mondol Pharmacy", "Erfan Pharmacy",
+            "Dnt4 Pharmacy", "Gaibandha Pharma", "Shahin Pharmacy", "Ar Pharmacy"
         ];
 
-        // 🛠️ ৩. ড্রপডাউন লোড করা
         function populateDatalist() {
             const datalist = document.getElementById('customer-list-gb12');
             datalist.innerHTML = gb12_customers.map(name => `<option value="${name}">`).join('');
         }
 
-        // 📡 ৪. নেটওয়ার্ক স্ট্যাটাস আপডেট
         function updateStatus() {
             const status = document.getElementById('networkStatus');
             const btn = document.getElementById('submitButton');
@@ -89,7 +90,6 @@
             }
         }
 
-        // 💾 ৫. সুপার ফাস্ট সাবমিট (Fire and Forget)
         document.getElementById('collectionForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const msg = document.getElementById('statusMessage');
@@ -106,21 +106,18 @@
             msg.style.color = "blue";
 
             if (navigator.onLine) {
-                // সার্ভারের উত্তরের অপেক্ষা না করেই ডেটা পাঠানো
                 fetch(GOOGLE_SHEET_WEB_APP_URL, { 
                     method: 'POST', 
                     mode: 'no-cors', 
                     body: JSON.stringify(data) 
                 });
                 
-                // ০.৫ সেকেন্ডের মধ্যে ফর্ম ক্লিয়ার
                 setTimeout(() => {
                     msg.textContent = "Success! Data sent ✅";
                     msg.style.color = "green";
                     this.reset();
                     btn.disabled = false;
                 }, 500); 
-
             } else {
                 saveOffline(data);
                 this.reset();
@@ -132,7 +129,7 @@
             const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
             submissions.push(data);
             localStorage.setItem(OFFLINE_STORAGE_KEY, JSON.stringify(submissions));
-            document.getElementById('statusMessage').textContent = "Offline এ সেভ হয়েছে! ইন্টারনেট পেলে অটো সিঙ্ক হবে।";
+            document.getElementById('statusMessage').textContent = "অফলাইনে সেভ হয়েছে! ইন্টারনেট পেলে অটো সিঙ্ক হবে।";
         }
 
         async function syncData() {
