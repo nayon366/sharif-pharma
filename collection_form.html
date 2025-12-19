@@ -161,33 +161,56 @@
         submitButton.disabled = disabled;
     }
 
-    // --- কাস্টমার লিস্ট লোড করা (customer_list.json থেকে customers_gb22 ডেটা নেবে) ---
-    async function fetchCustomerList() {
-        customerNameInput.placeholder = 'Loading list...';
-        try {
-            const response = await fetch('customer_list.json');	
-            if (!response.ok) { throw new Error('customer_list.json failed to load.'); }
+   // --- কাস্টমার লিস্ট অফলাইনে লোড করার জন্য পরিবর্তিত ফাংশন ---
+async function fetchCustomerList() {
+    customerNameInput.placeholder = 'Loading list...';
+    
+    // সরাসরি নামগুলো এখানে দেওয়া হলো
+    const gb22_customers = [
+        "Rahman pharmacy",
+        "Jannati medicine Hall",
+        "gaibandha clinic",
+        "Daymohi pharmacy",
+        "Habib medical hall",
+        "Rahi pharmacy",
+        "ma pharmacy",
+        "Ideal pharmacy",
+        "Majnu medical hall",
+        "Maa medical hall",
+        "Raounok medical hall",
+        "Lotfor pharmacy",
+        "Afsana Medical Store",
+        "dipto Medical Store",
+        "Maya pharmacy",
+        "rahmania pharmacy",
+        "M/S Hassan pharmacy",
+        "Mondal pharmacy",
+        "Shepon Medical Store",
+        "City pharmacy",
+        "sharmin pharmacy",
+        "Saha trading",
+        "Turin Medical Store"
+    ];
 
-            const fullData = await response.json();
-            const gb22_customers = fullData.customers_gb22 || []; // customers_gb22 থেকে লোড হবে
-            
-            populateDatalist(gb22_customers);
-            
-            if (!document.getElementById('paymentReceived').disabled) {
-                customerNameInput.disabled = false;
-            }
-            customerNameInput.placeholder = 'Type or select customer name';
-            return gb22_customers;
-
-        } catch (error) {
-            console.error("Failed to fetch customer list from JSON:", error);
-            if (!document.getElementById('paymentReceived').disabled) {
-                customerNameInput.disabled = false;
-            }
-            customerNameInput.placeholder = 'Offline list load failed. Type manually.';
-            return [];
+    try {
+        // ড্রপডাউন লিস্ট তৈরি করা
+        populateDatalist(gb22_customers);
+        
+        // ইনপুট বক্সটি সচল (Enable) করা
+        if (!document.getElementById('paymentReceived').disabled) {
+            customerNameInput.disabled = false;
         }
+        
+        customerNameInput.placeholder = 'Type or select customer name';
+        return gb22_customers;
+
+    } catch (error) {
+        console.error("List display error:", error);
+        customerNameInput.disabled = false;
+        customerNameInput.placeholder = 'Manual entry enabled';
+        return [];
     }
+}
 
     function addCustomerToSheet(newCustomerName) { console.log(`Checking/Adding Customer: ${newCustomerName}`); }
 
