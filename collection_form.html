@@ -58,29 +58,30 @@
     </div>
 
     <script>
-        // ১. আপনার Apps Script URL
         const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzPqmGS5IdO16r0xv46IOAp64_mdUC41mxQYKtgWzRw6Xlv8fns9BocoDfZKv4BHmJm/exec";
         const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB22';
 
-        // ২. অফলাইন কাস্টমার লিস্ট (আপনার দেওয়া নামগুলো সরাসরি এখানে)
+        // 📝 আপনার দেওয়া নতুন কাস্টমার লিস্ট (GB-22 এর জন্য)
         const gb22_customers = [
-            "Rahman pharmacy", "Jannati medicine Hall", "gaibandha clinic",
-            "Daymohi pharmacy", "Habib medical hall", "Rahi pharmacy",
-            "ma pharmacy", "Ideal pharmacy", "Majnu medical hall",
-            "Maa medical hall", "Raounok medical hall", "Lotfor pharmacy",
-            "Afsana Medical Store", "dipto Medical Store", "Maya pharmacy",
-            "rahmania pharmacy", "M/S Hassan pharmacy", "Mondal pharmacy",
-            "Shepon Medical Store", "City pharmacy", "sharmin pharmacy",
-            "Saha trading", "Turin Medical Store"
+            "Milon Pharmacy (Dcc)", "Shathi Medical Store(Dcc)", "Mahmuda Pharmacy(Dcc)", 
+            "Maa Medical Store", "New Medi Point", "Uposom Ousodhhaloy", 
+            "Bolaka Pharmacy(Dcc)", "Nayem Pharmacy(Dcc)", "Siyam Pharmacy", 
+            "Nurunnobi Dental(Dcc)", "Biyozid Medicine Corner", "Ruman Pharmacy(Dcc)", 
+            "Abc Pharmacy(Dcc)", "Maa Shakila Medical Store", "Sarker Pharmacy", 
+            "Shoumo Medical", "Bismillah Pharmacy", "Shopno Phaarmacy", 
+            "Asha Akther Juthi Pharmacy", "Asha Medical Store", "Raisha Phrmacy", 
+            "Nahid Medical", "Jamil Pharmacy", "Ahsan Medical Store", 
+            "Anik Pharmacy", "Maa Baba Medical Store(Dcc)", "boss", 
+            "Suborna medical", "M/S A.G Dayoni pharmacy", "R.N Pharmacy", 
+            "milon", "shulov pharmacy", "master pharmacy", "Rizu pharmacy", 
+            "shamim dr.", "Aysha pharmacy"
         ];
 
-        // ৩. ড্রপডাউন লোড করা
         function populateDatalist() {
             const datalist = document.getElementById('customer-list-gb22');
             datalist.innerHTML = gb22_customers.map(name => `<option value="${name}">`).join('');
         }
 
-        // ৪. নেটওয়ার্ক স্ট্যাটাস চেক
         function updateStatus() {
             const status = document.getElementById('networkStatus');
             const btn = document.getElementById('submitButton');
@@ -96,7 +97,6 @@
             }
         }
 
-        // ৫. ফাস্ট সেভ সাবমিট হ্যান্ডলার (Fire and Forget)
         document.getElementById('collectionForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const msg = document.getElementById('statusMessage');
@@ -113,14 +113,12 @@
             msg.style.color = "blue";
 
             if (navigator.onLine) {
-                // সার্ভারের উত্তরের অপেক্ষা না করেই ডেটা পাঠানো শুরু করবে
                 fetch(GOOGLE_SHEET_WEB_APP_URL, { 
                     method: 'POST', 
                     mode: 'no-cors', 
                     body: JSON.stringify(data) 
                 });
                 
-                // ০.৫ সেকেন্ড পর ফর্ম রিসেট
                 setTimeout(() => {
                     msg.textContent = "Success! Data sent ✅";
                     msg.style.color = "green";
@@ -152,6 +150,7 @@
                 } catch (e) { break; }
             }
             localStorage.removeItem(OFFLINE_STORAGE_KEY);
+            document.getElementById('statusMessage').textContent = "সব অফলাইন ডেটা সিঙ্ক হয়েছে! ✅";
         }
 
         window.addEventListener('online', updateStatus);
