@@ -58,11 +58,11 @@
     </div>
 
     <script>
-        // 🚀 ১. Apps Script URL (আপনার লেটেস্ট URL দিয়ে এটি পরিবর্তন করুন)
+        // ১. আপনার Apps Script URL
         const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzPqmGS5IdO16r0xv46IOAp64_mdUC41mxQYKtgWzRw6Xlv8fns9BocoDfZKv4BHmJm/exec";
         const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB22';
 
-        // 📝 ২. অফলাইন কাস্টমার লিস্ট (সরাসরি কোডে দেওয়া হলো)
+        // ২. অফলাইন কাস্টমার লিস্ট (আপনার দেওয়া নামগুলো সরাসরি এখানে)
         const gb22_customers = [
             "Rahman pharmacy", "Jannati medicine Hall", "gaibandha clinic",
             "Daymohi pharmacy", "Habib medical hall", "Rahi pharmacy",
@@ -74,14 +74,13 @@
             "Saha trading", "Turin Medical Store"
         ];
 
-        // 🛠️ ৩. ড্রপডাউন লোড করা
+        // ৩. ড্রপডাউন লোড করা
         function populateDatalist() {
             const datalist = document.getElementById('customer-list-gb22');
             datalist.innerHTML = gb22_customers.map(name => `<option value="${name}">`).join('');
-            console.log("Customer list loaded offline!");
         }
 
-        // 📡 ৪. নেটওয়ার্ক স্ট্যাটাস আপডেট
+        // ৪. নেটওয়ার্ক স্ট্যাটাস চেক
         function updateStatus() {
             const status = document.getElementById('networkStatus');
             const btn = document.getElementById('submitButton');
@@ -93,11 +92,11 @@
                 status.innerHTML = '';
                 btn.textContent = 'SAVE';
                 btn.style.backgroundColor = 'var(--primary-color)';
-                syncData(); // অনলাইন হলে ডেটা সিঙ্ক শুরু হবে
+                syncData(); 
             }
         }
 
-        // 💾 ৫. ফর্ম সাবমিট
+        // ৫. ফাস্ট সেভ সাবমিট হ্যান্ডলার (Fire and Forget)
         document.getElementById('collectionForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const msg = document.getElementById('statusMessage');
@@ -109,20 +108,30 @@
             if (!data['Invoice Value (optional)']) data['Invoice Value (optional)'] = 0;
             data['Group'] = 'gb-22';
 
+            btn.disabled = true;
+            msg.textContent = "Saving... ✅"; 
+            msg.style.color = "blue";
+
             if (navigator.onLine) {
-                btn.disabled = true;
-                msg.textContent = "Sending to Server... ⏳";
-                fetch(GOOGLE_SHEET_WEB_APP_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) })
-                .then(() => {
-                    msg.textContent = "Success! Saved ✅";
+                // সার্ভারের উত্তরের অপেক্ষা না করেই ডেটা পাঠানো শুরু করবে
+                fetch(GOOGLE_SHEET_WEB_APP_URL, { 
+                    method: 'POST', 
+                    mode: 'no-cors', 
+                    body: JSON.stringify(data) 
+                });
+                
+                // ০.৫ সেকেন্ড পর ফর্ম রিসেট
+                setTimeout(() => {
+                    msg.textContent = "Success! Data sent ✅";
                     msg.style.color = "green";
                     this.reset();
-                })
-                .catch(() => saveOffline(data))
-                .finally(() => btn.disabled = false);
+                    btn.disabled = false;
+                }, 500); 
+
             } else {
                 saveOffline(data);
                 this.reset();
+                btn.disabled = false;
             }
         });
 
@@ -130,7 +139,7 @@
             const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
             submissions.push(data);
             localStorage.setItem(OFFLINE_STORAGE_KEY, JSON.stringify(submissions));
-            document.getElementById('statusMessage').textContent = "Offline এ সেভ হয়েছে! ইন্টারনেট পেলে অটো সিঙ্ক হবে।";
+            document.getElementById('statusMessage').textContent = "অফলাইনে সেভ হয়েছে! ইন্টারনেট পেলে অটো সিঙ্ক হবে।";
         }
 
         async function syncData() {
@@ -143,7 +152,6 @@
                 } catch (e) { break; }
             }
             localStorage.removeItem(OFFLINE_STORAGE_KEY);
-            document.getElementById('statusMessage').textContent = "সব অফলাইন ডেটা সিঙ্ক হয়েছে! ✅";
         }
 
         window.addEventListener('online', updateStatus);
