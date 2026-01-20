@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="bn">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>টাকা পেইড এন্ট্রি</title>
     <style>
-        /* CSS স্টাইল - আপনার পছন্দসই ডিজাইন এবং ফ্লেক্সবক্স ফিক্স */
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f2f5;
@@ -22,7 +22,7 @@
             border-radius: 12px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 450px; /* মোবাইল এবং সংকীর্ণ ডিজাইনের জন্য ফিক্সড */
+            max-width: 450px;
             margin-top: 30px;
         }
         .header {
@@ -46,25 +46,23 @@
         .back-button svg {
             margin-right: 8px;
         }
-        
-        /* ⭐️ ফিক্স: ইনপুট এবং লেবেলকে ব্লক-লেভেলে আনা */
         label {
             display: block;
             text-align: left;
             margin-bottom: 8px;
             font-weight: bold;
             color: #555;
-            margin-top: 15px; /* ইনপুটগুলির মধ্যে দূরত্ব যোগ করা হলো */
+            margin-top: 15px;
         }
         input[type="number"],
         select {
-            width: calc(100% - 24px); /* বক্স সাইজিং বজায় রাখতে */
+            width: 100%;
             padding: 12px;
-            margin-bottom: 5px; /* লেবেলের সাথে সমন্বয় */
+            margin-bottom: 5px;
             border: 1px solid #ced4da;
             border-radius: 8px;
             font-size: 16px;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+            box-sizing: border-box; /* ফিক্সড: যেন বক্সের বাইরে না যায় */
             transition: border-color 0.2s;
         }
         input[type="number"]:focus,
@@ -84,7 +82,7 @@
             font-weight: bold;
             transition: background-color 0.2s;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            margin-top: 25px; /* সেভ বাটন এবং ইনপুটের মধ্যে দূরত্ব যোগ করা হলো */
+            margin-top: 25px;
         }
         button:hover {
             background-color: #e06a00;
@@ -93,6 +91,7 @@
             margin-top: 25px;
             font-weight: bold;
             font-size: 16px;
+            text-align: center;
         }
         .status-icon {
             margin-left: 8px;
@@ -105,7 +104,7 @@
 
 <div class="container">
     <a href="daily_collection_entry.html" class="back-button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
         </svg>
@@ -113,16 +112,15 @@
     </a>
 
     <div class="header">
-        <h2>💰 টাকা পেইড এন্ট্রি (অফলাইন)</h2>
+        <h2>💰 টাকা পেইড এন্ট্রি</h2>
     </div>
 
     <label for="groupSelect">Group নির্বাচন করুন</label>
     <select id="groupSelect" required>
         <option value="">-- Group --</option>
-        <option value="gb-23">gb-23</option>
-        <option value="gb-22">gb-22</option>
-        <option value="gb-13">gb-13</option>
         <option value="gb-12">gb-12</option>
+        <option value="gb-13">gb-13</option> <option value="gb-22">gb-22</option>
+        <option value="gb-23">gb-23</option>
     </select>
     
     <label for="payoutAmount">Payout Amount (টাকা)</label>
@@ -134,9 +132,9 @@
 </div>
 
 <script>
-const QUEUE_KEY = 'payoutQueue';
-// ⚠️ আপনার Apps Script Web App URL এখানে বসান
+// ⚠️ আপনার বর্তমান Apps Script URL
 const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPJVZ4dLyu5GmvqKM3A1UErYN1fflEX1c3XgZtEY2-aBxBG0AI8wG8d4iGBOatxJE/exec'; 
+const QUEUE_KEY = 'payoutQueue_v2'; // কি পরিবর্তন করা হয়েছে যাতে পুরনো ডাটার সাথে না মিশে
 
 function submitPayoutData() {
     const groupElement = document.getElementById('groupSelect');
@@ -147,24 +145,22 @@ function submitPayoutData() {
     const amount = amountElement.value;
 
     if (!group || !amount) {
-        status.innerHTML = "দয়া করে গ্রুপ এবং টাকার পরিমাণ দুটোই দিন। <span class='status-icon'>&#10060;</span>";
+        status.innerHTML = "দয়া করে গ্রুপ এবং টাকা দুটোই দিন। <span class='status-icon'>❌</span>";
         status.style.color = 'red';
         return;
     }
     
-    // ⭐️ Apps Script কলাম-ভিত্তিক সেভিং এর জন্য সঠিক Key ব্যবহার
     const data = {
         'action': 'submit', 
-        'Group Name': group, // Apps Script এর প্রত্যাশিত Key
-        'taka': amount,      // Apps Script এর প্রত্যাশিত Key
-        'timestamp': new Date().toISOString()
+        'Group Name': group,
+        'taka': amount,     
+        'timestamp': new Date().toLocaleString('bn-BD')
     };
     
-    // ফর্ম রিসেট
+    // ইনপুট রিসেট
     groupElement.value = '';
     amountElement.value = '';
     
-    // অনলাইন/অফলাইন লজিক
     if (navigator.onLine) {
         sendDataToAppsScript(data, status);
     } else {
@@ -172,53 +168,47 @@ function submitPayoutData() {
     }
 }
 
-// ডেটা সরাসরি Apps Script-এ পাঠানোর ফাংশন
 async function sendDataToAppsScript(data, statusElement) {
-    statusElement.innerHTML = 'ডেটা অনলাইনে পাঠানো হচ্ছে...';
+    statusElement.innerHTML = 'অনলাইনে সেভ হচ্ছে... ⏳';
     statusElement.style.color = 'orange';
 
     try {
         await fetch(APP_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors', 
-            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
 
-        statusElement.innerHTML = '✅ ডেটা সরাসরি সেভ হয়েছে! <span class="status-icon">🚀</span>';
+        statusElement.innerHTML = '✅ সফলভাবে সেভ হয়েছে! <span class="status-icon">🚀</span>';
         statusElement.style.color = 'green';
 
     } catch (error) {
-        console.error('Online save failed, attempting offline save:', error);
         saveDataOffline(data, statusElement);
     }
 }
 
-// ডেটা লোকাল স্টোরেজে সেভ করার ফাংশন
 function saveDataOffline(data, statusElement) {
     try {
         const queue = JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]');
         queue.push(data);
         localStorage.setItem(QUEUE_KEY, JSON.stringify(queue));
         
-        statusElement.innerHTML = '✅ ডেটা অফলাইনে সেভ হয়েছে! ইন্টারনেট সংযোগ পেলে আপডেট হবে। <span class="status-icon">💾</span>'; 
+        statusElement.innerHTML = '✅ অফলাইনে সেভ হয়েছে! ইন্টারনেট পেলে সিঙ্ক হবে। <span class="status-icon">💾</span>'; 
         statusElement.style.color = 'blue';
-
-        // সার্ভিস ওয়ার্কারকে সিঙ্ক করার অনুরোধ
-        if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
-            navigator.serviceWorker.ready.then(reg => {
-                reg.sync.register('sync-payout-data').catch(e => {
-                    console.error('Sync registration failed:', e);
-                });
-            });
-        }
-
     } catch (e) {
-        statusElement.innerHTML = '❌ ত্রুটি: ডেটা সেভ করা যায়নি। <span class="status-icon">&#10060;</span>';
+        statusElement.innerHTML = '❌ ত্রুটি: সেভ করা যায়নি।';
         statusElement.style.color = 'red';
-        console.error("Local Storage Error:", e);
     }
 }
+
+// ইন্টারনেট আসলে অটো সিঙ্ক
+window.addEventListener('online', () => {
+    const queue = JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]');
+    if (queue.length > 0) {
+        queue.forEach(data => sendDataToAppsScript(data, document.getElementById('statusMessage')));
+        localStorage.removeItem(QUEUE_KEY);
+    }
+});
 </script>
 
 </body>
