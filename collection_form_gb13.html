@@ -35,7 +35,7 @@
 <body>
     <div class="container">
         <a href="daily_collection_entry.html" class="back-button">← Details Page এ ফিরে যান</a>
-        <h1>💰 GB-23 Collection</h1>
+        <h1>💰 GB-13 Collection</h1>
         
         <div id="networkStatus" class="network-info"></div>
         
@@ -60,7 +60,7 @@
     <script>
         // 🚀 ১. GB-23 Apps Script URL
         const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwzV7mFEcKO8qra7fQWD91F7NoipI40LmywgZih1zySUIIHRCBSUE-MlaXeWuPFxjdvYQ/exec";
-        const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB23';
+        const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB13';
 
         // 📝 ২. GB-23 এর কাস্টমার লিস্ট (আপনার পাঠানো নামগুলো দিয়ে আপডেট করে নিন)
         const gb23_customers = [
@@ -76,8 +76,8 @@
 
         // 🛠️ ৩. ড্রপডাউন লোড করা
         function populateDatalist() {
-            const datalist = document.getElementById('customer-list-gb23');
-            datalist.innerHTML = gb23_customers.map(name => `<option value="${name}">`).join('');
+            const datalist = document.getElementById('customer-list-gb13');
+            datalist.innerHTML = gb13_customers.map(name => `<option value="${name}">`).join('');
         }
 
         // 📡 ৪. নেটওয়ার্ক স্ট্যাটাস আপডেট
@@ -106,7 +106,7 @@
             const data = {};
             formData.forEach((v, k) => data[k] = v);
             if (!data['Invoice Value (optional)']) data['Invoice Value (optional)'] = 0;
-            data['Group'] = 'gb-23';
+            data['Group'] = 'gb-13';
 
             // বাটন লক এবং সেভিং মেসেজ
             btn.disabled = true;
