@@ -41,8 +41,48 @@
         
         <form id="collectionForm">
             <label for="customerName">Client/Customer Name</label>
-            <input type="text" id="customerName" name="Client/Customer Name" list="customer-list-gb22" placeholder="নাম টাইপ করুন বা সিলেক্ট করুন" required>
-            <datalist id="customer-list-gb22"></datalist>
+            <input type="text" id="customerName" name="Client/Customer Name" list="customer-list-gb22" placeholder="নাম সিলেক্ট করুন" required>
+            
+            <datalist id="customer-list-gb22">
+                <option value="Milon Pharmacy (Dcc)">
+                <option value="Shathi Medical Store(Dcc)">
+                <option value="Mahmuda Pharmacy(Dcc)">
+                <option value="Maa Medical Store">
+                <option value="New Medi Point">
+                <option value="Uposom Ousodhhaloy">
+                <option value="Bolaka Pharmacy(Dcc)">
+                <option value="Nayem Pharmacy(Dcc)">
+                <option value="Siyam Pharmacy">
+                <option value="Nurunnobi Dental(Dcc)">
+                <option value="Biyozid Medicine Corner">
+                <option value="Ruman Pharmacy(Dcc)">
+                <option value="Abc Pharmacy(Dcc)">
+                <option value="Maa Shakila Medical Store">
+                <option value="Sarker Pharmacy">
+                <option value="Shoumo Medical">
+                <option value="Bismillah Pharmacy">
+                <option value="Shopno Phaarmacy">
+                <option value="Asha Akther Juthi Pharmacy">
+                <option value="Asha Medical Store">
+                <option value="Raisha Phrmacy">
+                <option value="Nahid Medical">
+                <option value="Jamil Pharmacy">
+                <option value="Ahsan Medical Store">
+                <option value="Anik Pharmacy">
+                <option value="Maa Baba Medical Store(Dcc)">
+                <option value="boss">
+                <option value="Suborna medical">
+                <option value="M/S A.G Dayoni pharmacy">
+                <option value="sumaya Pharmacy">
+                <option value="Habiba pharmacy">
+                <option value="shulov pharmacy">
+                <option value="master pharmacy">
+                <option value="Rizu pharmacy">
+                <option value="shamim dr.">
+                <option value="Aysha pharmacy">
+                <option value="pranto pharmacy">
+                <option value="khondoker pharmacy">
+            </datalist>
 
             <label for="paymentReceived">Payment Received (Taka)</label>
             <input type="number" id="paymentReceived" name="Payment Received (Taka)" placeholder="e.g. 3000" required>
@@ -60,27 +100,6 @@
     <script>
         const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzPqmGS5IdO16r0xv46IOAp64_mdUC41mxQYKtgWzRw6Xlv8fns9BocoDfZKv4BHmJm/exec";
         const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB22';
-
-        // 📝 আপনার দেওয়া নতুন কাস্টমার লিস্ট (GB-22 এর জন্য)
-        const gb22_customers = [
-            "Milon Pharmacy (Dcc)", "Shathi Medical Store(Dcc)", "Mahmuda Pharmacy(Dcc)", 
-            "Maa Medical Store", "New Medi Point", "Uposom Ousodhhaloy", 
-            "Bolaka Pharmacy(Dcc)", "Nayem Pharmacy(Dcc)", "Siyam Pharmacy", 
-            "Nurunnobi Dental(Dcc)", "Biyozid Medicine Corner", "Ruman Pharmacy(Dcc)", 
-            "Abc Pharmacy(Dcc)", "Maa Shakila Medical Store", "Sarker Pharmacy", 
-            "Shoumo Medical", "Bismillah Pharmacy", "Shopno Phaarmacy", 
-            "Asha Akther Juthi Pharmacy", "Asha Medical Store", "Raisha Phrmacy", 
-            "Nahid Medical", "Jamil Pharmacy", "Ahsan Medical Store", 
-            "Anik Pharmacy", "Maa Baba Medical Store(Dcc)", "boss", 
-            "Suborna medical", "M/S A.G Dayoni pharmacy", "sumaya Pharmacy", 
-            "Habiba pharmacy", "shulov pharmacy", "master pharmacy", "Rizu pharmacy", 
-            "shamim dr.", "Aysha pharmacy","pranto pharmacy","khondoker pharmacy"
-        ];
-
-        function populateDatalist() {
-            const datalist = document.getElementById('customer-list-gb22');
-            datalist.innerHTML = gb22_customers.map(name => `<option value="${name}">`).join('');
-        }
 
         function updateStatus() {
             const status = document.getElementById('networkStatus');
@@ -137,7 +156,8 @@
             const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
             submissions.push(data);
             localStorage.setItem(OFFLINE_STORAGE_KEY, JSON.stringify(submissions));
-            document.getElementById('statusMessage').textContent = "অফলাইনে সেভ হয়েছে! ইন্টারনেট পেলে অটো সিঙ্ক হবে।";
+            document.getElementById('statusMessage').textContent = "অফলাইনে সেভ হয়েছে! ইন্টারনেট পেলে অটো সিঙ্ক হবে।";
+            document.getElementById('statusMessage').style.color = "orange";
         }
 
         async function syncData() {
@@ -150,15 +170,13 @@
                 } catch (e) { break; }
             }
             localStorage.removeItem(OFFLINE_STORAGE_KEY);
-            document.getElementById('statusMessage').textContent = "সব অফলাইন ডেটা সিঙ্ক হয়েছে! ✅";
+            document.getElementById('statusMessage').textContent = "সব অফলাইন ডেটা সিঙ্ক হয়েছে! ✅";
+            document.getElementById('statusMessage').style.color = "green";
         }
 
         window.addEventListener('online', updateStatus);
         window.addEventListener('offline', updateStatus);
-        document.addEventListener('DOMContentLoaded', () => {
-            populateDatalist();
-            updateStatus();
-        });
+        document.addEventListener('DOMContentLoaded', updateStatus);
     </script>
 </body>
 </html>
