@@ -41,8 +41,34 @@
         
         <form id="collectionForm">
             <label for="customerName">Client/Customer Name</label>
-            <input type="text" id="customerName" name="Client/Customer Name" list="customer-list-gb23" placeholder="নাম টাইপ করুন বা সিলেক্ট করুন" required>
-            <datalist id="customer-list-gb23"></datalist>
+            <input type="text" id="customerName" name="Client/Customer Name" list="customer-list-gb13" placeholder="নাম সিলেক্ট করুন" required>
+            
+            <datalist id="customer-list-gb13">
+                <option value="Rahman pharmacy">
+                <option value="Jannati medicine Hall">
+                <option value="gaibandha clinic">
+                <option value="Daymohi pharmacy">
+                <option value="Habib medical hall">
+                <option value="Rahi pharmacy">
+                <option value="ma pharmacy">
+                <option value="Ideal pharmacy">
+                <option value="Majnu medical hall">
+                <option value="Maa medical hall">
+                <option value="Raounok medical hall">
+                <option value="Lotfor pharmacy">
+                <option value="Afsana Medical Store">
+                <option value="dipto Medical Store">
+                <option value="Maya pharmacy">
+                <option value="rahmania pharmacy">
+                <option value="M/S Hassan pharmacy">
+                <option value="Mondal pharmacy">
+                <option value="Shepon Medical Store">
+                <option value="City pharmacy">
+                <option value="sharmin pharmacy">
+                <option value="Saha trading">
+                <option value="Turin Medical Store">
+                <option value="maa baba pharmacy">
+            </datalist>
 
             <label for="paymentReceived">Payment Received (Taka)</label>
             <input type="number" id="paymentReceived" name="Payment Received (Taka)" placeholder="e.g. 3000" required>
@@ -58,29 +84,9 @@
     </div>
 
     <script>
-        // 🚀 ১. GB-23 Apps Script URL
         const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwzV7mFEcKO8qra7fQWD91F7NoipI40LmywgZih1zySUIIHRCBSUE-MlaXeWuPFxjdvYQ/exec";
         const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB13';
 
-        // 📝 ২. GB-23 এর কাস্টমার লিস্ট (আপনার পাঠানো নামগুলো দিয়ে আপডেট করে নিন)
-        const gb23_customers = [
-            "Rahman pharmacy", "Jannati medicine Hall", "gaibandha clinic",
-            "Daymohi pharmacy", "Habib medical hall", "Rahi pharmacy",
-            "ma pharmacy", "Ideal pharmacy", "Majnu medical hall",
-            "Maa medical hall", "Raounok medical hall", "Lotfor pharmacy",
-            "Afsana Medical Store", "dipto Medical Store", "Maya pharmacy",
-            "rahmania pharmacy", "M/S Hassan pharmacy", "Mondal pharmacy",
-            "Shepon Medical Store", "City pharmacy", "sharmin pharmacy",
-            "Saha trading", "Turin Medical Store","maa baba pharmacy"
-        ];
-
-        // 🛠️ ৩. ড্রপডাউন লোড করা
-        function populateDatalist() {
-            const datalist = document.getElementById('customer-list-gb13');
-            datalist.innerHTML = gb13_customers.map(name => `<option value="${name}">`).join('');
-        }
-
-        // 📡 ৪. নেটওয়ার্ক স্ট্যাটাস আপডেট
         function updateStatus() {
             const status = document.getElementById('networkStatus');
             const btn = document.getElementById('submitButton');
@@ -96,7 +102,6 @@
             }
         }
 
-        // 💾 ৫. সুপার ফাস্ট সাবমিট (Fire and Forget)
         document.getElementById('collectionForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const msg = document.getElementById('statusMessage');
@@ -108,20 +113,17 @@
             if (!data['Invoice Value (optional)']) data['Invoice Value (optional)'] = 0;
             data['Group'] = 'gb-13';
 
-            // বাটন লক এবং সেভিং মেসেজ
             btn.disabled = true;
             msg.textContent = "Saving... ✅"; 
             msg.style.color = "blue";
 
             if (navigator.onLine) {
-                // সার্ভারের উত্তরের অপেক্ষা না করেই ডেটা পাঠানো
                 fetch(GOOGLE_SHEET_WEB_APP_URL, { 
                     method: 'POST', 
                     mode: 'no-cors', 
                     body: JSON.stringify(data) 
                 });
                 
-                // ০.৫ সেকেন্ডের মধ্যে ফর্ম ক্লিয়ার
                 setTimeout(() => {
                     msg.textContent = "Success! Data sent ✅";
                     msg.style.color = "green";
@@ -140,7 +142,8 @@
             const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
             submissions.push(data);
             localStorage.setItem(OFFLINE_STORAGE_KEY, JSON.stringify(submissions));
-            document.getElementById('statusMessage').textContent = "Offline এ সেভ হয়েছে! ইন্টারনেট পেলে অটো সিঙ্ক হবে।";
+            document.getElementById('statusMessage').textContent = "অফলাইনে সেভ হয়েছে! ইন্টারনেট পেলে অটো সিঙ্ক হবে।";
+            document.getElementById('statusMessage').style.color = "orange";
         }
 
         async function syncData() {
@@ -153,15 +156,13 @@
                 } catch (e) { break; }
             }
             localStorage.removeItem(OFFLINE_STORAGE_KEY);
-            document.getElementById('statusMessage').textContent = "সব অফলাইন ডেটা সিঙ্ক হয়েছে! ✅";
+            document.getElementById('statusMessage').textContent = "সব অফলাইন ডেটা সিঙ্ক হয়েছে! ✅";
+            document.getElementById('statusMessage').style.color = "green";
         }
 
         window.addEventListener('online', updateStatus);
         window.addEventListener('offline', updateStatus);
-        document.addEventListener('DOMContentLoaded', () => {
-            populateDatalist();
-            updateStatus();
-        });
+        document.addEventListener('DOMContentLoaded', updateStatus);
     </script>
 </body>
 </html>
