@@ -41,8 +41,34 @@
         
         <form id="collectionForm">
             <label for="customerName">Client/Customer Name</label>
-            <input type="text" id="customerName" name="Client/Customer Name" list="customer-list-gb12" placeholder="নাম টাইপ করুন বা সিলেক্ট করুন" required>
-            <datalist id="customer-list-gb12"></datalist>
+            <input type="text" id="customerName" name="Client/Customer Name" list="customer-list-gb12" placeholder="নাম সিলেক্ট করুন" required>
+            
+            <datalist id="customer-list-gb12">
+                <option value="Sheba Pharmacy">
+                <option value="Jisan Pharmacy">
+                <option value="Kajol Pharmacy">
+                <option value="Ayat Pharmacy">
+                <option value="Bondhuali Pharmacy">
+                <option value="Sarker Pharmacy">
+                <option value="Naim Niyama Pharmacy">
+                <option value="Moon Pharmacy">
+                <option value="Zisan Medical">
+                <option value="Monalisa Pharmacy">
+                <option value="Shumon Pharmacy">
+                <option value="Sultan Pharmacy">
+                <option value="Ambia Pharmacy">
+                <option value="Medicine Corner">
+                <option value="Shaha Trading">
+                <option value="Zuwel Pharmacy">
+                <option value="Kamal Pharmacy">
+                <option value="Mondol Pharmacy">
+                <option value="Erfan Pharmacy">
+                <option value="Dnt4 Pharmacy">
+                <option value="Gaibandha Pharma">
+                <option value="Shahin Pharmacy">
+                <option value="Ar Pharmacy">
+                <option value="maa Pharmacy">
+            </datalist>
 
             <label for="paymentReceived">Payment Received (Taka)</label>
             <input type="number" id="paymentReceived" name="Payment Received (Taka)" placeholder="e.g. 3000" required>
@@ -60,20 +86,6 @@
     <script>
         const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbycNb1Gf7U7kYmaYWCCVGc4OgMt60k91IVZf8kfJtJ88gmjLCoaRm0d8a7rFZ1_XXseRw/exec";
         const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB12';
-
-        const gb12_customers = [
-            "Sheba Pharmacy", "Jisan Pharmacy", "Kajol Pharmacy", "Ayat Pharmacy",
-            "Bondhuali Pharmacy", "Sarker Pharmacy", "Naim Niyama Pharmacy",
-            "Moon Pharmacy", "Zisan Medical", "Monalisa Pharmacy", "Shumon Pharmacy",
-            "Sultan Pharmacy", "Ambia Pharmacy", "Medicine Corner", "Shaha Trading",
-            "Zuwel Pharmacy", "Kamal Pharmacy", "Mondol Pharmacy", "Erfan Pharmacy",
-            "Dnt4 Pharmacy", "Gaibandha Pharma", "Shahin Pharmacy", "Ar Pharmacy","maa Pharmacy",
-        ];
-
-        function populateDatalist() {
-            const datalist = document.getElementById('customer-list-gb12');
-            datalist.innerHTML = gb12_customers.map(name => `<option value="${name}">`).join('');
-        }
 
         function updateStatus() {
             const status = document.getElementById('networkStatus');
@@ -129,7 +141,8 @@
             const submissions = JSON.parse(localStorage.getItem(OFFLINE_STORAGE_KEY) || '[]');
             submissions.push(data);
             localStorage.setItem(OFFLINE_STORAGE_KEY, JSON.stringify(submissions));
-            document.getElementById('statusMessage').textContent = "অফলাইনে সেভ হয়েছে! ইন্টারনেট পেলে অটো সিঙ্ক হবে।";
+            document.getElementById('statusMessage').textContent = "অফলাইনে সেভ হয়েছে! ইন্টারনেট পেলে অটো সিঙ্ক হবে।";
+            document.getElementById('statusMessage').style.color = "orange";
         }
 
         async function syncData() {
@@ -142,15 +155,13 @@
                 } catch (e) { break; }
             }
             localStorage.removeItem(OFFLINE_STORAGE_KEY);
-            document.getElementById('statusMessage').textContent = "সব অফলাইন ডেটা সিঙ্ক হয়েছে! ✅";
+            document.getElementById('statusMessage').textContent = "সব অফলাইন ডেটা সিঙ্ক হয়েছে! ✅";
+            document.getElementById('statusMessage').style.color = "green";
         }
 
         window.addEventListener('online', updateStatus);
         window.addEventListener('offline', updateStatus);
-        document.addEventListener('DOMContentLoaded', () => {
-            populateDatalist();
-            updateStatus();
-        });
+        document.addEventListener('DOMContentLoaded', updateStatus);
     </script>
 </body>
 </html>
