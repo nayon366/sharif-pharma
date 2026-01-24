@@ -89,8 +89,8 @@
     </div>
 
     <script>
-        // আপনার দেওয়া GB-13 Apps Script URL
-        const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyQRNzTovORTQNcFwq2ceWhC7Nq98Q7G8AX070y9Sl2vR7EUX71H4DaffeqZrPhvpuRpg/exec";
+        // GB-13 এর জন্য নির্দিষ্ট ইউআরএল
+        const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwzV7mFEcKO8qra7fQWD91F7NoipI40LmywgZih1zySUIIHRCBSUE-MlaXeWuPFxjdvYQ/exec";
         const OFFLINE_STORAGE_KEY = 'offlineSubmissions_GB13';
 
         function updateStatus() {
@@ -117,7 +117,7 @@
             const data = {};
             formData.forEach((v, k) => data[k] = v);
             if (!data['Invoice Value (optional)']) data['Invoice Value (optional)'] = 0;
-            data['Group'] = 'gb-13'; // গ্রুপ নাম নিশ্চিত করা হয়েছে
+            data['Group'] = 'gb-13'; // গ্রুপ আইডি ১৩ সেট করা হয়েছে
 
             btn.disabled = true;
             msg.textContent = "Saving... ✅"; 
